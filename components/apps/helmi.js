@@ -273,7 +273,22 @@ function Education() {
 
           <div className="text-sm text-gray-300 font-bold mt-1">
 
-            Bachelor Degree in IOT and Embedded Systems (2x Major De Promotion 2021/2022 & 2022/2023 )
+            Bachelor Degree in IOT and Embedded Systems
+          </div>
+          <div className="text-sm text-gray-300 font-bold mt-1">
+
+          2x Major De Promotion 2021/2022 & 2022/2023
+          </div>
+        </li>
+        <li className="list-disc mt-2">
+          <div className=" text-lg md:text-xl text-left font-bold leading-tight">
+          National Institute of Applied Sciences and Technology - INSAT
+          </div>
+          <div className=" text-sm text-gray-400 mt-0.5">September 2024</div>
+
+          <div className="text-sm text-gray-300 font-bold mt-1">
+
+            ICT Engineering 
 
 
           </div>
