@@ -3,7 +3,9 @@ import ReactGA from "react-ga";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { SiLeetcode } from 'react-icons/si';
-
+import { useState } from "react";
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css"
 
 export class AboutEslam extends Component {
   constructor() {
@@ -23,6 +25,7 @@ export class AboutEslam extends Component {
       skills: <Skills />,
       projects: <Projects />,
       resume: <Resume />,
+      thoughts: <Thoughts />,
     };
 
     let lastVisitedScreen = localStorage.getItem("about-section");
@@ -145,6 +148,24 @@ export class AboutEslam extends Component {
             src="./themes/Yaru/status/download.svg"
           />
           <span className=" ml-1 md:ml-2 text-gray-50 ">Resume</span>
+        </div>
+        <div
+          id="thoughts"
+          tabIndex="0"
+          onFocus={this.changeScreen}
+          className={
+            (this.state.active_screen === "thoughts"
+              ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95"
+              : " hover:bg-gray-50 hover:bg-opacity-5 ") +
+            " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"
+          }
+        >
+          <img
+            className=" w-3 md:w-4"
+            alt="eslam's thoughts"
+            src="./themes/Yaru/status/thoughts.svg"
+          />
+          <span className=" ml-1 md:ml-2 text-gray-50 ">Thoughts</span>
         </div>
       </>
     );
@@ -698,3 +719,126 @@ function Resume() {
     ></iframe>
   );
 }
+
+
+function Thoughts() {
+  const [carouselVisible, setCarouselVisible] = useState(false);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [activeProjectIndex, setActiveProjectIndex] = useState(null); // To track which thought has the active carousel
+
+  const project_list = [
+    {
+      title: "Dob is gone",
+      date: "November 2024",
+      description: [
+        "I never truly understood the bond people have with cats, not until she became a part of my life. I wasn’t one to like cats by nature, but somehow, over two years, she became more than just a pet—she was a family member. We shared everything with her, from the simplest moments to the most intimate ones.\n\nOne morning, like any other, I opened the door to let her out, just as I always did. She’d usually be gone for 15 minutes before returning, but this time, she didn’t come back. Hours passed, and with each minute, I felt a growing sense of dread. Finally, I found her, lifeless. A piece of my soul died with her that day, and the world will never feel the same again.\n\nIt turned out she had ingested something toxic, leading to her sudden and heartbreaking death. Now, every corner of the house reminds me of her. Each time I open the jar, I can almost feel her waiting for me, expecting to be fed. Every time I eat in my room, I can feel her presence behind the door, waiting for me to open it and share with her.\n\nBut it’s not just the places—it's the feeling of her. I still feel her paws brushing against my feet, like she always did , I can still feel her presence in my neck  , she always loved being there, quietly resting, content in her spot . I hear her voice in the back of my mind, and I can almost smell her sweet scent, something I never noticed with other cats. She wasn’t just a pet; she had this unique charm, a warmth that made her irreplaceable.\n\nI remember the last time I took her to the vet, hoping to keep her safe with a simple vaccine. But it was too late. Her time was cut short far too soon. \"Dob\" is gone, and with her, part of me is gone too. I will never be the same again. Her absence is a hole in my heart that no one and nothing can fill."
+      ],
+      images: [
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986937_nhmhh3.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986946_na78sr.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1680561729/media/post_images/6cacd6a4-7d9e-48d7-bca3-1577d0f0370d_qkeeeh.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797380/1731796986971_p1m5l9.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986959_bjqid7.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797405/1731796987047_x8i0dh.jpg" , 
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797404/1731796987027_t5dpdg.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797469/IMG_20240310_200406_xsnevv.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797469/IMG_20231228_194946_hs6a1e.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797467/IMG_20231223_215435_scxb2j.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797464/IMG_20231107_183045_o0dno0.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797463/IMG_20231002_164222_rs2kwe.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797442/IMG_20230905_180201_r5hwk2.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797419/IMG_20230905_180040_iwnh10.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797416/1731796987086_m5uxwu.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797407/1731796987055_bgluho.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797407/1731796987062_amnbxp.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797405/1731796987047_x8i0dh.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797397/1731796987020_vpv6ac.jpg" ,  
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797391/1731796987011_icssge.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797389/1731796986990_sko8fw.jpg" ,
+      ]
+    } , 
+    
+    {
+      title: "Living the dream",
+      date: "March 2024",
+      description: [
+        "The fake dream was so nice that I didn't want to wake up. I was living in a world where everything was perfect, where I was happy, where I was loved, where I was successful.  But then I woke up, and I realized that it was all just a dream.",
+      ],
+      images: [
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1679715989/media/post_images/866bd401-417e-4796-a394-871e5651362e_jdvbll.png",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1679718962/media/post_images/626d25b2-58bd-4744-886a-9c5c6dd82391_fxunza.png",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1679674303/media/profile_images/amomulheres_Create_a_draw_dont_forgot_to_put_fails_in_lines_lik_845781b6-96a9-4643-9a_vrff3s.png",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1679866568/media/post_images/e0de3058-9f39-4c56-ba75-90b3752aa4a4_mxzdjn.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1681430950/media/post_images/096bb599-c3cf-4923-994d-7623b4db9ae0_jc0ged.jpg"
+        
+      ],
+    },
+    
+  ];
+
+  const toggleCarousel = (images, index) => {
+    setSelectedImages(images.map(image => ({
+      original: image,
+      thumbnail: image,
+    })));
+    setActiveProjectIndex(index === activeProjectIndex ? null : index); // Toggle the carousel for the current thought
+  };
+
+  const closeCarousel = () => {
+    setActiveProjectIndex(null); // Hide the carousel
+  };
+
+  return (
+    <>
+      <div className="font-medium relative text-2xl mt-2 md:mt-4 mb-4">
+        Thoughts
+        <div className="absolute pt-px bg-white mt-px top-full w-full">
+          <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-full"></div>
+          <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-full"></div>
+        </div>
+      </div>
+
+      {project_list.map((thought, index) => {
+        const isCarouselVisible = activeProjectIndex === index; // Check if this thought's carousel is visible
+        return (
+          <div key={index} className="flex w-full flex-col px-4">
+            <div className="w-full py-1 px-2 my-2 border border-gray-50 border-opacity-10 rounded ">
+              <div className="flex flex-wrap justify-between items-center">
+                <div className="flex justify-center items-center">
+                  <div className="text-base md:text-lg mr-2">{thought.title?.toUpperCase()}</div>
+                </div>
+                <div className="text-gray-300 font-light text-sm">{thought.date}</div>
+              </div>
+              <ul className="tracking-normal leading-tight text-sm font-light ml-4 mt-1">
+                {thought.description.map((desc, index) => (
+                  <li key={index} className="list-disc mt-1 text-gray-100">
+                    {desc}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Button to toggle carousel visibility */}
+              <button
+                onClick={() => toggleCarousel(thought.images, index)}
+                className="mt-4 px-4 py-2 text-pink-600 font-bold rounded hover:bg-gray-50 hover:bg-opacity-5 cursor-pointer focus:outline-none"
+              >
+                {isCarouselVisible ? "Hide Attachment" : "See Attachment"}
+              </button>
+            </div>
+
+            {/* Carousel Modal for the current thought */}
+            {isCarouselVisible && (
+              <div className="relative">
+               
+
+                {/* Image Gallery */}
+                <ImageGallery items={selectedImages} />
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
