@@ -760,7 +760,7 @@ function Thoughts() {
     
     {
       title: "Living the dream",
-      date: "March 2024",
+      date: "March 2023",
       description: [
         "The fake dream was so nice that I didn't want to wake up. I was living in a world where everything was perfect, where I was happy, where I was loved, where I was successful.  But then I woke up, and I realized that it was all just a dream.",
       ],
