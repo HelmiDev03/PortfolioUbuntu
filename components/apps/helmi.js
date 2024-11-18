@@ -784,7 +784,7 @@ function Thoughts() {
         return isVideo
           ? {
               original: image,
-              thumbnail: "https://res-console.cloudinary.com/dmvxysqvl/thumbnails/v1/image/upload/v1731939026/ZGRkZGRfaGo2eWh2/drilldown", // Replace with actual video thumbnail or a default one
+              thumbnail: "https://asset.cloudinary.com/dmvxysqvl/0355f321d9dbe389384d18e5e35adf92",
               renderItem: () => (
                 <video className="translate-x-1/2" controls style={{ width: "50%" }}>
                   <source src={image} type="video/mp4" />
