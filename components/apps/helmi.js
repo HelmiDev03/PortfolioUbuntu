@@ -735,6 +735,7 @@ function Thoughts() {
       ],
       images: [
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986937_nhmhh3.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/video/upload/dabdoub_klcaaw.mp4?_s=vp-2.1.0" , 
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986946_na78sr.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1680561729/media/post_images/6cacd6a4-7d9e-48d7-bca3-1577d0f0370d_qkeeeh.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797380/1731796986971_p1m5l9.jpg",
@@ -777,12 +778,29 @@ function Thoughts() {
   ];
 
   const toggleCarousel = (images, index) => {
-    setSelectedImages(images.map(image => ({
-      original: image,
-      thumbnail: image,
-    })));
+    setSelectedImages(
+      images.map((image) => {
+        const isVideo = image.includes(".mp4") || image.includes(".webm");
+        return isVideo
+          ? {
+              original: image,
+              thumbnail: "https://res-console.cloudinary.com/dmvxysqvl/thumbnails/v1/image/upload/v1731939026/ZGRkZGRfaGo2eWh2/drilldown", // Replace with actual video thumbnail or a default one
+              renderItem: () => (
+                <video className="translate-x-1/2" controls style={{ width: "50%" }}>
+                  <source src={image} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ),
+            }
+          : {
+              original: image,
+              thumbnail: image,
+            };
+      })
+    );
     setActiveProjectIndex(index === activeProjectIndex ? null : index); // Toggle the carousel for the current thought
   };
+  
 
   const closeCarousel = () => {
     setActiveProjectIndex(null); // Hide the carousel
