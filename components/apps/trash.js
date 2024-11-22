@@ -10,28 +10,26 @@ export class Trash extends Component {
         icon: "./themes/filetypes/php.png",
       },
       {
-        name: "Angular.js",
+        name: "helmi.js",
         icon: "./themes/filetypes/js.png",
       },
       {
-        name: "node_modules",
+        
+        name: "secrets",
         icon: "./themes/Yaru/system/folder.png",
       },
 
-      {
-        name: "abandoned project",
-        icon: "./themes/Yaru/system/folder.png",
-      },
+      
       {
         name: "18BCP127 assignment name.zip",
         icon: "./themes/filetypes/zip.png",
       },
       {
-        name: "project final",
+        name: "pfa2023",
         icon: "./themes/Yaru/system/folder.png",
       },
       {
-        name: "project ultra-final",
+        name: "pfe2024",
         icon: "./themes/Yaru/system/folder.png",
       },
     ];
