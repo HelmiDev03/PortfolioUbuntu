@@ -736,10 +736,13 @@ function Thoughts() {
       images: [
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986937_nhmhh3.jpg",
         "https://res.cloudinary.com/dmvxysqvl/video/upload/dabdoub_klcaaw.mp4?_s=vp-2.1.0" , 
+        "https://res.cloudinary.com/dmvxysqvl/video/upload/468564744-9049975895045288-77634_bgt9fm.mp4?_s=vp-2.1.0",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731946719/IMG_20241118_171742_gzoucs.jpg", 
         "https://res-console.cloudinary.com/dmvxysqvl/thumbnails/v1/image/upload/v1732492285/SU1HXzIwMjMxMDI4XzA4MDAxN19jZHpqbng=/drilldown",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731946719/IMG_20241118_171758_xin0i1.jpg", 
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986946_na78sr.jpg",
+        "https://res-console.cloudinary.com/dmvxysqvl/thumbnails/v1/image/upload/v1732834091/SU1HXzIwMjMwOTA1XzE4MDA0MF94bWtvY3E=/drilldown",
+        "https://res-console.cloudinary.com/dmvxysqvl/thumbnails/v1/image/upload/v1732834090/SU1HXzIwMjMwOTA1XzE4MDIwMV9xcW9lem0=/drilldown",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1680561729/media/post_images/6cacd6a4-7d9e-48d7-bca3-1577d0f0370d_qkeeeh.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797380/1731796986971_p1m5l9.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986959_bjqid7.jpg",
