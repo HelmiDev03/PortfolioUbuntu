@@ -7,7 +7,7 @@ import { displayTrash } from './components/apps/trash';
 import { displayGedit } from './components/apps/gedit';
 import { displayAboutEslam } from './components/apps/helmi';
 import { displayTerminalCalc } from './components/apps/calc';
-import {displayBot} from './components/apps/chatbot';
+//import {displayBot} from './components/apps/chatbot';
 
 
 const apps = [
@@ -92,6 +92,7 @@ const apps = [
         desktop_shortcut: true,
         screen: displayGedit,
     },
+    /*
     {
         id: "chatwithhelmi",
         title: "HelmiGPT",
@@ -101,6 +102,8 @@ const apps = [
         desktop_shortcut: true,
         screen: displayBot,
     },
+    */
+    
     
 ]
 
