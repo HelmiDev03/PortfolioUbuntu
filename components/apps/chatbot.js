@@ -29,7 +29,7 @@ export class ChatBot extends Component {
     try {
       
         const apiKey = process.env.NEXT_PUBLIC_OPENAI_KEY;
-
+          console.log(apiKey);
       const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
