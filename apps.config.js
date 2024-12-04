@@ -7,6 +7,8 @@ import { displayTrash } from './components/apps/trash';
 import { displayGedit } from './components/apps/gedit';
 import { displayAboutEslam } from './components/apps/helmi';
 import { displayTerminalCalc } from './components/apps/calc';
+import {displayBot} from './components/apps/chatbot';
+
 
 const apps = [
     {
@@ -90,6 +92,16 @@ const apps = [
         desktop_shortcut: true,
         screen: displayGedit,
     },
+    {
+        id: "chatwithhelmi",
+        title: "HelmiGPT",
+        icon: './themes/Yaru/apps/helmigpt.png',
+        disabled: false,
+        favourite: false,
+        desktop_shortcut: true,
+        screen: displayBot,
+    },
+    
 ]
 
 export default apps;
