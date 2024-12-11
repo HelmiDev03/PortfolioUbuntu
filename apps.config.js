@@ -8,7 +8,7 @@ import { displayGedit } from './components/apps/gedit';
 import { displayAboutEslam } from './components/apps/helmi';
 import { displayTerminalCalc } from './components/apps/calc';
 //import {displayBot} from './components/apps/chatbot';
-import {displayPython} from './components/apps/python';
+
 
 
 const apps = [
@@ -104,16 +104,7 @@ const apps = [
         screen: displayBot,
     },
     */
-    {
-        id: "python",
-        title: "Python",
-        icon: './themes/Yaru/apps/python.png',
-        disabled: false,
-        favourite: false,
-        desktop_shortcut: true,
-        screen: displayPython,
-    },
-    
+  
     
 ]
 
