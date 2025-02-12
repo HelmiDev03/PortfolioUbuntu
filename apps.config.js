@@ -7,6 +7,7 @@ import { displayTrash } from './components/apps/trash';
 import { displayGedit } from './components/apps/gedit';
 import { displayAboutEslam } from './components/apps/helmi';
 import { displayTerminalCalc } from './components/apps/calc';
+import {displayYouTube} from './components/apps/youtube';
 //import {displayBot} from './components/apps/chatbot';
 
 
@@ -92,6 +93,15 @@ const apps = [
         favourite: false,
         desktop_shortcut: true,
         screen: displayGedit,
+    },
+    {
+        id: "youtube",
+        title: "CS1994",
+        icon: './themes/Yaru/apps/cs.jpg',
+        disabled: false,
+        favourite: false,
+        desktop_shortcut: true,
+        screen: displayYouTube,
     },
     /*
     {
