@@ -15,8 +15,10 @@ const You_Tube = () => {
   
 
   return (
-    <div className="w-full h-full relative bg-ub-cool-greytext-white select-none">
-      <div className="grid grid-cols-2 gap-4 p-4  bg-ub-gedit-light bg-opacity-100">
+     
+    <div className="w-full flex-col flex-grow z-20 max-h-full overflow-y-auto windowMainScreen select-none bg-ub-cool-grey">
+      <div className="grid grid-cols-2 gap-4 p-4 ">
+        <YouTube videoId="jPVOio9fb1Y" opts={options} id="video0" />
         <YouTube videoId="CeGp17Rvuy0" opts={options} id="video1" />
         <YouTube videoId="CgKxdpeAg4U" opts={options} id="video2" />
         <YouTube videoId="VACqxjSPLok" opts={options} id="video3" />
