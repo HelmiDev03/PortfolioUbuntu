@@ -218,7 +218,7 @@ function About() {
       <div className="w-20 md:w-28 my-4 bg-white rounded-full">
         <img
           className="w-full"
-          src="./images/logos/ah.jpeg"
+          src="./images/logos/helmi09_Black_jacket_dark_drama_-_-_v4_a0cc1a55-8f97-4b8f-84d9-571e0113726f.png"
           alt="helmi Logo"
         />
       </div>
