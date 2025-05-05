@@ -239,7 +239,7 @@ function About() {
         <li className=" list-pc">
 
           I love building Server Side Logic and Infrastructure ( Hit me up{" "}
-          <a className="text-underline" href="mailto:helmilakhder@gmail.com">
+          <a className="text-underline" href="mailto:ceo@helmi404.me">
             <u>helmilakhder@gmail.com</u>
           </a>{" "}
           )
