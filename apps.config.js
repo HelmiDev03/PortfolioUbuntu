@@ -34,7 +34,7 @@ const apps = [
     {
         id: "about-helmi",
         title: "About Helmi",
-        icon: './themes/Yaru/system/user-home.png',
+        icon: './themes/Yaru/system/mala.png',
         disabled: false,
         favourite: true,
         desktop_shortcut: true,
