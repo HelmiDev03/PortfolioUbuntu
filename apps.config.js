@@ -5,7 +5,7 @@ import { displaySettings } from './components/apps/settings';
 import { displayChrome } from './components/apps/chrome';
 import { displayTrash } from './components/apps/trash';
 import { displayGedit } from './components/apps/gedit';
-import { displayAboutEslam } from './components/apps/helmi';
+import { displayAboutHelmi } from './components/apps/helmi';
 import { displayTerminalCalc } from './components/apps/calc';
 import {displayYouTube} from './components/apps/youtube';
 //import {displayBot} from './components/apps/chatbot';
@@ -38,7 +38,7 @@ const apps = [
         disabled: false,
         favourite: true,
         desktop_shortcut: true,
-        screen: displayAboutEslam,
+        screen: displayAboutHelmi,
     },
     {
         id: "vscode",

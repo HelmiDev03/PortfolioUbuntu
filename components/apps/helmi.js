@@ -7,7 +7,7 @@ import { useState } from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css"
 
-export class AboutEslam extends Component {
+export class AboutHelmi extends Component {
   constructor() {
     super();
     this.screens = {};
@@ -90,7 +90,7 @@ export class AboutEslam extends Component {
         >
           <img
             className=" w-3 md:w-4"
-            alt="Eslam' education"
+            alt="Helmi' education"
             src="./themes/Yaru/status/education.svg"
           />
           <span className=" ml-1 md:ml-2 text-gray-50 ">Education</span>
@@ -108,7 +108,7 @@ export class AboutEslam extends Component {
         >
           <img
             className=" w-3 md:w-4"
-            alt="eslam' skills"
+            alt="Helmi' skills"
             src="./themes/Yaru/status/skills.svg"
           />
           <span className=" ml-1 md:ml-2 text-gray-50 ">Skills</span>
@@ -126,7 +126,7 @@ export class AboutEslam extends Component {
         >
           <img
             className=" w-3 md:w-4"
-            alt="eslam' projects"
+            alt="Helmi' projects"
             src="./themes/Yaru/status/projects.svg"
           />
           <span className=" ml-1 md:ml-2 text-gray-50 ">Projects</span>
@@ -144,7 +144,7 @@ export class AboutEslam extends Component {
         >
           <img
             className=" w-3 md:w-4"
-            alt="eslam's resume"
+            alt="Helmi's resume"
             src="./themes/Yaru/status/download.svg"
           />
           <span className=" ml-1 md:ml-2 text-gray-50 ">Resume</span>
@@ -162,7 +162,7 @@ export class AboutEslam extends Component {
         >
           <img
             className=" w-3 md:w-4"
-            alt="eslam's thoughts"
+            alt="Helmi's thoughts"
             src="./themes/Yaru/status/thoughts.svg"
           />
           <span className=" ml-1 md:ml-2 text-gray-50 ">Thoughts</span>
@@ -206,10 +206,10 @@ export class AboutEslam extends Component {
   }
 }
 
-export default AboutEslam;
+export default AboutHelmi;
 
-export const displayAboutEslam = () => {
-  return <AboutEslam />;
+export const displayAboutHelmi = () => {
+  return <AboutHelmi />;
 };
 
 function About() {
@@ -374,7 +374,7 @@ function Skills() {
             <img
               className="m-1"
               src="https://img.shields.io/badge/-JavaScript-%23F7DF1C?style=flat&logo=javascript&logoColor=000000&labelColor=%23F7DF1C&color=%23FFCE5A"
-              alt="eslam javascript"
+              alt="Helmi javascript"
             />
             <img
               class="m-1"
@@ -398,18 +398,18 @@ function Skills() {
                 title="yes it's a language!"
                 className="m-1"
                 src="https://img.shields.io/badge/-HTML5-%23E44D27?style=flat&logo=html5&logoColor=ffffff"
-                alt="eslam HTML"
+                alt="Helmi HTML"
               />
             </a>
 
             <img
               src="https://img.shields.io/badge/-CSS-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS"
-              alt="eslam SASS"
+              alt="Helmi SASS"
               className="m-1"
             />
             <img
               src="https://img.shields.io/badge/-Git-%23F05032?style=flat&logo=git&logoColor=%23ffffff"
-              alt="eslam git"
+              alt="Helmi git"
               className="m-1"
             />
             <img
@@ -424,7 +424,7 @@ function Skills() {
             />
             <img
               src="https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=ffffff"
-              alt="eslam firebase"
+              alt="Helmi firebase"
               className="m-1"
             />
             <img
