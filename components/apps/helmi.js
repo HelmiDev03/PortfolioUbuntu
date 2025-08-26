@@ -725,6 +725,22 @@ function Thoughts() {
   const [carouselVisible, setCarouselVisible] = useState(false);
   const [selectedImages, setSelectedImages] = useState([]);
   const [activeProjectIndex, setActiveProjectIndex] = useState(null); // To track which thought has the active carousel
+  // Lock/Unlock state and modal for password
+  const [unlockedThoughts, setUnlockedThoughts] = useState(new Set());
+  const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [pendingUnlockIndex, setPendingUnlockIndex] = useState(null);
+  
+  // Generate a secret but enticing teaser based on context (title)
+  const getTeaser = (title = "") => {
+    const t = String(title).toLowerCase();
+    if (t.includes("dream")) return "A dreamy reflection ✨";
+    if (t.includes("dob") || t.includes("gone") || t.includes("loss") || t.includes("memory")) return "A heartfelt memory 💖";
+    if (t.includes("project") || t.includes("build") || t.includes("code")) return "A builder's insight 🔧";
+    if (t.includes("life") || t.includes("day") || t.includes("today")) return "A slice of life 🍃";
+    return "A personal note worth reading ✨";
+  };
 
   const project_list = [
     {
@@ -813,6 +829,40 @@ function Thoughts() {
     setActiveProjectIndex(null); // Hide the carousel
   };
 
+  const openUnlockModal = (index) => {
+    setPendingUnlockIndex(index);
+    setPasswordInput("");
+    setPasswordError("");
+    setPasswordModalOpen(true);
+  };
+
+  const cancelUnlock = () => {
+    setPasswordModalOpen(false);
+    setPasswordInput("");
+    setPasswordError("");
+    setPendingUnlockIndex(null);
+  };
+
+  const confirmUnlock = () => {
+    const expected = process.env.NEXT_PUBLIC_THOUGHTS_PASSWORD || "";
+    if (!expected) {
+      setPasswordError("Password not configured. Set NEXT_PUBLIC_THOUGHTS_PASSWORD in .env.local.");
+      return;
+    }
+    if (passwordInput === expected) {
+      setUnlockedThoughts((prev) => {
+        const next = new Set(prev);
+        if (pendingUnlockIndex !== null) next.add(pendingUnlockIndex);
+        return next;
+      });
+      setPasswordModalOpen(false);
+      setPasswordInput("");
+      setPasswordError("");
+    } else {
+      setPasswordError("Incorrect password. Try again.");
+    }
+  };
+
   return (
     <>
       <div className="font-medium relative text-2xl mt-2 md:mt-4 mb-4">
@@ -825,44 +875,95 @@ function Thoughts() {
 
       {project_list.map((thought, index) => {
         const isCarouselVisible = activeProjectIndex === index; // Check if this thought's carousel is visible
+        const isUnlocked = unlockedThoughts.has(index);
         return (
           <div key={index} className="flex w-full flex-col px-4">
-            <div className="w-full py-1 px-2 my-2 border border-gray-50 border-opacity-10 rounded ">
-              <div className="flex flex-wrap justify-between items-center">
-                <div className="flex justify-center items-center">
-                  <div className="text-base md:text-lg mr-2">{thought.title?.toUpperCase()}</div>
+            <div className="relative w-full py-1 px-2 my-2 border border-gray-50 border-opacity-10 rounded">
+              {/* Overlay when locked */}
+              {!isUnlocked && (
+                <div
+                  className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black bg-opacity-40 rounded cursor-pointer"
+                  onClick={() => openUnlockModal(index)}
+                >
+                  <div className="text-sm md:text-base font-bold text-white">Locked</div>
+                  <div className="text-xs text-gray-200 mt-1">Click to unlock</div>
+                  <div className="text-xs md:text-sm text-gray-100 mt-2 italic px-3 text-center">
+                    {getTeaser(thought.title)}
+                  </div>
                 </div>
-                <div className="text-gray-300 font-light text-sm">{thought.date}</div>
-              </div>
-              <ul className="tracking-normal leading-tight text-sm font-light ml-4 mt-1">
-                {thought.description.map((desc, index) => (
-                  <li key={index} className="list-disc mt-1 text-gray-100">
-                    {desc}
-                  </li>
-                ))}
-              </ul>
+              )}
 
-              {/* Button to toggle carousel visibility */}
-              <button
-                onClick={() => toggleCarousel(thought.images, index)}
-                className="mt-4 px-4 py-2 text-pink-600 font-bold rounded hover:bg-gray-50 hover:bg-opacity-5 cursor-pointer focus:outline-none"
-              >
-                {isCarouselVisible ? "Hide Attachment" : "See Attachment"}
-              </button>
+              {/* Blurred content when locked */}
+              <div className={isUnlocked ? "" : "filter blur-md pointer-events-none select-none"}>
+                <div className="flex flex-wrap justify-between items-center">
+                  <div className="flex justify-center items-center">
+                    <div className="text-base md:text-lg mr-2">{thought.title?.toUpperCase()}</div>
+                  </div>
+                  <div className="text-gray-300 font-light text-sm">{thought.date}</div>
+                </div>
+                <ul className="tracking-normal leading-tight text-sm font-light ml-4 mt-1">
+                  {thought.description.map((desc, index) => (
+                    <li key={index} className="list-disc mt-1 text-gray-100">
+                      {desc}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Button to toggle carousel visibility */}
+                <button
+                  onClick={() => (isUnlocked ? toggleCarousel(thought.images, index) : openUnlockModal(index))}
+                  className="mt-4 px-4 py-2 text-pink-600 font-bold rounded hover:bg-gray-50 hover:bg-opacity-5 cursor-pointer focus:outline-none"
+                >
+                  {isUnlocked ? (isCarouselVisible ? "Hide Attachment" : "See Attachment") : "Unlock to view"}
+                </button>
+              </div>
             </div>
 
-            {/* Carousel Modal for the current thought */}
-            {isCarouselVisible && (
+            {/* Carousel for the current thought (only when unlocked) */}
+            {isUnlocked && isCarouselVisible && (
               <div className="relative">
-               
-
-                {/* Image Gallery */}
                 <ImageGallery items={selectedImages} />
               </div>
             )}
           </div>
         );
       })}
+
+      {/* Password Modal */}
+      {passwordModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black bg-opacity-60" onClick={cancelUnlock}></div>
+          <div className="relative z-10 w-11/12 max-w-sm bg-ub-grey border border-gray-50 border-opacity-20 rounded p-4 shadow-lg">
+            <div className="text-lg font-bold mb-2">Enter password</div>
+            <input
+              type="password"
+              className="w-full px-3 py-2 rounded bg-ub-cool-grey border border-gray-50 border-opacity-20 outline-none focus:border-pink-600"
+              placeholder="Password"
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') confirmUnlock(); }}
+              autoFocus
+            />
+            {passwordError ? (
+              <div className="text-red-500 text-xs mt-1">{passwordError}</div>
+            ) : null}
+            <div className="flex justify-end space-x-2 mt-3">
+              <button
+                onClick={cancelUnlock}
+                className="px-3 py-1 rounded bg-gray-600 bg-opacity-40 hover:bg-opacity-60"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmUnlock}
+                className="px-3 py-1 rounded bg-pink-600 hover:bg-pink-700"
+              >
+                Unlock
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
