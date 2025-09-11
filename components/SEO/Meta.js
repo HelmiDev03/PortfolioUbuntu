@@ -22,7 +22,7 @@ export default function Meta() {
             /* Search Engine */
             <meta name="image" content="images/logos/e-logo.svg" />
             /* Schema.org for Google */
-            <meta itemProp="name" content="Helmi Lakhder Portfolio - Front-end Dev" />
+            <meta itemProp="name" content="Helmi Lakhder Portfolio" />
             <meta itemProp="description"
                 content="Helmi Lakhder's (Helmi) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
             <meta itemProp="image" content="images/logos/e-logo.svg" />
@@ -35,7 +35,7 @@ export default function Meta() {
             <meta name="twitter:creator" content="Helmi Lakhder" />
             <meta name="twitter:image:src" content="images/logos/e-logo.svg" />
             /* Open Graph general (Facebook, Pinterest & Google+) */
-            <meta name="og:title" content="Helmi Lakhder Portfolio - Front-end Dev" />
+            <meta name="og:title" content="Helmi Lakhder Portfolio" />
             <meta name="og:description"
                 content="Helmi Lakhder's (Helmi) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
             <meta name="og:image" content="images/logos/e-logo.svg" />
