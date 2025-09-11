@@ -452,8 +452,31 @@ function Skills() {
               src="https://img.shields.io/badge/-Apache%20Spark-E35A4B?style=flat&logo=apache-spark&logoColor=white"
               alt="Apache Spark"
             />
-
-
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Apache%20Airflow-017CEE?style=flat&logo=apache-airflow&logoColor=white"
+              alt="Apache Airflow"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Ansible-EE0000?style=flat&logo=ansible&logoColor=white"
+              alt="Ansible"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white"
+              alt="Prometheus"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Grafana-F46800?style=flat&logo=grafana&logoColor=white"
+              alt="Grafana"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Selenium-43B02A?style=flat&logo=selenium&logoColor=white"
+              alt="Selenium"
+            />
             <img
               class="m-1"
               src="https://img.shields.io/badge/-Ubuntu-E95420?style=flat&logo=ubuntu&logoColor=white"
@@ -474,12 +497,6 @@ function Skills() {
               src="https://img.shields.io/badge/-Node%20RED-F00?style=flat&logo=node-red&logoColor=white"
               alt="Node-RED"
             />
-
-
-
-
-
-
           </div>
         </div>
         <div className="px-2 flex flex-wrap items-start w-1/2">
@@ -494,7 +511,6 @@ function Skills() {
               src="//img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/"
               alt="helmi django"
             />
-
             <img
               className="m-1"
               src="https://img.shields.io/badge/-Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)"
@@ -506,11 +522,25 @@ function Skills() {
               alt="helmi flutter"
             />
             <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Selenium-43B02A?style=flat&logo=selenium&logoColor=white"
-              alt="helmi selenium"
+              className="m-1"
+              src="https://img.shields.io/badge/-React.js-61DAFB?style=flat&logo=react&logoColor=black"
+              alt="helmi react"
             />
-
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white"
+              alt="Spring Boot"
+            />
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-LangGraph-4B275F?style=flat&logo=graphql&logoColor=white"
+              alt="LangGraph"
+            />
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-FastAPI-009688?style=flat&logo=fastapi&logoColor=white"
+              alt="FastAPI"
+            />
           </div>
         </div>
       </div>

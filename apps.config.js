@@ -8,11 +8,22 @@ import { displayGedit } from './components/apps/gedit';
 import { displayAboutHelmi } from './components/apps/helmi';
 import { displayTerminalCalc } from './components/apps/calc';
 import {displayYouTube} from './components/apps/youtube';
+import {displayAIAssistant} from './components/apps/aiassistant';
+import {displayCarGame} from './components/apps/cargame';
 //import {displayBot} from './components/apps/chatbot';
 
 
 
 const apps = [
+    {
+        id: "ai-assistant",
+        title: "AI Assistant",
+        icon: './themes/Yaru/apps/helmigpt.png',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayAIAssistant,
+    },
     {
         id: "chrome",
         title: "Google Chrome",
@@ -114,7 +125,15 @@ const apps = [
         screen: displayBot,
     },
     */
-  
+    {
+        id: "cargame",
+        title: "Racing Game",
+        icon: './themes/Yaru/apps/car.png', // Temporary icon placeholder
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayCarGame,
+    },
     
 ]
 

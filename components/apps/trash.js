@@ -32,6 +32,10 @@ export class Trash extends Component {
         name: "pfe2024",
         icon: "./themes/Yaru/system/folder.png",
       },
+      {
+        name: "pfa2025",
+        icon: "./themes/Yaru/system/folder.png",
+      },
     ];
     this.state = {
       empty: false,

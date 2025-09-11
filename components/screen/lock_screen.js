@@ -20,7 +20,8 @@ export default function LockScreen(props) {
     "wall-16": "./images/wallpapers/wall-16.webp",
     "wall-17": "./images/wallpapers/wall-17.webp",
     "wall-18": "./images/wallpapers/wall-18.webp",
-    "wall-19": "./images/wallpapers/wall-19.webp"
+    "wall-19": "./images/wallpapers/wall-19.webp",
+
 
 
   };

@@ -8,8 +8,8 @@ export class Window extends Component {
   constructor() {
     super();
     this.id = null;
-    this.startX = 60;
-    this.startY = 10;
+    this.startX = 0;
+    this.startY = 0;
     this.state = {
       cursorType: "cursor-default",
       width: 60,
@@ -22,6 +22,22 @@ export class Window extends Component {
       },
     };
   }
+  
+  calculateCenterPosition() {
+    // Calculate center position based on window size and screen size
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    
+    // Calculate window dimensions based on percentages
+    const windowWidth = screenWidth * (this.state.width / 100.0);
+    const windowHeight = screenHeight * (this.state.height / 100.0);
+    
+    // Calculate top center position (horizontally centered, vertically at top)
+    const centerX = (screenWidth - windowWidth) / 2;
+    const topY = 20; // Fixed position from top of screen with small margin
+    
+    return { x: centerX, y: topY };
+  }
 
   componentDidMount() {
     this.id = this.props.id;
@@ -32,6 +48,15 @@ export class Window extends Component {
 
     // on window resize, resize boundary
     window.addEventListener("resize", this.resizeBoundries);
+    
+    // Position window at top center when mounted
+    setTimeout(() => {
+      const topCenterPos = this.calculateCenterPosition();
+      const windowElement = document.querySelector("#" + this.id);
+      if (windowElement) {
+        windowElement.style.transform = `translate(${topCenterPos.x}px, ${topCenterPos.y}px)`;
+      }
+    }, 50);
   }
 
   componentWillUnmount() {
@@ -166,6 +191,9 @@ export class Window extends Component {
   };
 
   render() {
+    // Calculate center position for the window
+    const centerPosition = this.calculateCenterPosition();
+    
     return (
       <Draggable
         axis="both"
@@ -176,7 +204,8 @@ export class Window extends Component {
         onStop={this.changeCursorToDefault}
         onDrag={this.checkOverlap}
         allowAnyClick={false}
-        defaultPosition={{ x: this.startX, y: this.startY }}
+        defaultPosition={centerPosition}
+        position={this.props.position || null}
         bounds={{
           left: 0,
           top: 0,
