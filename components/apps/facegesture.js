@@ -1,0 +1,264 @@
+import React, { Component, createRef } from "react";
+
+/*
+  Face Gesture App
+  - Loads face-api.js from CDN (no npm install required)
+  - Requests webcam access and detects facial expressions in real-time
+  - Displays the dominant emotion label: happy, sad, angry, fearful, surprised, disgusted, neutral
+  - Adds an approximate "romantic" label when "happy" probability is high
+*/
+
+export default class FaceGestureApp extends Component {
+  constructor() {
+    super();
+    this.state = {
+      status: "Initializing...",
+      emotion: "-",
+      probs: {},
+      error: null,
+      isCameraOn: false,
+      showDetails: true,
+    };
+    this.videoRef = createRef();
+    this.canvasRef = createRef();
+    this.intervalId = null;
+    this.modelsLoaded = false;
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+    this.bootstrap();
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+    if (this.intervalId) clearInterval(this.intervalId);
+    // Stop tracks
+    const v = this.videoRef.current;
+    if (v && v.srcObject) {
+      v.srcObject.getTracks().forEach((t) => t.stop());
+    }
+  }
+
+  loadScript = (src) => {
+    return new Promise((resolve, reject) => {
+      // If already loaded
+      if (document.querySelector(`script[src="${src}"]`)) return resolve();
+      const s = document.createElement("script");
+      s.src = src;
+      s.async = true;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.body.appendChild(s);
+    });
+  };
+
+  bootstrap = async () => {
+    try {
+      this.setState({ status: "Loading face-api.js..." });
+      await this.loadScript("https://unpkg.com/face-api.js@0.22.2/dist/face-api.min.js");
+
+      const faceapi = window.faceapi;
+      if (!faceapi) throw new Error("face-api.js failed to load");
+
+      const MODEL_URL = "https://justadudewhohacks.github.io/face-api.js/models";
+      this.setState({ status: "Loading models..." });
+      await Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+        faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+      ]);
+      this.modelsLoaded = true;
+
+      await this.startCamera();
+      this.setState({ status: "Detecting..." });
+      this.startDetectionLoop();
+    } catch (err) {
+      console.error(err);
+      this.setState({ error: err.message || String(err), status: "Error" });
+    }
+  };
+
+  startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+      const v = this.videoRef.current;
+      if (!v) return;
+      v.srcObject = stream;
+      await v.play();
+      this.setState({ isCameraOn: true });
+    } catch (err) {
+      throw new Error("Camera access denied or unavailable");
+    }
+  };
+
+  stopCamera = () => {
+    const v = this.videoRef.current;
+    if (v && v.srcObject) {
+      v.srcObject.getTracks().forEach((t) => t.stop());
+      v.srcObject = null;
+    }
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+    this.setState({ isCameraOn: false, status: this.modelsLoaded ? "Ready" : this.state.status, emotion: "-", probs: {} });
+  };
+
+  toggleCamera = async () => {
+    if (this.state.isCameraOn) {
+      this.stopCamera();
+    } else {
+      await this.startCamera();
+      this.setState({ status: "Detecting..." });
+      this.startDetectionLoop();
+    }
+  };
+
+  startDetectionLoop = () => {
+    const faceapi = window.faceapi;
+    const video = this.videoRef.current;
+    const canvas = this.canvasRef.current;
+    if (!video || !canvas || !faceapi) return;
+
+    const displaySize = { width: video.videoWidth, height: video.videoHeight };
+    canvas.width = displaySize.width;
+    canvas.height = displaySize.height;
+
+    this.intervalId = setInterval(async () => {
+      if (!this.mounted) return;
+      try {
+        const detections = await faceapi
+          .detectAllFaces(
+            video,
+            new faceapi.TinyFaceDetectorOptions({
+              inputSize: 224,
+              scoreThreshold: 0.5,
+            })
+          )
+          .withFaceExpressions();
+
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (detections && detections.length > 0) {
+          const resized = faceapi.resizeResults(detections, displaySize);
+          faceapi.draw.drawDetections(canvas, resized);
+
+          // Get dominant emotion from the first detected face
+          const expr = detections[0].expressions || {};
+          const top = Object.entries(expr).sort((a, b) => b[1] - a[1])[0];
+
+          let label = top ? top[0] : "neutral";
+          // Approximate a "romantic" label when happy is very high and others low
+          const happy = expr.happy || 0;
+          const surprised = expr.surprised || 0;
+          if (happy > 0.8 && surprised < 0.2) label = "romantic";
+
+          this.setState({ emotion: label, probs: expr });
+
+          // Draw label
+          const text = `Emotion: ${label}`;
+          ctx.font = "600 18px Arial";
+          const padding = 8;
+          const metrics = ctx.measureText(text);
+          const w = metrics.width + padding * 2;
+          const h = 28;
+          ctx.fillStyle = "rgba(0,0,0,0.45)";
+          ctx.fillRect(8, 8, w, h);
+          ctx.fillStyle = "rgba(255, 165, 0, 1)";
+          ctx.fillText(text, 8 + padding, 28);
+        } else {
+          this.setState({ emotion: "-", probs: {} });
+        }
+      } catch (e) {
+        // Keep loop alive; only log
+        console.debug("Detection error", e);
+      }
+    }, 200);
+  };
+
+  renderProbabilities() {
+    const entries = Object.entries(this.state.probs || {});
+    if (entries.length === 0) return null;
+    return (
+      <div className="mt-3 space-y-2">
+        {entries
+          .sort((a, b) => b[1] - a[1])
+          .map(([k, v]) => (
+            <div key={k} className="w-full">
+              <div className="flex justify-between text-xs text-gray-200 mb-1">
+                <span className="capitalize">{k}</span>
+                <span>{(v * 100).toFixed(1)}%</span>
+              </div>
+              <div className="w-full h-2 bg-gray-700 rounded overflow-hidden">
+                <div
+                  className={`h-full ${k === this.state.emotion ? 'bg-ub-orange' : 'bg-orange-400'} transition-all`}
+                  style={{ width: `${Math.min(100, Math.max(0, v * 100)).toFixed(1)}%` }}
+                />
+              </div>
+            </div>
+          ))}
+      </div>
+    );
+  }
+
+  render() {
+    const { status, emotion, error, isCameraOn } = this.state;
+    return (
+      <div className="w-full h-full p-3 sm:p-4 flex flex-col overflow-auto bg-gradient-to-br from-gray-900 via-gray-850 to-black">
+        <div className="flex items-center justify-between rounded px-3 py-2 text-white bg-white bg-opacity-5 border border-white border-opacity-10">
+          <div className="flex items-center space-x-2">
+            <img src="./themes/Yaru/apps/gnome-control-center.png" alt="Face Gesture" className="w-5 h-5" />
+            <div className="font-semibold">Face Gesture</div>
+            <div className="text-xs text-gray-200 opacity-80">{status}</div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={this.toggleCamera}
+              className={`px-3 py-1 rounded text-sm font-medium ${isCameraOn ? 'bg-gray-700 hover:bg-gray-600' : 'bg-ub-orange hover:bg-orange-600'} transition-colors`}
+            >
+              {isCameraOn ? 'Stop Camera' : 'Start Camera'}
+            </button>
+          </div>
+        </div>
+
+        {error && (
+          <div className="mt-2 text-red-400 text-sm">{error}</div>
+        )}
+
+        <div className="mt-3 grid grid-cols-1 lg:grid-cols-5 gap-3">
+          <div className="lg:col-span-3">
+            <div className="relative bg-black bg-opacity-60 rounded-lg shadow overflow-hidden border border-white border-opacity-10">
+              <video ref={this.videoRef} autoPlay muted playsInline className="w-full h-auto block transform scale-x-[-1]" />
+              <canvas ref={this.canvasRef} className="absolute left-0 top-0 transform scale-x-[-1]" />
+            </div>
+          </div>
+          <div className="lg:col-span-2">
+            <div className="bg-white bg-opacity-5 rounded-lg p-3 h-full border border-white border-opacity-10">
+              <div className="flex items-center justify-between">
+                <div className="text-white text-sm opacity-90">Current Emotion</div>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500 bg-opacity-20 text-orange-300 border border-orange-500 border-opacity-30">real-time</span>
+              </div>
+              <div className="mt-2">
+                <span className="inline-block px-3 py-1 rounded-full bg-ub-orange text-white font-semibold capitalize">
+                  {emotion === '-' ? 'detecting...' : emotion}
+                </span>
+              </div>
+              {this.renderProbabilities()}
+              {!isCameraOn && (
+                <div className="mt-3 text-yellow-300 text-xs">Allow camera access and click "Start Camera" to begin.</div>
+              )}
+              <div className="mt-4 text-gray-300 text-xs">
+                Notes: Runs fully in your browser using face-api.js. "Romantic" is a heuristic when happy is very high with low surprise.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export const displayFaceGesture = () => {
+  return <FaceGestureApp />;
+};

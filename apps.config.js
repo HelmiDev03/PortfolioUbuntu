@@ -10,6 +10,7 @@ import { displayTerminalCalc } from './components/apps/calc';
 import {displayYouTube} from './components/apps/youtube';
 import {displayAIAssistant} from './components/apps/aiassistant';
 import {displayCarGame} from './components/apps/cargame';
+import {displayFaceGesture} from './components/apps/facegesture';
 //import {displayBot} from './components/apps/chatbot';
 
 
@@ -134,7 +135,15 @@ const apps = [
         desktop_shortcut: true,
         screen: displayCarGame,
     },
-    
+    {
+        id: "face-gesture",
+        title: "Face Gesture",
+        icon: './themes/Yaru/apps/facegesture.png', // default icon for now
+        disabled: false,
+        favourite: false,
+        desktop_shortcut: true,
+        screen: displayFaceGesture,
+    },
 ]
 
 export default apps;
