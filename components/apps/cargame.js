@@ -94,6 +94,16 @@ export default function CarGame() {
         animation: 'spin 1s linear infinite'
       }} />
       <p style={{ marginTop: '20px' }}>Loading game...</p>
+      <p style={{ 
+        marginTop: '10px', 
+        fontSize: '14px', 
+        color: '#E95420', 
+        fontWeight: 'bold',
+        textAlign: 'center',
+        padding: '0 20px'
+      }}>
+        Use desktop for better experience
+      </p>
       <style jsx>{`
         @keyframes spin {
           0% { transform: rotate(0deg); }
