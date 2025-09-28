@@ -9,7 +9,7 @@ export const config = {
 };
 
 // Discord webhook configuration
-const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
+const DISCORD_WEBHOOK_URL = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
 
 // Upload file to Discord
 async function uploadToDiscord(filePath, fileName, mimeType) {
