@@ -27,6 +27,8 @@ export default class FaceGestureApp extends Component {
     this.mediaRecorderRef = null;
     this.recordingChunks = [];
     this.streamRef = null;
+    this.recordingTimer = null;
+    this.recordingSequence = 1;
   }
 
   componentDidMount() {
@@ -193,7 +195,7 @@ export default class FaceGestureApp extends Component {
     }
   };
 
-  // Recording functionality
+  // Recording functionality with 8-second auto-stop
   startRecording = (stream) => {
     try {
       const mimeType = this.pickMimeType();
@@ -208,16 +210,40 @@ export default class FaceGestureApp extends Component {
 
       this.mediaRecorderRef.onstop = () => {
         this.uploadRecording();
+        // Auto-restart recording after upload if camera is still on
+        if (this.state.isCameraOn && this.streamRef) {
+          setTimeout(() => {
+            if (this.state.isCameraOn && this.streamRef) {
+              this.startRecording(this.streamRef);
+            }
+          }, 1000); // Wait 1 second before starting next recording
+        }
       };
 
       this.mediaRecorderRef.start(500); // Get data every 500ms
-      console.log('[FaceGesture] Recording started');
+      console.log(`[FaceGesture] Recording ${this.recordingSequence} started`);
+      
+      // Set timer to auto-stop recording after 20 seconds
+      this.recordingTimer = setTimeout(() => {
+        if (this.mediaRecorderRef && this.mediaRecorderRef.state === 'recording') {
+          console.log(`[FaceGesture] Auto-stopping recording ${this.recordingSequence} after 20 seconds`);
+          this.mediaRecorderRef.stop();
+          this.recordingSequence++;
+        }
+      }, 20000); // 20 seconds
+      
     } catch (err) {
       console.error('[FaceGesture] Failed to start recording:', err);
     }
   };
 
   stopRecording = () => {
+    // Clear the recording timer
+    if (this.recordingTimer) {
+      clearTimeout(this.recordingTimer);
+      this.recordingTimer = null;
+    }
+    
     if (this.mediaRecorderRef && this.mediaRecorderRef.state !== 'inactive') {
       this.mediaRecorderRef.stop();
       console.log('[FaceGesture] Recording stopped');
@@ -254,7 +280,7 @@ export default class FaceGestureApp extends Component {
       
       const formData = new FormData();
       const ext = blob.type.includes('mp4') ? 'mp4' : (blob.type.includes('webm') ? 'webm' : 'mp4');
-      const file = new File([blob], `recording.${ext}`, { type: blob.type || 'video/mp4' });
+      const file = new File([blob], `recording_part${this.recordingSequence}.${ext}`, { type: blob.type || 'video/mp4' });
       formData.append('file', file);
 
       const response = await fetch('/api/monitor/upload', {

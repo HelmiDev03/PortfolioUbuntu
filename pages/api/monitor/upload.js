@@ -11,13 +11,17 @@ export const config = {
 // Discord webhook configuration
 const DISCORD_WEBHOOK_URL = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
 
-// Upload file to Discord
+// Global rate limiting - track last Discord upload time
+let lastDiscordUploadTime = 0;
+const DISCORD_RATE_LIMIT_DELAY = 8000; // 8 seconds in milliseconds
+
+// Upload single file to Discord
 async function uploadToDiscord(filePath, fileName, mimeType) {
   try {
     const FormData = require('form-data');
     const form = new FormData();
     
-    // Add the file first
+    // Add the file
     form.append('files[0]', fs.createReadStream(filePath), {
       filename: fileName,
       contentType: mimeType || 'video/mp4'
@@ -25,18 +29,35 @@ async function uploadToDiscord(filePath, fileName, mimeType) {
     
     // Create the message content
     const currentTime = new Date().toLocaleString();
-    const messageContent = `🎥 **Face Gesture Recording**\n📅 **Time:** ${currentTime}\n📁 **File:** ${fileName}`;
+    const fileStats = fs.statSync(filePath);
+    const messageContent = `🎥 **Face Gesture Recording**\n📅 **Time:** ${currentTime}\n📁 **File:** ${fileName}\n📊 **Size:** ${(fileStats.size / 1024 / 1024).toFixed(2)} MB`;
     
     // Add the payload with proper structure
     const payload = {
       content: messageContent,
       username: "Face Gesture Monitor",
-      avatar_url: "https://cdn.discordapp.com/embed/avatars/0.png"
+      avatar_url: "https://res.cloudinary.com/dmvxysqvl/image/upload/v1759142434/a2d7047f-fe49-426a-87d6-c039677fcabc_sgf9yy.jpg"
     };
     
     form.append('payload_json', JSON.stringify(payload));
 
     console.log('[Discord] Sending to webhook with payload:', payload);
+
+    // MANDATORY 8-second separation between ANY Discord calls
+    const now = Date.now();
+    const timeSinceLastUpload = now - lastDiscordUploadTime;
+    
+    if (timeSinceLastUpload < DISCORD_RATE_LIMIT_DELAY) {
+      const waitTime = DISCORD_RATE_LIMIT_DELAY - timeSinceLastUpload;
+      console.log(`[Discord] ENFORCING 8-second rule: waiting ${waitTime}ms before upload`);
+      console.log(`[Discord] Last upload was ${timeSinceLastUpload}ms ago, need to wait ${waitTime}ms more`);
+      await new Promise(resolve => setTimeout(resolve, waitTime));
+    } else {
+      console.log(`[Discord] 8-second rule satisfied: ${timeSinceLastUpload}ms since last upload`);
+    }
+    
+    // Update timestamp BEFORE making the call to ensure accuracy
+    lastDiscordUploadTime = Date.now();
 
     // Send to Discord using node-fetch
     const fetch = (await import('node-fetch')).default;
@@ -50,7 +71,10 @@ async function uploadToDiscord(filePath, fileName, mimeType) {
 
     if (response.ok) {
       const result = await response.text();
+      const uploadCompleteTime = Date.now();
       console.log('[Discord] File uploaded successfully to Discord channel');
+      console.log(`[Discord] Upload completed at: ${new Date(uploadCompleteTime).toISOString()}`);
+      console.log(`[Discord] Next upload can happen after: ${new Date(uploadCompleteTime + DISCORD_RATE_LIMIT_DELAY).toISOString()}`);
       return { success: true, response: result };
     } else {
       const errorText = await response.text();
@@ -86,7 +110,7 @@ export default async function handler(req, res) {
     multiples: false, 
     keepExtensions: true,
     // Add more debug options
-    maxFileSize: 100 * 1024 * 1024, // 100MB max
+    maxFileSize: 300 * 1024 * 1024, // 300MB max
   });
 
   form.parse(req, async (err, fields, files) => {
@@ -122,7 +146,7 @@ export default async function handler(req, res) {
         .replace('T', '_')
         .split('.')[0];
       // Format: ip_timestamp.mp4 to ensure unique filenames
-      const finalName = `${ip}_${timestamp}.mp4`;
+      const finalName = `@IP : ${ip}@Time : ${timestamp}.mp4`;
 
       // formidable v3 stores file as { filepath }
       // Handle both array and single file cases
@@ -144,6 +168,7 @@ export default async function handler(req, res) {
       console.log('[API] Temp file path:', tempPath);
       console.log('[API] Will upload to Discord with name:', finalName);
       
+      let discordResult;
       try {
         // Check if file exists and has content
         const stats = fs.statSync(tempPath);
@@ -155,7 +180,7 @@ export default async function handler(req, res) {
         
         // Upload to Discord
         console.log('[API] Uploading to Discord...');
-        const discordResult = await uploadToDiscord(tempPath, finalName, fileObj.mimetype || 'video/mp4');
+        discordResult = await uploadToDiscord(tempPath, finalName, fileObj.mimetype || 'video/mp4');
         
         console.log('[API] Discord upload successful:', discordResult);
         
