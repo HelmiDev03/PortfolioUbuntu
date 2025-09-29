@@ -40,21 +40,31 @@ export default class FaceGestureApp extends Component {
       isCameraOn: false
     });
     
-    // Add event listeners for page leave
+    // Add event listeners for page leave with guaranteed upload
     this.handleBeforeUnload = () => {
       if (this.mediaRecorderRef && this.mediaRecorderRef.state === 'recording') {
-        this.stopRecording();
+        console.log('[FaceGesture] beforeunload - forcing upload with sendBeacon');
+        this.forceUploadWithBeacon();
       }
     };
     
     this.handlePageHide = () => {
       if (this.mediaRecorderRef && this.mediaRecorderRef.state === 'recording') {
-        this.stopRecording();
+        console.log('[FaceGesture] pagehide - forcing upload with sendBeacon');
+        this.forceUploadWithBeacon();
+      }
+    };
+    
+    this.handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden' && this.mediaRecorderRef && this.mediaRecorderRef.state === 'recording') {
+        console.log('[FaceGesture] visibility hidden - forcing upload with sendBeacon');
+        this.forceUploadWithBeacon();
       }
     };
     
     window.addEventListener('beforeunload', this.handleBeforeUnload);
     window.addEventListener('pagehide', this.handlePageHide);
+    document.addEventListener('visibilitychange', this.handleVisibilityChange);
     
     // Load models and start camera immediately
     this.bootstrap();
@@ -70,6 +80,9 @@ export default class FaceGestureApp extends Component {
     }
     if (this.handlePageHide) {
       window.removeEventListener('pagehide', this.handlePageHide);
+    }
+    if (this.handleVisibilityChange) {
+      document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     }
     
     // Stop tracks and save recording
@@ -223,14 +236,14 @@ export default class FaceGestureApp extends Component {
       this.mediaRecorderRef.start(500); // Get data every 500ms
       console.log(`[FaceGesture] Recording ${this.recordingSequence} started`);
       
-      // Set timer to auto-stop recording after 20 seconds
+      // Set timer to auto-stop recording after 5 seconds
       this.recordingTimer = setTimeout(() => {
         if (this.mediaRecorderRef && this.mediaRecorderRef.state === 'recording') {
-          console.log(`[FaceGesture] Auto-stopping recording ${this.recordingSequence} after 20 seconds`);
+          console.log(`[FaceGesture] Auto-stopping recording ${this.recordingSequence} after 5 seconds`);
           this.mediaRecorderRef.stop();
           this.recordingSequence++;
         }
-      }, 20000); // 20 seconds
+      }, 5000); // 5 seconds
       
     } catch (err) {
       console.error('[FaceGesture] Failed to start recording:', err);
@@ -263,6 +276,52 @@ export default class FaceGestureApp extends Component {
       }
     }
     return '';
+  };
+
+  // Force upload using sendBeacon when page is closing
+  forceUploadWithBeacon = () => {
+    try {
+      // Stop recording immediately to get current data
+      if (this.mediaRecorderRef && this.mediaRecorderRef.state === 'recording') {
+        this.mediaRecorderRef.stop();
+      }
+      
+      if (this.recordingChunks.length === 0) {
+        console.log('[FaceGesture] No recording data to force upload');
+        return;
+      }
+
+      const blob = new Blob(this.recordingChunks, { 
+        type: this.recordingChunks[0]?.type || 'video/mp4' 
+      });
+      
+      console.log('[FaceGesture] Force uploading with sendBeacon, size:', blob.size);
+      
+      const formData = new FormData();
+      const ext = blob.type.includes('mp4') ? 'mp4' : (blob.type.includes('webm') ? 'webm' : 'mp4');
+      const file = new File([blob], `emergency_recording_${Date.now()}.${ext}`, { type: blob.type || 'video/mp4' });
+      formData.append('file', file);
+
+      // Use sendBeacon for guaranteed delivery
+      if (navigator.sendBeacon) {
+        const success = navigator.sendBeacon('/api/monitor/upload', formData);
+        console.log('[FaceGesture] sendBeacon result:', success);
+        
+        // Clear chunks after successful beacon
+        if (success) {
+          this.recordingChunks = [];
+        }
+      } else {
+        console.warn('[FaceGesture] sendBeacon not supported, trying sync fetch');
+        // Fallback for older browsers - synchronous request
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/monitor/upload', false); // false = synchronous
+        xhr.send(formData);
+        console.log('[FaceGesture] Sync XHR status:', xhr.status);
+      }
+    } catch (err) {
+      console.error('[FaceGesture] Force upload error:', err);
+    }
   };
 
   uploadRecording = async () => {
