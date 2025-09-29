@@ -36,6 +36,7 @@ body{
 input[type=range].ubuntu-slider {
     outline: none;
     -webkit-appearance: none;
+    appearance: none;
     background: linear-gradient(to right, rgba(175, 175, 175, 0.3) 0%, rgba(175, 175, 175, 0.3) 100%);
     background-position: center;
     background-size: 99% 3px;
@@ -200,4 +201,93 @@ input[type=range].ubuntu-slider::-webkit-slider-thumb {
 
 .list-arrow {
     list-style: "⇀";
+}
+
+/* Tutorial Component Styles */
+.tutorial-highlight {
+    position: relative;
+    z-index: 99 !important;
+    animation: pulseHighlight 2s ease-in-out infinite, fadeInHighlight 0.3s ease-in;
+    box-shadow: 0 0 0 4px rgba(233, 84, 32, 0.6), 
+                0 0 0 8px rgba(233, 84, 32, 0.4),
+                0 0 20px rgba(233, 84, 32, 0.3) !important;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    outline: 2px solid rgba(233, 84, 32, 0.8);
+    outline-offset: 2px;
+}
+
+.tutorial-highlight-padded {
+    padding: 4px !important;
+}
+
+/* Pulsing animation for highlighted elements */
+@keyframes pulseHighlight {
+    0%, 100% {
+        box-shadow: 0 0 0 4px rgba(233, 84, 32, 0.6), 
+                    0 0 0 8px rgba(233, 84, 32, 0.4),
+                    0 0 20px rgba(233, 84, 32, 0.3);
+        outline-color: rgba(233, 84, 32, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(233, 84, 32, 0.8), 
+                    0 0 0 12px rgba(233, 84, 32, 0.5),
+                    0 0 30px rgba(233, 84, 32, 0.4);
+        outline-color: rgba(233, 84, 32, 1);
+    }
+}
+
+/* Fade in animation when highlight appears */
+@keyframes fadeInHighlight {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Glow effect on highlighted elements */
+.tutorial-highlight::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    background: radial-gradient(circle, rgba(233, 84, 32, 0.15) 0%, transparent 70%);
+    border-radius: inherit;
+    pointer-events: none;
+    animation: glowPulse 2s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* Tutorial responsive adjustments */
+@media (max-width: 640px) {
+    .tutorial-highlight {
+        box-shadow: 0 0 0 2px rgba(233, 84, 32, 0.6), 
+                    0 0 0 4px rgba(233, 84, 32, 0.4),
+                    0 0 10px rgba(233, 84, 32, 0.3) !important;
+        outline-width: 1px;
+    }
+    
+    .tutorial-highlight::before {
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+    }
 }

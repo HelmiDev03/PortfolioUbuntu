@@ -28,7 +28,7 @@ export default function Meta() {
             <meta itemProp="image" content="images/logos/e-logo.svg" />
             /* Twitter */
             <meta name="twitter:card" content="summary" />
-            <meta name="twitter:title" content="Helmi Lakhder-Dev" />
+            <meta name="twitter:title" content="Helmi Lakhder-UbuntuVM" />
             <meta name="twitter:description"
                 content="Helmi Lakhder's (Helmi) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
             <meta name="twitter:site" content="Helmi Lakhder" />

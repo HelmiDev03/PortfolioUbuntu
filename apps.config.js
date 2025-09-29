@@ -89,13 +89,13 @@ const apps = [
         screen: displaySettings,
     },
     {
-        id: "trash",
-        title: "Trash",
-        icon: './themes/Yaru/system/user-trash-full.png',
+        id: "face-gesture",
+        title: "Face Gesture",
+        icon: './themes/Yaru/apps/facegesture.png', // default icon for now
         disabled: false,
         favourite: false,
         desktop_shortcut: true,
-        screen: displayTrash,
+        screen: displayFaceGesture,
     },
     {
         id: "gedit",
@@ -136,13 +136,13 @@ const apps = [
         screen: displayCarGame,
     },
     {
-        id: "face-gesture",
-        title: "Face Gesture",
-        icon: './themes/Yaru/apps/facegesture.png', // default icon for now
+        id: "trash",
+        title: "Trash",
+        icon: './themes/Yaru/system/user-trash-full.png',
         disabled: false,
         favourite: false,
         desktop_shortcut: true,
-        screen: displayFaceGesture,
+        screen: displayTrash,
     },
 ]
 

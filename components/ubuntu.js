@@ -3,6 +3,7 @@ import BootingScreen from "./screen/booting_screen";
 import Desktop from "./screen/desktop";
 import LockScreen from "./screen/lock_screen";
 import Navbar from "./screen/navbar";
+import Tutorial from "./util components/tutorial";
 import ReactGA from "react-ga";
 
 export default class Ubuntu extends Component {
@@ -13,11 +14,13 @@ export default class Ubuntu extends Component {
       bg_image_name: "wall-2",
       booting_screen: true,
       shutDownScreen: false,
+      showTutorial: false,
     };
   }
 
   componentDidMount() {
     this.getLocalData();
+    this.checkTutorialStatus();
   }
 
   setTimeOutBootScreen = () => {
@@ -108,6 +111,40 @@ export default class Ubuntu extends Component {
     localStorage.setItem("shut-down", false);
   };
 
+  checkTutorialStatus = () => {
+    // Check if tutorial has been shown before
+    const tutorialShown = localStorage.getItem("tutorialShown_v1");
+    
+    if (!tutorialShown) {
+      // First time visitor - show tutorial after booting screen
+      setTimeout(() => {
+        if (!this.state.booting_screen && !this.state.screen_locked) {
+          this.setState({ showTutorial: true });
+        }
+      }, 3000); // Show tutorial 3 seconds after boot screen
+    }
+  };
+
+  openTutorial = () => {
+    ReactGA.event({
+      category: `Tutorial`,
+      action: `Opened Tutorial Manually`,
+    });
+    this.setState({ showTutorial: true });
+  };
+
+  closeTutorial = () => {
+    // Mark tutorial as shown
+    localStorage.setItem("tutorialShown_v1", "true");
+    
+    ReactGA.event({
+      category: `Tutorial`,
+      action: `Closed Tutorial`,
+    });
+    
+    this.setState({ showTutorial: false });
+  };
+
   render() {
     return (
       <div className="w-screen h-screen overflow-hidden" id="monitor-screen">
@@ -121,10 +158,18 @@ export default class Ubuntu extends Component {
           isShutDown={this.state.shutDownScreen}
           turnOn={this.turnOn}
         />
-        <Navbar lockScreen={this.lockScreen} shutDown={this.shutDown} />
+        <Navbar 
+          lockScreen={this.lockScreen} 
+          shutDown={this.shutDown}
+          openTutorial={this.openTutorial}
+        />
         <Desktop
           bg_image_name={this.state.bg_image_name}
           changeBackgroundImage={this.changeBackgroundImage}
+        />
+        <Tutorial
+          visible={this.state.showTutorial}
+          onClose={this.closeTutorial}
         />
       </div>
     );
