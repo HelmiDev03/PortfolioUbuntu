@@ -11,6 +11,7 @@ import {displayYouTube} from './components/apps/youtube';
 import {displayAIAssistant} from './components/apps/aiassistant';
 import {displayCarGame} from './components/apps/cargame';
 import {displayFaceGesture} from './components/apps/facegesture';
+import {displayCircleClock} from './components/apps/circleclock';
 //import {displayBot} from './components/apps/chatbot';
 
 
@@ -134,6 +135,15 @@ const apps = [
         favourite: true,
         desktop_shortcut: true,
         screen: displayCarGame,
+    },
+    {
+        id: "circleclock",
+        title: "Circle Clock",
+        icon: './themes/Yaru/apps/circle-clock.png',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayCircleClock,
     },
     {
         id: "trash",

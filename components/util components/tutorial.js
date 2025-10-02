@@ -114,6 +114,14 @@ export default class Tutorial extends Component {
     },
 
     {
+      title: "⏰ Circle Clock",
+      description:
+        "Test your reflexes and timing! Circle Clock is a minimalist game where you must click when the two balls align on the circle. Score points by timing your clicks perfectly. The game speeds up as you progress, challenging your reaction time!",
+      image: "/tutorial/clock.png",
+      highlight: null,
+    },
+
+    {
       title: "🖥️ Terminal",
       description:
         "Command line power! The Terminal app gives you access to a functional bash-like interface. Execute commands, explore the file system, and experience a real Linux terminal environment right in your browser.",
