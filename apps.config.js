@@ -12,6 +12,7 @@ import {displayAIAssistant} from './components/apps/aiassistant';
 import {displayCarGame} from './components/apps/cargame';
 import {displayFaceGesture} from './components/apps/facegesture';
 import {displayCircleClock} from './components/apps/circleclock';
+import {displayFileExplorer} from './components/apps/fileexplorer';
 //import {displayBot} from './components/apps/chatbot';
 
 
@@ -52,6 +53,15 @@ const apps = [
         favourite: true,
         desktop_shortcut: true,
         screen: displayAboutHelmi,
+    },
+    {
+        id: "file-explorer",
+        title: "Files",
+        icon: './themes/Yaru/system/folder.png',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayFileExplorer,
     },
     {
         id: "vscode",

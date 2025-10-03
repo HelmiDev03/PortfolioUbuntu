@@ -70,6 +70,13 @@ export default class Tutorial extends Component {
       highlight: null,
     },
     {
+      title: "📁 Adobe PDF Explorer",
+      description:
+        "A fully functional PDF manager with Ubuntu Nautilus UI! Upload and process PDFs with Adobe PDF Services API. View PDFs with metadata, organize in folders, and search through your cloud-stored documents. Features secure cloud storage with unique document IDs.",
+      image: null,
+      highlight: null,
+    },
+    {
       title: "💻 Visual Studio Code",
       description:
         "A powerful code editor for developers! Browse through my code, see my coding style, and explore various projects. VS Code is where the magic happens - it's my primary development environment.",
