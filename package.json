@@ -11,14 +11,16 @@
     "export": "next export"
   },
   "dependencies": {
-    "@adobe/pdfservices-node-sdk": "^4.1.0",
+    "@codemirror/lang-javascript": "^6.2.4",
     "@codemirror/lang-python": "^6.1.6",
+    "@codemirror/search": "^6.5.11",
     "@codemirror/theme-one-dark": "^6.1.2",
     "@emailjs/browser": "^3.7.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^7.0.1",
     "@fortawesome/react-fontawesome": "^0.2.6",
+    "@supabase/supabase-js": "^2.58.0",
     "@uiw/react-codemirror": "^4.23.6",
     "axios": "^1.7.7",
     "codemirror": "^6.0.1",

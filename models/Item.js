@@ -10,10 +10,11 @@ const ItemSchema = new Schema(
     // For folders, we can store children names for faster list, but truth is in documents
     children: { type: [String], default: [] },
 
-    // For files (PDFs)
-    cloudId: { type: String, default: null },
-    adobeMetadata: { type: Schema.Types.Mixed, default: null },
-    fileId: { type: String, default: null }, // GridFS ObjectId string
+    // Supabase storage metadata for files
+    storagePath: { type: String, default: null }, // path inside the bucket
+    mimeType: { type: String, default: null },
+    sizeBytes: { type: Number, default: null },
+    publicUrl: { type: String, default: null },
   },
   { timestamps: true }
 );

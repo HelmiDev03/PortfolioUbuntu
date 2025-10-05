@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import ReactGA from "react-ga";
+import CodeMirror from '@uiw/react-codemirror';
+import { oneDark } from '@codemirror/theme-one-dark';
+import { python } from '@codemirror/lang-python';
+import { javascript } from '@codemirror/lang-javascript';
+import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
 
 export class FileExplorer extends Component {
   constructor() {
@@ -16,76 +21,36 @@ export class FileExplorer extends Component {
       showNewFolderDialog: false,
       showUploadDialog: false,
       showRenameDialog: false,
-      showPdfViewer: false,
-      currentPdfContent: null,
-      currentPdfName: "",
+      // Generic viewer state
+      showViewer: false,
+      viewerTitle: "",
+      viewerUrl: "",
+      viewerMime: "",
+      viewerText: "",
       dialogValue: "",
       renameTarget: null,
       searchQuery: "",
       uploadFileContent: "",
       uploadFileName: "",
       isUploading: false,
+      uploadingLabel: '',
+      copyMsg: '',
+      showDeleteDialog: false,
+      deleteTargetName: null,
+      isLoadingFolder: false,
+      // Auth/UI state
+      userName: `guest-${Math.floor(1000 + Math.random()*9000)}`,
+      isEditor: false,
+      showLoginDialog: false,
+      loginInput: '',
+      loginError: '',
     };
     this.fileInputRef = React.createRef();
   }
 
   initializeFileSystem() {
-    const savedFileSystem = localStorage.getItem("fileExplorerData");
-    if (savedFileSystem) {
-      return JSON.parse(savedFileSystem);
-    }
-
-    return {
-      "/": {
-        type: "folder",
-        name: "/",
-        children: ["home"],
-        created: new Date().toISOString(),
-        modified: new Date().toISOString(),
-      },
-      "/home": {
-        type: "folder",
-        name: "home",
-        children: ["helmi"],
-        created: new Date().toISOString(),
-        modified: new Date().toISOString(),
-      },
-      "/home/helmi": {
-        type: "folder",
-        name: "helmi",
-        children: ["Documents"],
-        created: new Date().toISOString(),
-        modified: new Date().toISOString(),
-      },
-      "/home/helmi/Documents": {
-        type: "folder",
-        name: "Documents",
-        children: ["README.txt", "Projects"],
-        created: new Date().toISOString(),
-        modified: new Date().toISOString(),
-      },
-      "/home/helmi/Documents/README.txt": {
-        type: "file",
-        name: "README.txt",
-        content: "Welcome to Helmi's File Explorer!\n\nThis is a fully functional file manager built with React.\n\nFeatures:\n- Create folders and files\n- Navigate through directories\n- Rename and delete items\n- Search functionality\n- Grid and list view modes\n\nFeel free to explore and create your own files!",
-        created: new Date().toISOString(),
-        modified: new Date().toISOString(),
-      },
-      "/home/helmi/Documents/Projects": {
-        type: "folder",
-        name: "Projects",
-        children: ["portfolio-notes.txt"],
-        created: new Date().toISOString(),
-        modified: new Date().toISOString(),
-      },
-      "/home/helmi/Documents/Projects/portfolio-notes.txt": {
-        type: "file",
-        name: "portfolio-notes.txt",
-        content: "Portfolio Project Notes\n\nTechnologies used:\n- React.js\n- TailwindCSS\n- Ubuntu 20.04 Theme\n\nRunning since: 24/12/2021",
-        created: new Date().toISOString(),
-        modified: new Date().toISOString(),
-      },
-    };
+    // Start empty and always load from API (DB + Supabase)
+    return {};
   }
 
   componentDidMount() {
@@ -98,9 +63,7 @@ export class FileExplorer extends Component {
     document.removeEventListener("click", this.hideContextMenu);
   }
 
-  saveFileSystem = () => {
-    localStorage.setItem("fileExplorerData", JSON.stringify(this.state.fileSystem));
-  };
+  // Removed localStorage persistence; data is sourced from API only
 
   getCurrentFolder = () => {
     return this.state.fileSystem[this.state.currentPath];
@@ -116,6 +79,7 @@ export class FileExplorer extends Component {
 
   loadFolder = async (path) => {
     try {
+      this.setState({ isLoadingFolder: true });
       const res = await fetch(`/api/items/tree?path=${encodeURIComponent(path)}`);
       if (!res.ok) throw new Error(`Failed to load folder: ${res.status}`);
       const data = await res.json();
@@ -128,9 +92,10 @@ export class FileExplorer extends Component {
         fs[it.path] = {
           type: it.type,
           name: it.name,
-          adobeMetadata: it.adobeMetadata || null,
-          cloudId: it.cloudId || null,
-          fileId: it.fileId || null,
+          storagePath: it.storagePath || null,
+          mimeType: it.mimeType || null,
+          sizeBytes: it.sizeBytes || null,
+          publicUrl: it.publicUrl || null,
           modified: new Date().toISOString(),
         };
       }
@@ -139,6 +104,8 @@ export class FileExplorer extends Component {
     } catch (err) {
       console.error(err);
       alert('Error loading folder');
+    } finally {
+      this.setState({ isLoadingFolder: false });
     }
   };
 
@@ -158,53 +125,54 @@ export class FileExplorer extends Component {
     if (isDoubleClick) {
       if (item.type === "folder") {
         this.navigateTo(itemPath);
-      } else if (item.name.toLowerCase().endsWith(".pdf")) {
-        try {
-          // Show loading state when fetching from cloud
-          if (item.fileId) {
-            this.setState({ isUploading: true });
-            const streamUrl = `/api/files/${item.fileId}/stream`;
-            
-            // Hide loading state
-            this.setState({ isUploading: false });
-            
-            // Open PDF viewer with the latest content from Adobe Cloud
-            this.setState({
-              showPdfViewer: true,
-              currentPdfContent: streamUrl,
-              currentPdfName: item.name,
-              currentPdfMetadata: item.adobeMetadata,
-              selectedItems: [itemName]
-            });
-            
-          } else {
-            // For non-cloud PDFs, just show what we have
-            this.setState({
-              showPdfViewer: true,
-              currentPdfContent: '',
-              currentPdfName: item.name,
-              currentPdfMetadata: item.adobeMetadata,
-              selectedItems: [itemName]
-            });
-          }
-        } catch (error) {
-          console.error('Error retrieving PDF from cloud:', error);
-          alert('Error retrieving PDF from cloud: ' + error.message);
-          this.setState({ isUploading: false });
-          
-          // Fallback to local content
-          this.setState({
-            showPdfViewer: true,
-            currentPdfContent: '',
-            currentPdfName: item.name,
-            currentPdfMetadata: item.adobeMetadata,
-            selectedItems: [itemName]
-          });
-        }
+      } else if (item.type === 'file') {
+        if (!item.publicUrl) return alert('No public URL available for this file');
+        this.openViewer(item);
       }
     } else {
       this.setState({ selectedItems: [itemName] });
     }
+  };
+
+  openViewer = async (item) => {
+    const { publicUrl, mimeType, name } = item;
+    const lower = (mimeType || '').toLowerCase();
+
+    // Defaults
+    let viewerText = '';
+
+    // For text-like content, fetch text for inline viewing
+    const isTextLike = lower.startsWith('text/') ||
+      lower === 'application/json' ||
+      /\.(js|jsx|ts|tsx|py|java|c|cpp|css|html|md|txt)$/i.test(name || '');
+    if (isTextLike) {
+      try {
+        const resp = await fetch(publicUrl);
+        viewerText = await resp.text();
+      } catch (e) {
+        console.warn('Failed to fetch text for viewer', e);
+      }
+    }
+
+    this.setState({
+      showViewer: true,
+      viewerTitle: name,
+      viewerUrl: publicUrl,
+      viewerMime: lower,
+      viewerText,
+    });
+  };
+
+  getCodeExtensions = (name, mime) => {
+    const lower = (name || '').toLowerCase();
+    if (lower.match(/\.(js|jsx|ts|tsx)$/) || mime === 'application/json') {
+      // typescript: true will enable TS mode when ts/tsx
+      const isTS = /\.(ts|tsx)$/.test(lower);
+      return [javascript({ jsx: /\.(jsx|tsx)$/.test(lower), typescript: isTS })];
+    }
+    if (lower.endsWith('.py')) return [python()];
+    // Fallback to no specific language
+    return [];
   };
 
   handleContextMenu = (e, itemName = null) => {
@@ -267,87 +235,65 @@ export class FileExplorer extends Component {
     }
   };
 
-  handleFileUpload = (e) => {
+  handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    
-    // Check if file is PDF
-    if (file.type !== 'application/pdf') {
-      alert('Only PDF files are allowed');
-      return;
-    }
 
-    // Show loading state
-    this.setState({ isUploading: true });
-
-    // Process with Adobe PDF Services API
-    this.processPdfWithAdobe(file);
-  };
-  
-  processPdfWithAdobe = async (file) => {
-    console.log('Uploading PDF to GridFS and processing with Adobe PDF Services');
+    this.setState({ isUploading: true, uploadingLabel: `Uploading ${file.name}...` });
     try {
-      // 1) Read file as data URL
+      // Read file as data URL
       const reader = new FileReader();
       const dataUrl = await new Promise((resolve, reject) => {
-        reader.onload = (e) => resolve(e.target.result);
+        reader.onload = (ev) => resolve(ev.target.result);
         reader.onerror = reject;
         reader.readAsDataURL(file);
       });
 
-      // 2) Upload raw PDF to GridFS
+      // Optional: map currentPath to a prefix for storage organization
+      const pathPrefix = 'uploads';
+
       const uploadRes = await fetch('/api/files/upload', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fileName: file.name, dataUrl })
+        body: JSON.stringify({ fileName: file.name, dataUrl, pathPrefix })
       });
-      if (!uploadRes.ok) throw new Error('Failed to store PDF in DB');
-      const { fileId } = await uploadRes.json();
+      if (!uploadRes.ok) throw new Error('Failed to upload to storage');
+      const { storagePath, mimeType, sizeBytes, publicUrl } = await uploadRes.json();
 
-      // 3) Call Adobe route for real processing (will require env credentials)
-      // We do not rely on simulated metadata/content.
-      let adobeMetadata = null;
-      try {
-        const resp = await fetch('/api/adobe-pdf', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'analyze', fileName: file.name, pdfData: dataUrl })
-        });
-        if (resp.ok) {
-          const meta = await resp.json();
-          if (meta && meta.success) adobeMetadata = meta.metadata || null;
-        }
-      } catch (e) {
-        console.warn('Adobe processing skipped or failed:', e.message);
-      }
+      // Persist item with Supabase fields
+      await this.uploadFile(file.name, { storagePath, mimeType, sizeBytes, publicUrl });
 
-      // 4) Persist item with fileId + adobeMetadata
-      await this.uploadFile(file.name, null, adobeMetadata, null, fileId);
-
-      // 5) Hide loading and refresh UI
-      this.setState({ isUploading: false });
+      this.setState({ isUploading: false, uploadingLabel: '' });
       await this.loadFolder(this.state.currentPath);
-      alert('PDF uploaded successfully');
+      alert('File uploaded successfully');
     } catch (error) {
-      console.error('Error processing PDF:', error);
-      alert('Error processing PDF: ' + error.message);
-      this.setState({ isUploading: false });
+      console.error('Upload error:', error);
+      alert('Upload failed: ' + error.message);
+      this.setState({ isUploading: false, uploadingLabel: '' });
     }
   };
 
-  uploadFile = async (fileName, content, adobeMetadata = null, cloudId = null, fileId = null) => {
+  uploadFile = async (fileName, storageMeta) => {
     try {
       const res = await fetch('/api/items/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: fileName, type: 'file', parentPath: this.state.currentPath, cloudId, adobeMetadata, fileId })
+        body: JSON.stringify({
+          name: fileName,
+          type: 'file',
+          parentPath: this.state.currentPath,
+          storagePath: storageMeta?.storagePath || null,
+          mimeType: storageMeta?.mimeType || null,
+          sizeBytes: storageMeta?.sizeBytes || null,
+          publicUrl: storageMeta?.publicUrl || null,
+        })
       });
-      if (!res.ok) throw new Error('Failed to save PDF in DB');
+      if (!res.ok) throw new Error('Failed to save file in DB');
       await this.loadFolder(this.state.currentPath);
-      ReactGA.event({ category: 'File Explorer', action: 'Uploaded PDF (DB)' });
+      ReactGA.event({ category: 'File Explorer', action: 'Uploaded file (DB)' });
     } catch (e) {
       console.error(e);
-      alert('Error saving PDF');
+      alert('Error saving file');
     }
   };
 
@@ -423,27 +369,76 @@ export class FileExplorer extends Component {
   };
 
   getFileIcon = (item) => {
-    if (item.type === "folder") {
+    const CDN = 'https://cdn.jsdelivr.net/gh/PKief/vscode-material-icon-theme/icons/';
+    if (item.type === 'folder') {
       return "./themes/Yaru/system/folder.png";
     }
-    
-    const extension = item.name.split(".").pop().toLowerCase();
-    const iconMap = {
-      txt: "./themes/Yaru/apps/text-editor.png",
-      js: "./themes/Yaru/apps/vscode.png",
-      json: "./themes/Yaru/apps/vscode.png",
-      html: "./themes/Yaru/apps/chrome.png",
-      css: "./themes/Yaru/apps/vscode.png",
-      md: "./themes/Yaru/apps/text-editor.png",
-      png: "./themes/Yaru/system/image.png",
-      jpg: "./themes/Yaru/system/image.png",
-      jpeg: "./themes/Yaru/system/image.png",
-      gif: "./themes/Yaru/system/image.png",
-      mp4: "./themes/Yaru/system/video.png",
-      mp3: "./themes/Yaru/apps/spotify.png",
+
+    const extension = (item.name.split('.').pop() || '').toLowerCase();
+    const map = {
+      // documents
+      pdf: 'pdf',
+      doc: 'word',
+      docx: 'word',
+      ppt: 'powerpoint',
+      pptx: 'powerpoint',
+      xls: 'excel',
+      xlsx: 'excel',
+      csv: 'csv',
+      txt: 'text',
+      md: 'markdown',
+      rtf: 'text',
+      xml: 'xml',
+      json: 'json',
+      yaml: 'yaml',
+      yml: 'yaml',
+      lock: 'lock',
+      gitignore: 'git',
+      // code
+      js: 'javascript',
+      jsx: 'react',
+      ts: 'typescript',
+      tsx: 'react_ts',
+      py: 'python',
+      java: 'java',
+      c: 'c',
+      h: 'c',
+      cpp: 'cpp',
+      hpp: 'cpp',
+      cs: 'csharp',
+      php: 'php',
+      go: 'go',
+      rs: 'rust',
+      sh: 'bash',
+      css: 'css',
+      scss: 'sass',
+      html: 'html',
+      // media
+      png: 'image',
+      jpg: 'image',
+      jpeg: 'image',
+      gif: 'image',
+      webp: 'image',
+      bmp: 'image',
+      svg: 'svg',
+      mp4: 'video',
+      webm: 'video',
+      ogg: 'video',
+      mp3: 'audio',
+      wav: 'audio',
+      m4a: 'audio',
+      // archives
+      zip: 'zip',
+      rar: 'zip',
+      '7z': 'zip',
+      tar: 'zip',
+      gz: 'zip',
+      bz2: 'zip',
+      xz: 'zip',
     };
 
-    return iconMap[extension] || "./themes/Yaru/apps/text-editor.png";
+    const key = map[extension] || 'file';
+    return `${CDN}${key}.svg`;
   };
 
   filterItems = () => {
@@ -578,17 +573,9 @@ export class FileExplorer extends Component {
               type="file"
               ref={this.fileInputRef}
               onChange={this.handleFileUpload}
-              accept="application/pdf"
+              accept="application/pdf,image/*,text/plain,application/json,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,video/mp4,video/webm,audio/mpeg,audio/wav"
               className="hidden"
             />
-            
-            <button
-              onClick={() => this.fileInputRef.current.click()}
-              className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs"
-              title="Upload PDF"
-            >
-              Upload PDF
-            </button>
           </div>
 
           <div className="flex items-center space-x-2 flex-1 max-w-md mx-4">
@@ -601,25 +588,64 @@ export class FileExplorer extends Component {
             />
           </div>
 
-          <div className="flex items-center space-x-1">
-            <button
-              onClick={() => this.setState({ viewMode: "grid" })}
-              className={`p-1.5 hover:bg-gray-700 rounded ${this.state.viewMode === "grid" ? "bg-gray-700" : ""}`}
-              title="Grid view"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
-              </svg>
-            </button>
-            <button
-              onClick={() => this.setState({ viewMode: "list" })}
-              className={`p-1.5 hover:bg-gray-700 rounded ${this.state.viewMode === "list" ? "bg-gray-700" : ""}`}
-              title="List view"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/>
-              </svg>
-            </button>
+          <div className="flex items-center space-x-3">
+            <div className="text-xs text-gray-300">User: <span className="font-semibold">{this.state.userName}</span>{this.state.isEditor && <span className="ml-2 text-green-400">(edit)</span>}</div>
+            {this.state.isEditor ? (
+              <button
+                onClick={() => this.setState({ isEditor: false, userName: `guest-${Math.floor(1000 + Math.random()*9000)}` })}
+                className="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs"
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={() => this.setState({ showLoginDialog: true, loginInput: '' })}
+                className="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs"
+              >
+                Login
+              </button>
+            )}
+
+        {/* Login Modal */}
+        {this.state.showLoginDialog && (
+          <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center" onClick={() => this.setState({ showLoginDialog: false, loginInput: '', loginError: '' })}>
+            <div className="bg-ub-cool-grey border border-gray-700 rounded-lg p-5 w-96" onClick={(e) => e.stopPropagation()}>
+              <div className="text-lg font-semibold mb-2">Login</div>
+              <div className="text-xs text-gray-400 mb-3">Enter password to switch to editor mode (user: helmi).</div>
+              <input
+                type="password"
+                value={this.state.loginInput}
+                onChange={(e) => this.setState({ loginInput: e.target.value })}
+                className="w-full px-3 py-2 bg-ub-grey border border-gray-600 rounded outline-none focus:border-ubb-orange mb-2"
+                placeholder="Password"
+                autoFocus
+              />
+              {this.state.loginError && <div className="text-xs text-red-400 mb-2">{this.state.loginError}</div>}
+              <div className="flex justify-end gap-2">
+                <button
+                  onClick={() => this.setState({ showLoginDialog: false, loginInput: '', loginError: '' })}
+                  className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    const pwd = this.state.loginInput;
+                    const expected = process.env.NEXT_PUBLIC_THOUGHTS_PASSWORD;
+                    if (pwd && expected && pwd === expected) {
+                      this.setState({ isEditor: true, userName: 'helmi', showLoginDialog: false, loginInput: '', loginError: '' });
+                    } else {
+                      this.setState({ loginError: 'Incorrect password' });
+                    }
+                  }}
+                  className="px-3 py-1 bg-ubb-orange hover:bg-orange-600 rounded text-xs"
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
           </div>
         </div>
 
@@ -647,6 +673,157 @@ export class FileExplorer extends Component {
               </div>
             )}
 
+        {/* Delete Confirmation Modal */}
+        {this.state.showDeleteDialog && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60" onClick={() => this.setState({ showDeleteDialog: false, deleteTargetName: null })}>
+            <div className="bg-ub-cool-grey border border-gray-700 rounded-lg w-96 p-4" onClick={(e) => e.stopPropagation()}>
+              <div className="text-lg font-semibold mb-2">Delete item</div>
+              <div className="text-sm text-gray-300 mb-4">
+                Are you sure you want to delete <span className="font-semibold">{this.state.deleteTargetName}</span>?
+                This will remove it from your site and from storage if applicable.
+              </div>
+              <div className="flex justify-end gap-2">
+                <button
+                  onClick={() => this.setState({ showDeleteDialog: false, deleteTargetName: null })}
+                  className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={async () => {
+                    const target = this.state.deleteTargetName;
+                    this.setState({ showDeleteDialog: false, deleteTargetName: null });
+                    if (target) await this.deleteItem(target);
+                  }}
+                  className="px-3 py-1 rounded bg-red-600 hover:bg-red-500 text-sm"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Viewer Modal */}
+        {this.state.showViewer && (
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" onClick={() => this.setState({ showViewer: false })}>
+            <div className="bg-ub-cool-grey border border-gray-700 rounded-lg w-11/12 h-5/6 flex flex-col" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center justify-between px-4 py-2 border-b border-gray-700">
+                <div className="font-semibold truncate pr-2">{this.state.viewerTitle}</div>
+                <button onClick={() => this.setState({ showViewer: false })} className="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs">Close</button>
+              </div>
+              <div className="flex-1 overflow-auto bg-gray-900">
+                {(() => {
+                  const mime = this.state.viewerMime;
+                  const url = this.state.viewerUrl;
+                  const name = this.state.viewerTitle || '';
+                  const lowerName = name.toLowerCase();
+                  const isPDF = mime === 'application/pdf' || lowerName.endsWith('.pdf');
+                  const isImage = mime.startsWith('image/') || /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(lowerName);
+                  const isVideo = mime.startsWith('video/') || /\.(mp4|webm|ogg)$/i.test(lowerName);
+                  const isAudio = mime.startsWith('audio/') || /\.(mp3|wav|ogg)$/i.test(lowerName);
+                  const isText = (
+                    mime.startsWith('text/') ||
+                    /(dockerfile|makefile)$/i.test(lowerName) ||
+                    /\.(txt|md|lock|gitignore|env|npmrc|editorconfig|prettierrc|eslintrc|ini|conf|toml)$/i.test(lowerName)
+                  );
+                  const isCode = /\.(js|jsx|ts|tsx|py|java|c|cpp|css|html)$/i.test(lowerName) || mime === 'application/json';
+                  const isDocx = mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || /\.docx$/i.test(lowerName);
+                  const isDoc = mime === 'application/msword' || /\.doc$/i.test(lowerName);
+                  const isPptx = mime === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' || /\.pptx$/i.test(lowerName);
+                  const isXlsx = mime === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || /\.xlsx$/i.test(lowerName);
+
+                  // Office viewers (require public URL)
+                  if (isDoc || isDocx || isPptx || isXlsx) {
+                    const encoded = encodeURIComponent(url);
+                    const officeUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encoded}`;
+                    return (
+                      <iframe title="office-viewer" src={officeUrl} className="w-full h-full border-0" />
+                    );
+                  }
+
+                  if (isPDF) {
+                    return (
+                      <iframe title="pdf-viewer" src={url} className="w-full h-full border-0" />
+                    );
+                  }
+
+                  if (isImage) {
+                    return (
+                      <div className="w-full h-full flex items-center justify-center p-4">
+                        <img src={url} alt={name} className="max-w-full max-h-full object-contain" />
+                      </div>
+                    );
+                  }
+
+                  if (isVideo) {
+                    return (
+                      <div className="w-full h-full flex items-center justify-center bg-black">
+                        <video controls src={url} className="max-w-full max-h-full" />
+                      </div>
+                    );
+                  }
+
+                  if (isAudio) {
+                    return (
+                      <div className="p-4">
+                        <audio controls src={url} className="w-full" />
+                      </div>
+                    );
+                  }
+
+                  if (isText || isCode) {
+                    const extensions = [oneDark, highlightSelectionMatches(), ...this.getCodeExtensions(name, mime)];
+                    const onCopy = async () => {
+                      try { await navigator.clipboard.writeText(this.state.viewerText || ''); } catch {}
+                      this.setState({ copyMsg: 'Copied' });
+                      setTimeout(() => this.setState({ copyMsg: '' }), 1200);
+                    };
+                    return (
+                      <div className="flex flex-col h-full">
+                        <div className="flex items-center justify-between px-3 py-2 border-b border-gray-800">
+                          <div className="text-xs text-gray-400">Press Ctrl/Cmd+F to search</div>
+                          <div className="flex items-center gap-2">
+                            {this.state.copyMsg && <span className="text-xs text-green-400">{this.state.copyMsg}</span>}
+                            <button onClick={onCopy} className="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs">Copy</button>
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <CodeMirror
+                            value={this.state.viewerText || ''}
+                            height="100%"
+                            theme={oneDark}
+                            extensions={extensions}
+                            editable={false}
+                            basicSetup={{ lineNumbers: true, highlightActiveLine: true, scrollPastEnd: true, foldGutter: true, searchKeymap }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  // Fallback: show download link
+                  return (
+                    <div className="p-4 text-sm">
+                      <p>Preview not supported for this file type.</p>
+                      <a href={url} target="_blank" rel="noreferrer" className="text-ubb-orange underline">Open in new tab</a>
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Uploading overlay */}
+        {this.state.isUploading && (
+          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-ub-cool-grey border border-gray-700 rounded px-4 py-3 text-sm">
+              {this.state.uploadingLabel || 'Uploading...'}
+            </div>
+          </div>
+        )}
+
             {/* File/Folder Display Area */}
             {this.state.currentView === "computer" ? (
               this.renderComputerView()
@@ -657,25 +834,34 @@ export class FileExplorer extends Component {
                 onClick={() => this.setState({ selectedItems: [] })}
               >
                 <div className="flex justify-between mb-4">
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => this.setState({ showNewFolderDialog: true, dialogValue: "" })}
-                      className="px-3 py-1 bg-ubb-orange hover:bg-orange-600 rounded text-sm"
-                      title="New folder"
-                    >
-                      + Folder
-                    </button>
-                    <button
-                      onClick={() => this.setState({ showNewFileDialog: true, dialogValue: "" })}
-                      className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm"
-                      title="New file"
-                    >
-                      + File
-                    </button>
-                  </div>
+                  {this.state.isEditor ? (
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => this.setState({ showNewFolderDialog: true, dialogValue: "" })}
+                        className="px-3 py-1 bg-ubb-orange hover:bg-orange-600 rounded text-sm"
+                        title="New folder"
+                      >
+                        + Folder
+                      </button>
+                      <button
+                        onClick={() => this.fileInputRef.current?.click()}
+                        className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm"
+                        title="Upload file"
+                      >
+                        Upload
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="text-xs text-gray-400">Read-only mode</div>
+                  )}
                 </div>
 
-                {items.length === 0 ? (
+                {this.state.isLoadingFolder ? (
+                  <div className="flex items-center justify-center h-64 text-gray-400">
+                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-ubb-orange mr-3"></div>
+                    Loading folder...
+                  </div>
+                ) : items.length === 0 ? (
                   <div className="flex items-center justify-center h-64 text-gray-500">
                     {this.state.searchQuery ? "No items found" : "This folder is empty"}
                   </div>
@@ -705,45 +891,14 @@ export class FileExplorer extends Component {
           </div>
         </div>
 
-        {/* Context Menu */}
-        {this.state.showContextMenu && (
+        {/* Context Menu (items only) */}
+        {this.state.showContextMenu && this.state.contextMenuType === "item" && (
           <div
             className="fixed bg-ub-cool-grey border border-gray-700 rounded shadow-lg py-1 z-50"
-            style={{
-              left: this.state.contextMenuPos.x,
-              top: this.state.contextMenuPos.y,
-            }}
+            style={{ left: this.state.contextMenuPos.x, top: this.state.contextMenuPos.y }}
             onClick={(e) => e.stopPropagation()}
           >
-            {this.state.contextMenuType === "background" ? (
-              <>
-                <button
-                  onClick={() => {
-                    this.setState({ showNewFolderDialog: true, dialogValue: "", showContextMenu: false });
-                  }}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-700 text-sm"
-                >
-                  New Folder
-                </button>
-                <button
-                  onClick={() => {
-                    this.setState({ showNewFileDialog: true, dialogValue: "", showContextMenu: false });
-                  }}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-700 text-sm"
-                >
-                  New File
-                </button>
-                <button
-                  onClick={() => {
-                    this.fileInputRef.current.click();
-                    this.setState({ showContextMenu: false });
-                  }}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-700 text-sm"
-                >
-                  Upload PDF
-                </button>
-              </>
-            ) : (
+            {this.state.isEditor && (
               <>
                 <button
                   onClick={() => {
@@ -761,8 +916,8 @@ export class FileExplorer extends Component {
                 </button>
                 <button
                   onClick={() => {
-                    this.deleteItem(this.state.selectedItems[0]);
-                    this.setState({ showContextMenu: false });
+                    const target = this.state.selectedItems[0];
+                    this.setState({ showContextMenu: false, showDeleteDialog: true, deleteTargetName: target });
                   }}
                   className="w-full text-left px-4 py-2 hover:bg-red-600 text-sm"
                 >

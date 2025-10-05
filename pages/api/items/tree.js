@@ -34,16 +34,35 @@ export default async function handler(req, res) {
 
   const childrenDocs = await Item.find({ parentPath: targetPath }).sort({ type: -1, name: 1 }).lean();
 
+  // Convert to basic items first
+  const itemsRaw = childrenDocs.map((d) => ({
+    name: d.name,
+    type: d.type,
+    path: d.path,
+    parentPath: d.parentPath,
+    storagePath: d.storagePath || null,
+    mimeType: d.mimeType || null,
+    sizeBytes: d.sizeBytes || null,
+    publicUrl: d.publicUrl || null,
+  }));
+
+  // Filter out files that no longer exist in storage (e.g., deleted from Supabase directly)
+  const items = await (async () => {
+    const checks = itemsRaw.map(async (it) => {
+      if (it.type !== 'file' || !it.publicUrl) return { ok: true, item: it };
+      try {
+        const resp = await fetch(it.publicUrl, { method: 'HEAD' });
+        return { ok: resp.ok, item: it };
+      } catch {
+        return { ok: false, item: it };
+      }
+    });
+    const results = await Promise.all(checks);
+    return results.filter(r => r.ok).map(r => r.item);
+  })();
+
   return res.status(200).json({
     folder: { name: folder.name, path: folder.path, children: folder.children || [] },
-    items: childrenDocs.map((d) => ({
-      name: d.name,
-      type: d.type,
-      path: d.path,
-      parentPath: d.parentPath,
-      cloudId: d.cloudId || null,
-      adobeMetadata: d.adobeMetadata || null,
-      fileId: d.fileId || null,
-    })),
+    items,
   });
 }
