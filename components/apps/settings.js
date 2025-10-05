@@ -5,9 +5,6 @@ export function Settings(props) {
   const wallpapers = {
     // Video wallpapers (root paths)
     "wall-video-2": "/images/wallpapers/b.mp4",
-    "wall-video-3": "/images/wallpapers/c.mp4",
-    "wall-video-5": "/images/wallpapers/red.mp4",
-    "wall-video-6": "/images/wallpapers/code.mp4",
     "wall-1": "./images/wallpapers/wall-1.webp",
     "wall-2": "./images/wallpapers/wall-2.webp",
     "wall-3": "./images/wallpapers/wall-3.webp",
