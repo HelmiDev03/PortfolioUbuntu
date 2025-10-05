@@ -3,6 +3,11 @@ import $ from "jquery";
 
 export function Settings(props) {
   const wallpapers = {
+    // Video wallpapers (root paths)
+    "wall-video-2": "/images/wallpapers/b.mp4",
+    "wall-video-3": "/images/wallpapers/c.mp4",
+    "wall-video-5": "/images/wallpapers/red.mp4",
+    "wall-video-6": "/images/wallpapers/code.mp4",
     "wall-1": "./images/wallpapers/wall-1.webp",
     "wall-2": "./images/wallpapers/wall-2.webp",
     "wall-3": "./images/wallpapers/wall-3.webp",
@@ -15,19 +20,19 @@ export function Settings(props) {
     "wall-11": "./images/wallpapers/wall-11.webp",
     "wall-12": "./images/wallpapers/wall-12.webp",
     "wall-13": "./images/wallpapers/wall-13.webp",
-    "wall-14": "./images/wallpapers/wall-14.webp",
     "wall-15": "./images/wallpapers/wall-15.webp",
     "wall-16": "./images/wallpapers/wall-16.webp",
     "wall-17": "./images/wallpapers/wall-17.webp",
     "wall-18": "./images/wallpapers/wall-18.webp",
     "wall-19": "./images/wallpapers/wall-19.webp",
- 
-    
-
+   
   };
 
   let changeBackgroundImage = (e) => {
-    props.changeBackgroundImage($(e.target).data("path"));
+    // Ensure we read the key from the thumbnail container
+    const selectedKey = $(e.target).closest('[data-path]').data('path');
+    if (!selectedKey) return;
+    props.changeBackgroundImage(selectedKey);
   };
 
   return (
@@ -36,15 +41,29 @@ export function Settings(props) {
         "w-full flex-col flex-grow z-20 max-h-full overflow-y-auto windowMainScreen select-none bg-ub-cool-grey"
       }
     >
-      <div
-        className=" md:w-2/5 w-2/3 h-1/3 m-auto my-4"
-        style={{
-          backgroundImage: `url(${wallpapers[props.currBgImgName]})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center center",
-        }}
-      ></div>
+      <div className=" md:w-2/5 w-2/3 h-1/3 m-auto my-4 relative overflow-hidden rounded">
+        {String(wallpapers[props.currBgImgName] || '').endsWith('.mp4') ? (
+          <video
+            src={wallpapers[props.currBgImgName]}
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        ) : (
+          <div
+            style={{
+              backgroundImage: `url(${wallpapers[props.currBgImgName]})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center",
+              width: '100%',
+              height: '100%'
+            }}
+          />
+        )}
+      </div>
       <div className="flex flex-wrap justify-center items-center border-t border-gray-900">
         {Object.keys(wallpapers).map((name, index) => {
           return (
@@ -52,20 +71,37 @@ export function Settings(props) {
               key={index}
               tabIndex="1"
               onFocus={changeBackgroundImage}
+              onClick={changeBackgroundImage}
               data-path={name}
               className={
                 (name === props.currBgImgName
                   ? " border-yellow-700 "
                   : " border-transparent ") +
-                " md:px-28 md:py-20 md:m-4 m-2 px-14 py-10 outline-none border-4 border-opacity-80"
+                " md:w-48 md:h-32 md:m-4 m-2 w-28 h-20 outline-none border-4 border-opacity-80 rounded overflow-hidden relative"
               }
-              style={{
-                backgroundImage: `url(${wallpapers[name]})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center center",
-              }}
-            ></div>
+            >
+              {String(wallpapers[name]).endsWith('.mp4') ? (
+                <video
+                  src={wallpapers[name]}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              ) : (
+                <div
+                  style={{
+                    backgroundImage: `url(${wallpapers[name]})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center center",
+                    width: '100%',
+                    height: '100%'
+                  }}
+                />
+              )}
+            </div>
           );
         })}
       </div>

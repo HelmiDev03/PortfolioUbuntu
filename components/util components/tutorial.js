@@ -70,9 +70,9 @@ export default class Tutorial extends Component {
       highlight: null,
     },
     {
-      title: "📁 Adobe PDF Explorer",
+      title: "📁 File Manager (Cloud Explorer)",
       description:
-        "A fully functional PDF manager with Ubuntu Nautilus UI! Upload and process PDFs with Adobe PDF Services API. View PDFs with metadata, organize in folders, and search through your cloud-stored documents. Features secure cloud storage with unique document IDs.",
+        "Browse your cloud files with an Ubuntu Nautilus-style UI. Guest is read-only by default; login with the portfolio password to switch to editor (helmi) and enable create/upload/rename/delete. Previews for text/code, images, audio/video, PDFs, and Office docs. Deletions also remove storage objects. Mobile-friendly with quick nav for Documents/Computer.",
       image: null,
       highlight: null,
     },

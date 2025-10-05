@@ -56,8 +56,8 @@ const apps = [
     },
     {
         id: "file-explorer",
-        title: "Files",
-        icon: './themes/Yaru/system/folder.png',
+        title: "File Manager",
+        icon: './themes/Yaru/apps/filesystem.jpg',
         disabled: false,
         favourite: true,
         desktop_shortcut: true,

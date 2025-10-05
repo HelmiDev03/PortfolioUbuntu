@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function BackgroundImage(props) {
+  const [videoError, setVideoError] = useState(false);
   const bg_images = {
+
+    "wall-video-2": "/images/wallpapers/b.mp4",
+    "wall-video-3": "/images/wallpapers/c.mp4",
+    "wall-video-5": "/images/wallpapers/red.mp4",
+    "wall-video-6": "/images/wallpapers/code.mp4",
     "wall-1": "./images/wallpapers/wall-1.webp",
     "wall-2": "./images/wallpapers/wall-2.webp",
     "wall-3": "./images/wallpapers/wall-3.webp",
@@ -21,17 +27,34 @@ export default function BackgroundImage(props) {
     "wall-18": "./images/wallpapers/wall-18.webp",
     "wall-19": "./images/wallpapers/wall-19.webp",
 
-   
   };
+  const src = bg_images[props.img];
+  const isVideo = typeof src === 'string' && src.endsWith('.mp4') && !videoError;
   return (
-    <div
-      style={{
-        backgroundImage: `url(${bg_images[props.img]})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPositionX: "center",
-      }}
-      className="bg-ubuntu-img absolute -z-10 top-0 right-0 overflow-hidden h-full w-full"
-    ></div>
+    <div className="bg-ubuntu-img absolute -z-10 top-0 right-0 overflow-hidden h-full w-full bg-black">
+      {isVideo ? (
+        <video
+          src={src}
+          className="w-full h-full object-cover"
+          preload="auto"
+          autoPlay
+          muted
+          loop
+          playsInline
+          onError={() => setVideoError(true)}
+        />
+      ) : (
+        <div
+          style={{
+            backgroundImage: `url(${src || bg_images["wall-2"]})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPositionX: "center",
+            width: '100%',
+            height: '100%'
+          }}
+        />
+      )}
+    </div>
   );
 }

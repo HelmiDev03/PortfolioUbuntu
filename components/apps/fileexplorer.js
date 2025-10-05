@@ -546,7 +546,7 @@ export class FileExplorer extends Component {
     return (
       <div className="w-full h-full flex flex-col bg-ub-cool-grey text-white select-none">
         {/* Toolbar */}
-        <div className="flex items-center justify-between w-full bg-ub-grey border-b border-gray-700 px-2 py-1">
+        <div className="flex items-center justify-between w-full bg-ub-grey border-b border-gray-700 px-2 py-1 flex-wrap gap-2">
           <div className="flex items-center space-x-2">
             <button
               onClick={this.navigateUp}
@@ -586,6 +586,24 @@ export class FileExplorer extends Component {
               onChange={(e) => this.setState({ searchQuery: e.target.value })}
               className="flex-1 px-3 py-1 bg-ub-cool-grey border border-gray-600 rounded text-sm outline-none focus:border-ubb-orange"
             />
+          </div>
+
+          {/* Mobile quick nav (since sidebar is hidden) */}
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={() => this.navigateToView("documents")}
+              className={`px-2 py-1 rounded text-xs ${this.state.currentView === 'documents' ? 'bg-ubb-orange bg-opacity-70' : 'bg-gray-700 hover:bg-gray-600'}`}
+              title="Documents"
+            >
+              Documents
+            </button>
+            <button
+              onClick={() => this.navigateToView("computer")}
+              className={`px-2 py-1 rounded text-xs ${this.state.currentView === 'computer' ? 'bg-ubb-orange bg-opacity-70' : 'bg-gray-700 hover:bg-gray-600'}`}
+              title="Computer"
+            >
+              Computer
+            </button>
           </div>
 
           <div className="flex items-center space-x-3">
@@ -652,7 +670,7 @@ export class FileExplorer extends Component {
         {/* Main Content Area */}
         <div className="flex flex-1 overflow-hidden">
           {/* Sidebar */}
-          {this.renderSidebar()}
+          <div className="hidden md:block">{this.renderSidebar()}</div>
 
           {/* Content Area */}
           <div className="flex-1 flex flex-col">
@@ -829,7 +847,7 @@ export class FileExplorer extends Component {
               this.renderComputerView()
             ) : (
               <div
-                className="flex-1 overflow-y-auto p-4 bg-ub-grey windowMainScreen"
+                className="flex-1 overflow-y-auto p-2 md:p-4 bg-ub-grey windowMainScreen"
                 onContextMenu={(e) => this.handleContextMenu(e)}
                 onClick={() => this.setState({ selectedItems: [] })}
               >
@@ -880,7 +898,7 @@ export class FileExplorer extends Component {
                         onDoubleClick={() => this.handleItemClick(item.name, true)}
                         onContextMenu={(e) => this.handleContextMenu(e, item.name)}
                       >
-                        <img src={this.getFileIcon(item)} alt={item.name} className="w-16 h-16 mb-2" />
+                        <img src={this.getFileIcon(item)} alt={item.name} className="w-12 h-12 md:w-16 md:h-16 mb-2" />
                         <span className="text-xs text-center break-all">{item.name}</span>
                       </div>
                     ))}
