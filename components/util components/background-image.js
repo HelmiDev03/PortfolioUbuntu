@@ -4,7 +4,6 @@ export default function BackgroundImage(props) {
   const [videoError, setVideoError] = useState(false);
   const bg_images = {
 
-    "wall-video-2": "/images/wallpapers/b.mp4",
     "wall-1": "./images/wallpapers/wall-1.webp",
     "wall-2": "./images/wallpapers/wall-2.webp",
     "wall-3": "./images/wallpapers/wall-3.webp",
@@ -25,7 +24,7 @@ export default function BackgroundImage(props) {
     "wall-19": "./images/wallpapers/wall-19.webp",
 
   };
-  const src = bg_images[props.img];
+  const src = bg_images[props.img] || bg_images["wall-1"];
   const isVideo = typeof src === 'string' && src.endsWith('.mp4') && !videoError;
   return (
     <div className="bg-ubuntu-img absolute -z-10 top-0 right-0 overflow-hidden h-full w-full bg-black">
@@ -43,7 +42,7 @@ export default function BackgroundImage(props) {
       ) : (
         <div
           style={{
-            backgroundImage: `url(${src || bg_images["wall-2"]})`,
+            backgroundImage: `url(${src || bg_images["wall-1"]})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPositionX: "center",

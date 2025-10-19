@@ -3,8 +3,6 @@ import $ from "jquery";
 
 export function Settings(props) {
   const wallpapers = {
-    // Video wallpapers (root paths)
-    "wall-video-2": "/images/wallpapers/b.mp4",
     "wall-1": "./images/wallpapers/wall-1.webp",
     "wall-2": "./images/wallpapers/wall-2.webp",
     "wall-3": "./images/wallpapers/wall-3.webp",
@@ -24,6 +22,7 @@ export function Settings(props) {
     "wall-19": "./images/wallpapers/wall-19.webp",
    
   };
+  const current = wallpapers[props.currBgImgName] || wallpapers["wall-1"];
 
   let changeBackgroundImage = (e) => {
     // Ensure we read the key from the thumbnail container
@@ -39,9 +38,9 @@ export function Settings(props) {
       }
     >
       <div className=" md:w-2/5 w-2/3 h-1/3 m-auto my-4 relative overflow-hidden rounded">
-        {String(wallpapers[props.currBgImgName] || '').endsWith('.mp4') ? (
+        {String(current || '').endsWith('.mp4') ? (
           <video
-            src={wallpapers[props.currBgImgName]}
+            src={current}
             className="w-full h-full object-cover"
             autoPlay
             muted
@@ -51,7 +50,7 @@ export function Settings(props) {
         ) : (
           <div
             style={{
-              backgroundImage: `url(${wallpapers[props.currBgImgName]})`,
+              backgroundImage: `url(${current})`,
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center center",
