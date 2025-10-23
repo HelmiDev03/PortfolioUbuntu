@@ -551,6 +551,35 @@ function Skills() {
 function Projects() {
   const project_list = [
     {
+      name: "Trading Company Website with AI Integration",
+      date: "August 2025",
+      link: "https://github.com/HelmiDev03",
+      description: [
+        "Developed a comprehensive website for a trading company in Dubai during their growth phase. The platform features a fine-tuned Gemini AI model customized for the company's specific needs as an FX broker. The AI assistant helps clients with market analysis, trading strategies, and personalized investment recommendations based on their risk profile and market conditions.",
+      ],
+      domains: [
+        "Next.js",
+        "Gemini",
+        "Fine-Tuning",
+        "TensorFlow",
+      ],
+    },
+    {
+      name: "E-commerce Platform for IPTV Provider",
+      date: "June 2025",
+      link: "https://github.com/HelmiDev03",
+      description: [
+        "Designed and implemented a full-featured e-commerce website for an IPTV service provider. The platform includes a sophisticated recommendation system that suggests content based on user viewing habits, a secure payment gateway integration for subscription management, and a responsive user interface optimized for various devices.",
+      ],
+      domains: [
+        "Next.js",
+        "MongoDB",
+        "ML Recommendation Model",
+        "Payment Gateway Integration",
+        "Redux"
+      ],
+    },
+    {
       name: "Freelance Project",
       date: "September 2024",
       link: "https://github.com/lmahdy/Management-System",
