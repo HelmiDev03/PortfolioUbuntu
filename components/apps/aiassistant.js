@@ -52,9 +52,10 @@ export class AIAssistant extends Component {
     });
 
     try {
-      // Call Puter.js AI (no API keys needed)
-      if (typeof window === "undefined" || !window.puter?.ai?.chat) {
-        throw new Error("Puter.js not loaded");
+      // Call Groq (OpenAI-compatible) directly from the frontend
+      const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+      if (!apiKey) {
+        throw new Error("Missing Groq API key");
       }
 
       const systemMessage = `IMPORTANT INSTRUCTIONS: You are an AI assistant dedicated exclusively to providing information about Helmi Lakhder.
@@ -120,21 +121,41 @@ Some of PROJECTS(get rest from his github):
 6. HelmiPredico-V2 (April 2023)
 7. HelmiPredico-V1 (April 2023)`;
 
-      const puterMessages = [
+      const groqMessages = [
         { role: "system", content: systemMessage },
         ...updatedMessages
           .filter((m) => m.role === "user" || m.role === "assistant")
           .map((m) => ({ role: m.role, content: m.content })),
       ];
 
-      const resp = await window.puter.ai.chat(puterMessages, {
-        model: "gemini-2.5-flash-lite",
-        temperature: 0.7,
-        max_tokens: 1024,
+      const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "llama-3.1-8b-instant",
+          messages: groqMessages,
+          temperature: 0.7,
+          max_tokens: 1024,
+        }),
       });
 
-      const aiResponse = resp?.message?.content ?? resp?.text ?? String(resp);
-      if (aiResponse) {
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        throw new Error(`Invalid JSON response (HTTP ${response.status})`);
+      }
+
+      if (!response.ok) {
+        const apiErrorMessage = data?.error?.message;
+        throw new Error(apiErrorMessage || `Groq API error (HTTP ${response.status})`);
+      }
+
+      const aiResponse = data?.choices?.[0]?.message?.content;
+      if (aiResponse && typeof aiResponse === "string") {
         
         this.setState({
           messages: [
@@ -144,15 +165,15 @@ Some of PROJECTS(get rest from his github):
           isLoading: false,
         });
       } else {
-        console.error("Invalid response format:", resp);
+        console.error("Invalid response format:", data);
         throw new Error("Invalid response format");
       }
     } catch (error) {
-      console.error("Error calling Gemini API:", error);
+      console.error("Error calling Groq API:", error);
       const errorMessage = error.message && error.message.includes('Invalid response format')
         ? 'Sorry, I received an unexpected response from the AI service. Please try again later.'
-        : error.message === 'Puter.js not loaded'
-          ? 'Sorry, the AI service is still loading. Please try again in a moment.'
+        : error.message === 'Missing Groq API key'
+          ? 'Sorry, the AI service is not configured (missing API key).'
           : 'Sorry, I encountered an error connecting to the AI service. Please try again later.';
       
       this.setState({
