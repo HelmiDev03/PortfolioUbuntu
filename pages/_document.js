@@ -10,6 +10,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <script src="https://js.puter.com/v2/"></script>
       </Head>
         <body>
           <Main />

@@ -116,7 +116,7 @@ export class StatusCard extends Component {
             />
           </div>
           <div className="w-2/3 flex items-center justify-between text-gray-400">
-            <span>OnePlus 8 Pro</span>
+            <span>Redmi Note 13 PRO</span>
             <SmallArrow angle="right" />
           </div>
         </div>
@@ -144,7 +144,7 @@ export class StatusCard extends Component {
             />
           </div>
           <div className="w-2/3 flex items-center justify-between text-gray-400">
-            <span>2:40 Remaining (75%)</span>
+            <span>2:40 Remaining (99%)</span>
             <SmallArrow angle="right" />
           </div>
         </div>

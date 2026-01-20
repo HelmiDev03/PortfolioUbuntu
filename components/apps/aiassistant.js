@@ -52,115 +52,89 @@ export class AIAssistant extends Component {
     });
 
     try {
-      // Call Gemini API
-      const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": process.env.NEXT_PUBLIC_GEMINI_API_KEY,
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: `IMPORTANT INSTRUCTIONS: You are an AI assistant dedicated exclusively to providing information about Helmi Lakhder. 
+      // Call Puter.js AI (no API keys needed)
+      if (typeof window === "undefined" || !window.puter?.ai?.chat) {
+        throw new Error("Puter.js not loaded");
+      }
 
-                  CONSTRAINTS:
-                  1. You must ONLY answer questions using information available in Helmi's website and CV
-                  2. If you don't know something about Helmi from his website or CV, admit you don't know
-                  3. NEVER make up information about Helmi that isn't in his website or CV
-                  4. If asked about ANY topic not related to Helmi, politely decline and redirect to Helmi's professional information
-                  5. You are NOT a general AI assistant - you are ONLY knowledgeable about Helmi
-                  6. You should focus on Helmi's skills, experience, projects, education, and professional background
-                  
-                  HELMI'S INFORMATION:
-                  - Full Name: Mohamed Helmi Lakhder
-                  - Self-Description: "Future Tech Pioneer"
-                  - Contact: helmilakhder@gmail.com, mohamedhelmi.lakhdhar@insat.ucar.tn
-                  - Phone: +216 90-217-664
-                  - Location: Tunis, Tunisia
-                  - Languages: French, English, Arabic
-                  - Website: www.helmi404.me
-                  - Social Media: GitHub (@HelmiDev03), LinkedIn (helmipl), Twitter (@Helmi0128), Instagram (@theneongeek), LeetCode (@HelmiDev)
-                  
-                  EDUCATION:
-                  - National Institute of Applied Science and Technology (INSAT) (September 2024 - Present)
-                    * ENGINEER's DEGREE, ICT
-                  - Higher Institute of Information Technologies and Communications (ISTIC) (September 2021 - May 2024)
-                    * B.S. IoT, Embedded Systems
-                    * GPA: 4.0/4.0
-                    * Valedictorian for the 2021/2022 and 2022/2023 Classes
-                  
-                  SKILLS:
-                  - Languages: JavaScript, TypeScript, Python, C++, C, Dart
-                  - Web Technologies: HTML, CSS, Tailwind CSS, Bootstrap
-                  - Frameworks & Libraries: React.js, Next.js, Flutter, Express.js, Django, FastAPI, LangGraph, Spring Boot
-                  - Databases: PostgreSQL, MySQL, MongoDB
-                  - DevOps & Tools: Docker, Node-RED, Apache Airflow, Ansible, Prometheus, Grafana, Selenium, Git
-                  - Operating Systems: Ubuntu, Debian, Cloudera
-                  
-                  EXPERIENCE:
-                  - Biolyt AI · Full Stack Data Engineer (July 2025 - August 2025)
-                    * Summer Internship (Remote) - Bengaluru South, Karnataka, India
-                    * Gained understanding of healthcare business plan, including clinical trials, FDA processes, and biotech operations
-                    * Contributed to FastAPI-backed multi-agent system using LangGraph
-                    * Managed DAG using Apache Airflow for clinical and regulatory data processing
-                    * Technologies: React.js, FastAPI, LangGraph, Apache Airflow, Docker, MongoDB
-                  
-                  - Novencia Group · Full Stack Developer (February 2024 - May 2024)
-                    * End of Studies Internship (On-site) - Montplaisir, Tunis
-                    * Developed web and mobile SaaS solution for HR functionalities
-                    * Technologies: Next.js, Flutter, Express.js, Redux, MongoDB, Tailwind CSS
-                  
-                  - MAE Assurances · Back-end Developer (July 2023 - August 2023)
-                    * Summer Internship (Hybrid) - Ariana, Tunis
-                    * Created platform for insurance domain interactions and transactions
-                    * Technologies: Face Recognition, Django, PostgreSQL, Bootstrap, Chart.js, Prism.js
-                  
-                  Some of PROJECTS(get rest from his github):
-                  1. Classification of Cardiac Anomalies from ECG Signals (May 2025)
-                     * Machine learning system classifying cardiac anomalies from ECG signals
-                     * Trained multiple ML models (Random Forest, SVM, KNN, Decision Tree)
-                     * Implemented API with FastAPI and user interface with Next.js
-                  
-                  2. Cho3la (December 2023)
-                     * Flame and gas detection application using ESP8266 NodeMCU with sensors
-                     * Data sent to ESP32, published via MQTT to Node-RED dashboard
-                     * Real-time visualization and Telegram notifications
-                  
-                  3. HMKSocialHUB (March 2023)
-                     * Social platform built with Django
-                     * Features: user interactions, content management, admin controls
-                     * Technologies: Django, PostgreSQL, Cloudinary, CI/CD deployment
-                  
-                  4. End-Of-Study Project (May 2024): SaaS solution for HR functionalities
-                  
-                  5. Insurance Agency Management System (June 2023): System for home insurance subscription and request handling
-                  
-                  6. HelmiPredico-V2 (April 2023): Hospital Management System with disease prediction
-                  
-                  7. HelmiPredico-V1 (April 2023): Mobile app for doctor-patient interactions
-                  
-                  User query: ${userInput}`
-                }
-              ]
-            }
-          ],
-          generationConfig: {
-            temperature: 0.7,
-            topK: 40,
-            topP: 0.95,
-            maxOutputTokens: 1024,
-          },
-        }),
+      const systemMessage = `IMPORTANT INSTRUCTIONS: You are an AI assistant dedicated exclusively to providing information about Helmi Lakhder.
+
+CONSTRAINTS:
+1. You must ONLY answer questions using information available in Helmi's website and CV
+2. If you don't know something about Helmi from his website or CV, admit you don't know
+3. NEVER make up information about Helmi that isn't in his website or CV
+4. If asked about ANY topic not related to Helmi, politely decline and redirect to Helmi's professional information
+5. You are NOT a general AI assistant - you are ONLY knowledgeable about Helmi
+6. You should focus on Helmi's skills, experience, projects, education, and professional background
+
+HELMI'S INFORMATION:
+- Full Name: Mohamed Helmi Lakhder
+- Self-Description: "Future Tech Pioneer"
+- Contact: helmilakhder@gmail.com, mohamedhelmi.lakhdhar@insat.ucar.tn
+- Phone: +216 90-217-664
+- Location: Tunis, Tunisia
+- Languages: French, English, Arabic
+- Website: www.helmi404.me
+- Social Media: GitHub (@HelmiDev03), LinkedIn (helmipl), Twitter (@Helmi0128), Instagram (@theneongeek), LeetCode (@HelmiDev)
+
+EDUCATION:
+- National Institute of Applied Science and Technology (INSAT) (September 2024 - Present)
+  * ENGINEER's DEGREE, ICT
+- Higher Institute of Information Technologies and Communications (ISTIC) (September 2021 - May 2024)
+  * B.S. IoT, Embedded Systems
+  * GPA: 4.0/4.0
+  * Valedictorian for the 2021/2022 and 2022/2023 Classes
+
+SKILLS:
+- Languages: JavaScript, TypeScript, Python, C++, C, Dart
+- Web Technologies: HTML, CSS, Tailwind CSS, Bootstrap
+- Frameworks & Libraries: React.js, Next.js, Flutter, Express.js, Django, FastAPI, LangGraph, Spring Boot
+- Databases: PostgreSQL, MySQL, MongoDB
+- DevOps & Tools: Docker, Node-RED, Apache Airflow, Ansible, Prometheus, Grafana, Selenium, Git
+- Operating Systems: Ubuntu, Debian, Cloudera
+
+EXPERIENCE:
+- Biolyt AI · Full Stack Data Engineer (July 2025 - August 2025)
+  * Summer Internship (Remote) - Bengaluru South, Karnataka, India
+  * Gained understanding of healthcare business plan, including clinical trials, FDA processes, and biotech operations
+  * Contributed to FastAPI-backed multi-agent system using LangGraph
+  * Managed DAG using Apache Airflow for clinical and regulatory data processing
+  * Technologies: React.js, FastAPI, LangGraph, Apache Airflow, Docker, MongoDB
+
+- Novencia Group · Full Stack Developer (February 2024 - May 2024)
+  * End of Studies Internship (On-site) - Montplaisir, Tunis
+  * Developed web and mobile SaaS solution for HR functionalities
+  * Technologies: Next.js, Flutter, Express.js, Redux, MongoDB, Tailwind CSS
+
+- MAE Assurances · Back-end Developer (July 2023 - August 2023)
+  * Summer Internship (Hybrid) - Ariana, Tunis
+  * Created platform for insurance domain interactions and transactions
+  * Technologies: Face Recognition, Django, PostgreSQL, Bootstrap, Chart.js, Prism.js
+
+Some of PROJECTS(get rest from his github):
+1. Classification of Cardiac Anomalies from ECG Signals (May 2025)
+2. Cho3la (December 2023)
+3. HMKSocialHUB (March 2023)
+4. End-Of-Study Project (May 2024): SaaS solution for HR functionalities
+5. Insurance Agency Management System (June 2023)
+6. HelmiPredico-V2 (April 2023)
+7. HelmiPredico-V1 (April 2023)`;
+
+      const puterMessages = [
+        { role: "system", content: systemMessage },
+        ...updatedMessages
+          .filter((m) => m.role === "user" || m.role === "assistant")
+          .map((m) => ({ role: m.role, content: m.content })),
+      ];
+
+      const resp = await window.puter.ai.chat(puterMessages, {
+        model: "gemini-2.5-flash-lite",
+        temperature: 0.7,
+        max_tokens: 1024,
       });
 
-      const data = await response.json();
-      console.log('API Response:', data);
-      
-      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-        const aiResponse = data.candidates[0].content.parts[0].text;
+      const aiResponse = resp?.message?.content ?? resp?.text ?? String(resp);
+      if (aiResponse) {
         
         this.setState({
           messages: [
@@ -170,14 +144,16 @@ export class AIAssistant extends Component {
           isLoading: false,
         });
       } else {
-        console.error("Invalid response format:", JSON.stringify(data));
-        throw new Error(`Invalid response format: ${JSON.stringify(data)}`);
+        console.error("Invalid response format:", resp);
+        throw new Error("Invalid response format");
       }
     } catch (error) {
       console.error("Error calling Gemini API:", error);
-      const errorMessage = error.message && error.message.includes('Invalid response format') 
-        ? 'Sorry, there was an issue with the AI response format. The team has been notified.'
-        : 'Sorry, I encountered an error connecting to the AI service. Please try again later.';
+      const errorMessage = error.message && error.message.includes('Invalid response format')
+        ? 'Sorry, I received an unexpected response from the AI service. Please try again later.'
+        : error.message === 'Puter.js not loaded'
+          ? 'Sorry, the AI service is still loading. Please try again in a moment.'
+          : 'Sorry, I encountered an error connecting to the AI service. Please try again later.';
       
       this.setState({
         messages: [

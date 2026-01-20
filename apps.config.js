@@ -7,12 +7,12 @@ import { displayTrash } from './components/apps/trash';
 import { displayGedit } from './components/apps/gedit';
 import { displayAboutHelmi } from './components/apps/helmi';
 import { displayTerminalCalc } from './components/apps/calc';
-import {displayYouTube} from './components/apps/youtube';
 import {displayAIAssistant} from './components/apps/aiassistant';
 import {displayCarGame} from './components/apps/cargame';
 import {displayFaceGesture} from './components/apps/facegesture';
 import {displayCircleClock} from './components/apps/circleclock';
 import {displayFileExplorer} from './components/apps/fileexplorer';
+
 //import {displayBot} from './components/apps/chatbot';
 
 
@@ -116,15 +116,6 @@ const apps = [
         favourite: false,
         desktop_shortcut: true,
         screen: displayGedit,
-    },
-    {
-        id: "youtube",
-        title: "CS1994",
-        icon: './themes/Yaru/apps/cs.jpg',
-        disabled: false,
-        favourite: false,
-        desktop_shortcut: true,
-        screen: displayYouTube,
     },
     /*
     {
