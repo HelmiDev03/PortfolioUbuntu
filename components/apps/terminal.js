@@ -287,7 +287,7 @@ export class Terminal extends Component {
           result =
             "Command '" +
             main +
-            "' not found, or not yet implemented.<br>Available Commands:[ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg]";
+            "' not found, or not yet implemented.<br>Available Commands:[ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, about-helmi, todoist, trash, settings, sendmsg]";
         }
         break;
       case "echo":
@@ -300,27 +300,17 @@ export class Terminal extends Component {
           result =
             "Command '" +
             main +
-            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg ]";
-        }
-        break;
-      case "chrome":
-        if (words[0] === "." || words.length === 0) {
-          this.props.openApp("chrome");
-        } else {
-          result =
-            "Command '" +
-            main +
-            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg ]";
+            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, about-helmi, todoist, trash, settings, sendmsg ]";
         }
         break;
       case "todoist":
         if (words[0] === "." || words.length === 0) {
-          this.props.openApp("todo-ist");
+          this.props.openApp("todoist");
         } else {
           result =
             "Command '" +
             main +
-            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg ]";
+            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, about-helmi, todoist, trash, settings, sendmsg ]";
         }
         break;
       case "trash":
@@ -330,7 +320,7 @@ export class Terminal extends Component {
           result =
             "Command '" +
             main +
-            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg ]";
+            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, about-helmi, todoist, trash, settings, sendmsg ]";
         }
         break;
       case "about-helmi":
@@ -340,7 +330,7 @@ export class Terminal extends Component {
           result =
             "Command '" +
             main +
-            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg ]";
+            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, about-helmi, todoist, trash, settings, sendmsg ]";
         }
         break;
       case "terminal":
@@ -350,7 +340,7 @@ export class Terminal extends Component {
           result =
             "Command '" +
             main +
-            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg ]";
+            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, about-helmi, todoist, trash, settings, sendmsg ]";
         }
         break;
       case "settings":
@@ -360,7 +350,7 @@ export class Terminal extends Component {
           result =
             "Command '" +
             main +
-            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg ]";
+            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, about-helmi, todoist, trash, settings, sendmsg ]";
         }
         break;
       case "sendmsg":
@@ -370,7 +360,7 @@ export class Terminal extends Component {
           result =
             "Command '" +
             main +
-            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg ]";
+            "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, about-helmi, todoist, trash, settings, sendmsg ]";
         }
         break;
       case "clear":
@@ -392,7 +382,7 @@ export class Terminal extends Component {
         result =
           "Command '" +
           main +
-          "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-helmi, todoist, trash, settings, sendmsg ]";
+          "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, about-helmi, todoist, trash, settings, sendmsg ]";
     }
     document.getElementById(`row-result-${rowId}`).innerHTML = result;
     this.appendTerminalRow();

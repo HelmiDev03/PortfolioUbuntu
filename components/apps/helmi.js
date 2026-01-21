@@ -245,6 +245,13 @@ function About() {
           )
         </li>
 
+        <li className=" list-star">
+          I write some things: {" "}
+          <a className="text-underline" href="https://helmiblog.vercel.app/" target="_blank" rel="noreferrer">
+            <u> check it out</u>
+          </a>
+        </li>
+
         <li style={{ marginTop: "2.2rem", display: 'flex', justifyContent: 'center' }} >
           <a href="https://github.com/HelmiDev03" style={{ marginRight: "1rem", color: "#fff", fontWeight: "bold" }}>
             <FontAwesomeIcon icon={faGithub} size="lg" />
