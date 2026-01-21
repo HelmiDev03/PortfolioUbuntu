@@ -12,6 +12,7 @@ import {displayCarGame} from './components/apps/cargame';
 import {displayFaceGesture} from './components/apps/facegesture';
 import {displayCircleClock} from './components/apps/circleclock';
 import {displayFileExplorer} from './components/apps/fileexplorer';
+import {displayBlog} from './components/apps/blog';
 
 //import {displayBot} from './components/apps/chatbot';
 
@@ -35,6 +36,15 @@ const apps = [
         favourite: true,
         desktop_shortcut: true,
         screen: displayChrome,
+    },
+    {
+        id: "blog",
+        title: "Blog",
+        icon: './themes/Yaru/apps/blog.png',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayBlog,
     },
     {
         id: "calc",
