@@ -244,8 +244,8 @@ function About() {
           </a>{" "}
           )
         </li>
-
-        <li className=" list-star">
+        
+        <li className=" list-star mt-1">
           I write some things: {" "}
           <a className="text-underline" href="https://helmiblog.vercel.app/" target="_blank" rel="noreferrer">
             <u> check it out</u>
