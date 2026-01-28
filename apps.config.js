@@ -6,7 +6,6 @@ import { displayTrash } from './components/apps/trash';
 import { displayGedit } from './components/apps/gedit';
 import { displayAboutHelmi } from './components/apps/helmi';
 
-import { displayTerminalCalc } from './components/apps/calc';
 import {displayAIAssistant} from './components/apps/aiassistant';
 import {displayCarGame} from './components/apps/cargame';
 import {displayFaceGesture} from './components/apps/facegesture';
@@ -26,15 +25,6 @@ const apps = [
         favourite: true,
         desktop_shortcut: true,
         screen: displayAIAssistant,
-    },
-    {
-        id: "calc",
-        title: "Calc",
-        icon: './themes/Yaru/apps/calc.png',
-        disabled: false,
-        favourite: true,
-        desktop_shortcut: false,
-        screen: displayTerminalCalc,
     },
     {
         id: "about-helmi",
