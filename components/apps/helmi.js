@@ -244,7 +244,7 @@ function About() {
           </a>{" "}
           )
         </li>
-        
+
         <li className=" list-star mt-1">
           I write some things: {" "}
           <a className="text-underline" href="https://helmiblog.vercel.app/" target="_blank" rel="noreferrer">
@@ -305,18 +305,18 @@ function Education() {
           </div>
           <div className="text-sm text-gray-300 font-bold mt-1">
 
-          2x Major De Promotion 2021/2022 & 2022/2023
+            2x Major De Promotion 2021/2022 & 2022/2023
           </div>
         </li>
         <li className="list-disc mt-2">
           <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-          National Institute of Applied Sciences and Technology - INSAT
+            National Institute of Applied Sciences and Technology - INSAT
           </div>
           <div className=" text-sm text-gray-400 mt-0.5">September 2024</div>
 
           <div className="text-sm text-gray-300 font-bold mt-1">
 
-            ICT Engineering 
+            ICT Engineering
 
 
           </div>
@@ -780,7 +780,7 @@ function Resume() {
     <iframe
       className="h-full w-full"
       src="./files/cv.pdf"
-      title="helmi lakhder resume"
+      title="Helmi Lakhder resume"
       frameBorder="0"
     ></iframe>
   );
@@ -797,7 +797,7 @@ function Thoughts() {
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [pendingUnlockIndex, setPendingUnlockIndex] = useState(null);
-  
+
   // Generate a secret but enticing teaser based on context (title)
   const getTeaser = (title = "") => {
     const t = String(title).toLowerCase();
@@ -817,37 +817,37 @@ function Thoughts() {
       ],
       images: [
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986937_nhmhh3.jpg",
-        "https://res.cloudinary.com/dmvxysqvl/video/upload/dabdoub_klcaaw.mp4?_s=vp-2.1.0" , 
+        "https://res.cloudinary.com/dmvxysqvl/video/upload/dabdoub_klcaaw.mp4?_s=vp-2.1.0",
         "https://res.cloudinary.com/dmvxysqvl/video/upload/468564744-9049975895045288-77634_bgt9fm.mp4?_s=vp-2.1.0",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1734172248/dob_bqdsah.png",
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731946719/IMG_20241118_171742_gzoucs.jpg", 
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731946719/IMG_20241118_171742_gzoucs.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1732492285/IMG_20231028_080017_cdzjnx.jpg",
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731946719/IMG_20241118_171758_xin0i1.jpg", 
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731946719/IMG_20241118_171758_xin0i1.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986946_na78sr.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1732834091/IMG_20230905_180040_xmkocq.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1732834090/IMG_20230905_180201_qqoezm.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1680561729/media/post_images/6cacd6a4-7d9e-48d7-bca3-1577d0f0370d_qkeeeh.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797380/1731796986971_p1m5l9.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797379/1731796986959_bjqid7.jpg",
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797405/1731796987047_x8i0dh.jpg" , 
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797405/1731796987047_x8i0dh.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797404/1731796987027_t5dpdg.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797469/IMG_20240310_200406_xsnevv.jpg",
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797469/IMG_20231228_194946_hs6a1e.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797467/IMG_20231223_215435_scxb2j.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797464/IMG_20231107_183045_o0dno0.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797463/IMG_20231002_164222_rs2kwe.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797442/IMG_20230905_180201_r5hwk2.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797419/IMG_20230905_180040_iwnh10.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797416/1731796987086_m5uxwu.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797407/1731796987055_bgluho.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797407/1731796987062_amnbxp.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797405/1731796987047_x8i0dh.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797397/1731796987020_vpv6ac.jpg" ,  
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797391/1731796987011_icssge.jpg" ,
-        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797389/1731796986990_sko8fw.jpg" ,
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797469/IMG_20231228_194946_hs6a1e.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797467/IMG_20231223_215435_scxb2j.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797464/IMG_20231107_183045_o0dno0.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797463/IMG_20231002_164222_rs2kwe.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797442/IMG_20230905_180201_r5hwk2.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797419/IMG_20230905_180040_iwnh10.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797416/1731796987086_m5uxwu.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797407/1731796987055_bgluho.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797407/1731796987062_amnbxp.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797405/1731796987047_x8i0dh.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797397/1731796987020_vpv6ac.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797391/1731796987011_icssge.jpg",
+        "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731797389/1731796986990_sko8fw.jpg",
       ]
-    } , 
-    
+    },
+
     {
       title: "Living the dream",
       date: "March 2023",
@@ -860,10 +860,10 @@ function Thoughts() {
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1679674303/media/profile_images/amomulheres_Create_a_draw_dont_forgot_to_put_fails_in_lines_lik_845781b6-96a9-4643-9a_vrff3s.png",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1679866568/media/post_images/e0de3058-9f39-4c56-ba75-90b3752aa4a4_mxzdjn.jpg",
         "https://res.cloudinary.com/dmvxysqvl/image/upload/v1681430950/media/post_images/096bb599-c3cf-4923-994d-7623b4db9ae0_jc0ged.jpg"
-        
+
       ],
     },
-    
+
   ];
 
   const toggleCarousel = (images, index) => {
@@ -872,24 +872,24 @@ function Thoughts() {
         const isVideo = image.includes(".mp4") || image.includes(".webm");
         return isVideo
           ? {
-              original: image,
-              thumbnail: "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731939026/ddddd_hj6yhv.png",
-              renderItem: () => (
-                <video className="translate-x-1/2" controls style={{ width: "50%" }}>
-                  <source src={image} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              ),
-            }
+            original: image,
+            thumbnail: "https://res.cloudinary.com/dmvxysqvl/image/upload/v1731939026/ddddd_hj6yhv.png",
+            renderItem: () => (
+              <video className="translate-x-1/2" controls style={{ width: "50%" }}>
+                <source src={image} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ),
+          }
           : {
-              original: image,
-              thumbnail: image,
-            };
+            original: image,
+            thumbnail: image,
+          };
       })
     );
     setActiveProjectIndex(index === activeProjectIndex ? null : index); // Toggle the carousel for the current thought
   };
-  
+
 
   const closeCarousel = () => {
     setActiveProjectIndex(null); // Hide the carousel

@@ -9,10 +9,10 @@ export default function Meta() {
             <meta charSet="utf-8" />
             <meta name="title" content="Helmi Lakhder" />
             <meta name="description"
-                content="Helmi Lakahder's  Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
-            <meta name="author" content="Helmi Lakahder(Helmi)" />
+                content="Helmi Lakhder's Personal Portfolio Website. Made with Ubuntu 20.4 (Linux)." />
+            <meta name="author" content="Helmi Lakhder(Helmi)" />
             <meta name="keywords"
-                content="Helmi Lakahder, Helmi Lakahder's portfolio, helmi linux, ubuntu portfolio, Helmi Lakhder protfolio,Helmi Lakhder , Helmi Lakhder, Helmi ubuntu, Helmi Lakhder ubuntu portfolio" />
+                content="Helmi Lakhder, Helmi Lakhder's portfolio, helmi linux, ubuntu portfolio, Helmi Lakhder portfolio,Helmi Lakhder , Helmi Lakhder, Helmi ubuntu, Helmi Lakhder ubuntu portfolio" />
             <meta name="robots" content="index, follow" />
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             <meta name="language" content="English" />

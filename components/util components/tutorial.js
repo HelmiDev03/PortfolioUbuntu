@@ -42,7 +42,7 @@ export default class Tutorial extends Component {
 
   tutorialSteps = [
     {
-      title: "Welcome to Helmi's Ubuntu Portfolio! 🎉",
+      title: "Welcome to Helmi Lakhder's Ubuntu Portfolio! 🎉",
       description:
         "This is an interactive Ubuntu 20.04 themed portfolio website. Let me show you around and help you discover all the features!",
       image: "/tutorial/welcome.png",
@@ -63,7 +63,7 @@ export default class Tutorial extends Component {
       highlight: null,
     },
     {
-      title: "💼 About Helmi",
+      title: "💼 About Helmi Lakhder",
       description:
         "Get to know me better! This app showcases my professional background, skills, experience, and projects. Learn about my journey as a developer and what drives my passion for technology.",
       image: "/tutorial/helmi1.png",
@@ -111,7 +111,7 @@ export default class Tutorial extends Component {
       image: "/tutorial/contact.png",
       highlight: null,
     },
-    
+
     {
       title: "🏎️ Racing Game",
       description:
@@ -140,7 +140,7 @@ export default class Tutorial extends Component {
       title: "Ready to Explore!",
       description:
         "You're all set! Feel free to explore the portfolio. You can access this tutorial anytime by clicking the '?' button in the top navigation bar. Enjoy your experience!",
-      
+
       highlight: null,
     },
   ];
@@ -305,11 +305,10 @@ export default class Tutorial extends Component {
                 <button
                   onClick={this.prevStep}
                   disabled={this.state.currentStep === 0}
-                  className={`px-4 py-2 rounded-md font-medium transition-all focus:outline-none focus:ring-2 focus:ring-ubb-orange ${
-                    this.state.currentStep === 0
+                  className={`px-4 py-2 rounded-md font-medium transition-all focus:outline-none focus:ring-2 focus:ring-ubb-orange ${this.state.currentStep === 0
                       ? "bg-gray-700 text-gray-500 cursor-not-allowed"
                       : "bg-gray-700 text-white hover:bg-gray-600"
-                  }`}
+                    }`}
                   aria-label="Previous step"
                   tabIndex="0"
                 >

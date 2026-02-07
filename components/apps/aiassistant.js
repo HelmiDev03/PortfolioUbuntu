@@ -18,7 +18,7 @@ export class AIAssistant extends Component {
       messages: [
         {
           role: "assistant",
-          content: "Hello! I'm Helmi's AI Assistant. How can I help you today?",
+          content: "Hello! I'm Helmi Lakhder's AI Assistant. How can I help you today?",
         },
       ],
     });
@@ -156,7 +156,7 @@ Some of PROJECTS(get rest from his github):
 
       const aiResponse = data?.choices?.[0]?.message?.content;
       if (aiResponse && typeof aiResponse === "string") {
-        
+
         this.setState({
           messages: [
             ...updatedMessages,
@@ -175,7 +175,7 @@ Some of PROJECTS(get rest from his github):
         : error.message === 'Missing Groq API key'
           ? 'Sorry, the AI service is not configured (missing API key).'
           : 'Sorry, I encountered an error connecting to the AI service. Please try again later.';
-      
+
       this.setState({
         messages: [
           ...updatedMessages,
@@ -194,26 +194,24 @@ Some of PROJECTS(get rest from his github):
     return this.state.messages.map((message, index) => (
       <div
         key={index}
-        className={`mb-4 ${
-          message.role === "user" ? "text-right" : "text-left"
-        }`}
+        className={`mb-4 ${message.role === "user" ? "text-right" : "text-left"
+          }`}
       >
         {message.role === "assistant" && (
           <div className="flex items-start mb-1">
-            <img 
-              src="./themes/Yaru/apps/helmigpt.png" 
-              alt="Helmi AI" 
-              className="w-6 h-6 mr-1" 
+            <img
+              src="./themes/Yaru/apps/helmigpt.png"
+              alt="Helmi AI"
+              className="w-6 h-6 mr-1"
             />
             <span className="text-xs text-gray-400">Helmi AI</span>
           </div>
         )}
         <div
-          className={`inline-block p-3 rounded-lg ${
-            message.role === "user"
-              ? "bg-ub-orange text-white"
-              : "bg-gray-700 text-white"
-          }`}
+          className={`inline-block p-3 rounded-lg ${message.role === "user"
+            ? "bg-ub-orange text-white"
+            : "bg-gray-700 text-white"
+            }`}
         >
           {message.role === "user" ? (
             message.content
@@ -247,7 +245,7 @@ Some of PROJECTS(get rest from his github):
         <div className="flex">
           <textarea
             className="flex-grow p-2 rounded-l-lg bg-gray-800 text-white focus:outline-none"
-            placeholder="Ask me about Helmi..."
+            placeholder="Ask me about Helmi Lakhder..."
             value={userInput}
             onChange={this.handleInputChange}
             onKeyDown={this.handleKeyDown}

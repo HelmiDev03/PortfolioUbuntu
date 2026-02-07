@@ -6,11 +6,11 @@ import { displayTrash } from './components/apps/trash';
 import { displayGedit } from './components/apps/gedit';
 import { displayAboutHelmi } from './components/apps/helmi';
 
-import {displayAIAssistant} from './components/apps/aiassistant';
-import {displayCarGame} from './components/apps/cargame';
-import {displayFaceGesture} from './components/apps/facegesture';
-import {displayCircleClock} from './components/apps/circleclock';
-import {displayFileExplorer} from './components/apps/fileexplorer';
+import { displayAIAssistant } from './components/apps/aiassistant';
+import { displayCarGame } from './components/apps/cargame';
+import { displayFaceGesture } from './components/apps/facegesture';
+import { displayCircleClock } from './components/apps/circleclock';
+import { displayFileExplorer } from './components/apps/fileexplorer';
 
 //import {displayBot} from './components/apps/chatbot';
 
@@ -28,7 +28,7 @@ const apps = [
     },
     {
         id: "about-helmi",
-        title: "About Helmi",
+        title: "About Helmi Lakhder",
         icon: './themes/Yaru/system/mala.png',
         disabled: false,
         favourite: true,
