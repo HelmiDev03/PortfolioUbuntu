@@ -63,7 +63,7 @@ export default class Tutorial extends Component {
       highlight: null,
     },
     {
-      title: "💼 About Helmi Lakhder",
+      title: "💼 About Helmi",
       description:
         "Get to know me better! This app showcases my professional background, skills, experience, and projects. Learn about my journey as a developer and what drives my passion for technology.",
       image: "/tutorial/helmi1.png",
