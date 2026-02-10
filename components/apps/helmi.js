@@ -312,7 +312,7 @@ function Education() {
           <div className=" text-lg md:text-xl text-left font-bold leading-tight">
             National Institute of Applied Sciences and Technology - INSAT
           </div>
-          <div className=" text-sm text-gray-400 mt-0.5">September 2024</div>
+          <div className=" text-sm text-gray-400 mt-0.5">September 2024 - Present</div>
 
           <div className="text-sm text-gray-300 font-bold mt-1">
 
