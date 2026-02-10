@@ -28,7 +28,7 @@ const apps = [
     },
     {
         id: "about-helmi",
-        title: "About Helmi Lakhder",
+        title: "About Helmi",
         icon: './themes/Yaru/system/mala.png',
         disabled: false,
         favourite: true,
