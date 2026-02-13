@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactGA from "react-ga";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTwitter, faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faLinkedinIn, faGithub, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { SiLeetcode } from 'react-icons/si';
 import { useState } from "react";
 import ImageGallery from "react-image-gallery";
@@ -245,10 +245,22 @@ function About() {
           )
         </li>
 
-        <li className=" list-star mt-1">
-          I write some things: {" "}
-          <a className="text-underline" href="https://helmiblog.vercel.app/" target="_blank" rel="noreferrer">
-            <u> check it out</u>
+        <li className="list-none mt-4">
+          <a href="https://www.helmiblog.engineer" target="_blank" rel="noreferrer" className="flex w-full items-center p-3 bg-white hover:bg-gray-100 border border-gray-300 rounded shadow-md transition-all duration-300 transform hover:scale-105">
+            <span className="flex items-center justify-center w-10 h-10 bg-ub-orange rounded-full text-white mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+              </svg>
+            </span>
+            <div className="flex flex-col">
+              <span className="font-bold text-gray-800 text-base">Visit My Blog</span>
+              <span className="text-xs text-gray-500">helmiblog.engineer</span>
+            </div>
+            <div className="ml-auto text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+            </div>
           </a>
         </li>
 
@@ -256,13 +268,13 @@ function About() {
           <a href="https://github.com/HelmiDev03" style={{ marginRight: "1rem", color: "#fff", fontWeight: "bold" }}>
             <FontAwesomeIcon icon={faGithub} size="lg" />
           </a>
-          <a href="https://www.linkedin.com/in/helmipl/?originalSubdomain=tn" style={{ marginRight: "1rem", color: " #0e76a8 ", fontWeight: "bold" }}>
-            <FontAwesomeIcon icon={faLinkedin} size="lg" />
+          <a href="https://www.linkedin.com/in/helmipl/?originalSubdomain=tn" style={{ marginRight: "1rem", color: "#0077b5", fontWeight: "bold" }}>
+            <FontAwesomeIcon icon={faLinkedinIn} size="lg" />
           </a>
-          <a href="https://twitter.com/Helmi0128" style={{ marginRight: "1rem", color: "#1DA1F2", fontWeight: "bold" }}>
-            <FontAwesomeIcon icon={faTwitter} size="lg" />
+          <a href="https://twitter.com/Helmi0128" style={{ marginRight: "1rem", color: "#fff", fontWeight: "bold" }}>
+            <FontAwesomeIcon icon={faXTwitter} size="lg" />
           </a>
-          <a href="https://www.instagram.com/theneongeek/" style={{ marginRight: "1rem", color: "#C13584", fontWeight: "bold" }}>
+          <a href="https://www.instagram.com/theneongeek/" style={{ marginRight: "1rem", color: "#E1306C", fontWeight: "bold" }}>
             <FontAwesomeIcon icon={faInstagram} size="lg" />
           </a>
 
