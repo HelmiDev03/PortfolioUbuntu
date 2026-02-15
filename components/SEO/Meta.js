@@ -45,7 +45,7 @@ export default function Meta() {
             <meta name="og:type" content="website" />
 
             <link rel="icon" href="images/logos/ubuntu_icon.png" />
-            <link rel="apple-touch-icon" href="images/logos/e-logo.svg" />
+            <link rel="apple-touch-icon" href="images/logos/ubuntu_icon.png" />
             <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" as="style" />
             <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet"></link>
         </Head>
