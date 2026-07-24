@@ -72,54 +72,55 @@ HELMI'S INFORMATION:
 - Full Name: Mohamed Helmi Lakhder
 - Self-Description: "Future Tech Pioneer"
 - Contact: helmilakhder@gmail.com, mohamedhelmi.lakhdhar@insat.ucar.tn
-- Phone: +216 90-217-664
+- Phone: +216 90 217 664
 - Location: Tunis, Tunisia
 - Languages: French, English, Arabic
-- Website: www.helmi404.me
-- Social Media: GitHub (@HelmiDev03), LinkedIn (helmipl), Twitter (@Helmi0128), Instagram (@theneongeek), LeetCode (@HelmiDev)
+- Websites: www.helmi.engineer, www.helmiblog.engineer
+- Social Media: GitHub (HelmiDev03), LinkedIn (helmipl)
 
 EDUCATION:
-- National Institute of Applied Science and Technology (INSAT) (September 2024 - Present)
-  * ENGINEER's DEGREE, ICT
-- Higher Institute of Information Technologies and Communications (ISTIC) (September 2021 - May 2024)
-  * B.S. IoT, Embedded Systems
-  * GPA: 4.0/4.0
-  * Valedictorian for the 2021/2022 and 2022/2023 Classes
+- National Institute of Applied Science and Technology (INSAT) (Sept. 2024 - Present)
+  * Engineer's Degree, ICT
+- Higher Institute of Information Technologies and Communications (ISTIC) (Sept. 2021 - May. 2024)
+  * B.S. in IoT & Embedded Systems | GPA: 4.0/4.0 | Valedictorian (2021/2022, 2022/2023, 2023/2024)
 
 SKILLS:
-- Languages: JavaScript, TypeScript, Python, C++, C, Dart
-- Web Technologies: HTML, CSS, Tailwind CSS, Bootstrap
-- Frameworks & Libraries: React.js, Next.js, Flutter, Express.js, Django, FastAPI, LangGraph, Spring Boot
-- Databases: PostgreSQL, MySQL, MongoDB
-- DevOps & Tools: Docker, Node-RED, Apache Airflow, Ansible, Prometheus, Grafana, Selenium, Git
-- Operating Systems: Ubuntu, Debian, Cloudera
+- Languages: JavaScript, TypeScript, Python, C++, SQL, VHDL
+- Frameworks & Libraries: React.js, Next.js, Angular, Nest.js, Express.js, Django, FastAPI, Spring Boot, Flutter
+- Databases: MySQL, PostgreSQL, SQL Server, MongoDB, InfluxDB, Neo4j
+- ML & AI: Machine Learning, Deep Learning, Transformers, LLMs, RAG, Embeddings, PyTorch
+- IoT & Embedded: ESP32, STM32, PIC18, PSoC, FreeRTOS, Node-RED, MQTT, LabVIEW
+- Big Data: Apache Hadoop, Apache Spark, BigSQL
+- Cloud & DevOps: GCP, Microsoft Azure, AWS, Docker, Kubernetes, Apache Airflow, Ansible, Prometheus, Grafana
+- Tools & Practices: Git, GitHub, GitHub Actions, CI/CD, REST APIs, GraphQL, Microservices, Pytest, Jest, Agile/Scrum
 
 EXPERIENCE:
-- Biolyt AI · Full Stack Data Engineer (July 2025 - August 2025)
-  * Summer Internship (Remote) - Bengaluru South, Karnataka, India
-  * Gained understanding of healthcare business plan, including clinical trials, FDA processes, and biotech operations
-  * Contributed to FastAPI-backed multi-agent system using LangGraph
-  * Managed DAG using Apache Airflow for clinical and regulatory data processing
-  * Technologies: React.js, FastAPI, LangGraph, Apache Airflow, Docker, MongoDB
+- Biolyt AI · Full-Stack AI Engineer (Jul. 2025 - Present)
+  * Summer Internship (Jul. 2025 – Aug. 2025) -> Part-time (Sep. 2025 – Present) - Bengaluru South, India (Remote)
+  * Architected multi-agent AI systems for pharmaceutical drug discovery and clinical trial intelligence, integrating FDA compliance analysis and enterprise knowledge graphs.
+  * Developed production-ready full-stack AI applications by integrating LLMs, LangGraph agent orchestration, FastAPI backend services, and React.js user interfaces.
+  * Engineered distributed web scrapers targeting 100+ data sources to build a centralized data lake, utilizing Apache Airflow and SCD pipelines for automated, incremental updates.
+  * Stack: React.js, FastAPI, LangGraph, Neo4j, MCP, ELT, Apache Airflow, MongoDB, SearXNG, Docker, AWS (EC2, WorkSpaces, S3)
+- Novencia Group · Full-Stack Developer (Feb. 2024 - May. 2024)
+  * End-of-Studies Internship - Montplaisir, Tunis (On-site)
+  * Co-developed core workforce management and attendance ERP modules within an Agile team.
+  * Engineered flexible time-off and tracking features, reducing operational overhead.
+  * Architected core business logic compliant with country-specific enterprise labor laws and regulatory frameworks.
+  * Stack: Next.js, Flutter, Express.js, Redux, MongoDB, REST APIs, Tailwind CSS
+- MAE Assurances · Back-End Developer (Jul. 2023 - Aug. 2023)
+  * Summer Internship - Ariana, Tunis (Hybrid)
+  * Developed an internal insurance platform with face-recognition authentication to streamline operational workflows and improve user access management.
+  * Stack: Face Recognition, Django, PostgreSQL, Bootstrap, Chart.js, Prism.js
 
-- Novencia Group · Full Stack Developer (February 2024 - May 2024)
-  * End of Studies Internship (On-site) - Montplaisir, Tunis
-  * Developed web and mobile SaaS solution for HR functionalities
-  * Technologies: Next.js, Flutter, Express.js, Redux, MongoDB, Tailwind CSS
+COMPETITIVE PROGRAMMING:
+- Meta Hacker Cup 2025 | Ranked 150th globally in Round 3 – Top 200 worldwide
+- LeetCode | 700+ problems solved across all difficulty level
 
-- MAE Assurances · Back-end Developer (July 2023 - August 2023)
-  * Summer Internship (Hybrid) - Ariana, Tunis
-  * Created platform for insurance domain interactions and transactions
-  * Technologies: Face Recognition, Django, PostgreSQL, Bootstrap, Chart.js, Prism.js
-
-Some of PROJECTS(get rest from his github):
-1. Classification of Cardiac Anomalies from ECG Signals (May 2025)
-2. Cho3la (December 2023)
-3. HMKSocialHUB (March 2023)
-4. End-Of-Study Project (May 2024): SaaS solution for HR functionalities
-5. Insurance Agency Management System (June 2023)
-6. HelmiPredico-V2 (April 2023)
-7. HelmiPredico-V1 (April 2023)`;
+PROJECTS:
+1. AI-Driven Autonomous Security Drone (Jun. 2026): Custom drone with ESP32 flight-controller and Orange Pi edge-AI stack running YOLOv8n, ArcFace, and monocular depth estimation. Telemetry pipeline over Wi-Fi to a Flutter app. (ESP32, Orange Pi, YOLOv8, MQTT)
+2. Tunisia Job Recommendation System (Dec. 2025): Cloud-deployed system scraping LinkedIn via Airflow DAGs, matching CVs using all-MiniLM-L6-v2 embeddings. Llama 3.1 for parsing. (FastAPI, Next.js, PyTorch)
+3. Classification of Cardiac Anomalies from ECG Signals (May 2025): Machine learning system classifying anomalies on MIT-BIH Arrhythmia dataset using Random Forest, SVM, KNN, Decision Tree.
+4. Cho3la (Dec. 2023): Flame and gas detection system on ESP8266 NodeMCU with MQTT monitoring and Telegram alerts.`;
 
       const groqMessages = [
         { role: "system", content: systemMessage },

@@ -357,209 +357,131 @@ function Skills() {
           <div>Here are my most frequently used</div>
         </li>
       </ul>
-      <div className="w-full md:w-10/12 flex mt-4">
-        <div className=" text-sm text-center md:text-base w-1/2 font-bold">
-          Languages & Tools
-        </div>
-        <div className=" text-sm text-center md:text-base w-1/2 font-bold">
-          Frameworks & Libraries
-        </div>
-      </div>
-      <div className="w-full md:w-10/12 flex justify-center items-start font-bold text-center">
-        <div className="px-2 w-1/2">
-          <div className="flex flex-wrap justify-center items-start w-full mt-2">
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white"
-              alt="Python"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-C-00599C?style=flat&logo=c&logoColor=white"
-              alt="C"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white"
-              alt="C++"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Dart-00BFFF?style=flat&logo=dart&logoColor=white"
-              alt="Dart"
-            />
-
-
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-JavaScript-%23F7DF1C?style=flat&logo=javascript&logoColor=000000&labelColor=%23F7DF1C&color=%23FFCE5A"
-              alt="Helmi javascript"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white"
-              alt="TypeScript"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Redux-764ABC?style=flat&logo=redux&logoColor=white"
-              alt="Redux"
-            />
-
-
-
-            <a
-              href="https://www.google.com/search?q=is+html+a+language%3F"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img
-                title="yes it's a language!"
-                className="m-1"
-                src="https://img.shields.io/badge/-HTML5-%23E44D27?style=flat&logo=html5&logoColor=ffffff"
-                alt="Helmi HTML"
-              />
-            </a>
-
-            <img
-              src="https://img.shields.io/badge/-CSS-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS"
-              alt="Helmi SASS"
-              className="m-1"
-            />
-            <img
-              src="https://img.shields.io/badge/-Git-%23F05032?style=flat&logo=git&logoColor=%23ffffff"
-              alt="Helmi git"
-              className="m-1"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white"
-              alt="helmi tailwind"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white"
-              alt="helmi bootstrap"
-            />
-            <img
-              src="https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=ffffff"
-              alt="Helmi firebase"
-              className="m-1"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white"
-              alt="helmi postgresql"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-MySQL-4479A1?style=flat&logo=mysql&logoColor=white"
-              alt="helmi mysql"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white"
-              alt="helmi mongodb"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Docker-2496ED?style=flat&logo=docker&logoColor=white"
-              alt="Docker"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Apache%20Spark-E35A4B?style=flat&logo=apache-spark&logoColor=white"
-              alt="Apache Spark"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Apache%20Airflow-017CEE?style=flat&logo=apache-airflow&logoColor=white"
-              alt="Apache Airflow"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Ansible-EE0000?style=flat&logo=ansible&logoColor=white"
-              alt="Ansible"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white"
-              alt="Prometheus"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Grafana-F46800?style=flat&logo=grafana&logoColor=white"
-              alt="Grafana"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Selenium-43B02A?style=flat&logo=selenium&logoColor=white"
-              alt="Selenium"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Ubuntu-E95420?style=flat&logo=ubuntu&logoColor=white"
-              alt="Ubuntu"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Cloudera-EB3C00?style=flat&logo=apache&logoColor=white"
-              alt="Cloudera"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Debian-A81D33?style=flat&logo=debian&logoColor=white"
-              alt="helmi debian"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Node%20RED-F00?style=flat&logo=node-red&logoColor=white"
-              alt="Node-RED"
-            />
+      <div className="w-full md:w-10/12 flex flex-col mt-4 px-2 md:px-0 pb-8">
+        {/* Programming Languages */}
+        <div className="w-full mb-6">
+          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Programming Languages</div>
+          <div className="flex flex-wrap items-start w-full">
+            <img className="m-1" src="https://img.shields.io/badge/-JavaScript-%23F7DF1C?style=flat&logo=javascript&logoColor=000000&labelColor=%23F7DF1C&color=%23FFCE5A" alt="Helmi javascript" />
+            <img className="m-1" src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" alt="TypeScript" />
+            <img className="m-1" src="https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white" alt="Python" />
+            <img className="m-1" src="https://img.shields.io/badge/-C-00599C?style=flat&logo=c&logoColor=white" alt="C" />
+            <img className="m-1" src="https://img.shields.io/badge/-C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white" alt="C++" />
+            <img className="m-1" src="https://img.shields.io/badge/-Dart-00BFFF?style=flat&logo=dart&logoColor=white" alt="Dart" />
+            <a href="https://www.google.com/search?q=is+html+a+language%3F" target="_blank" rel="noreferrer"><img title="yes it's a language!" className="m-1" src="https://img.shields.io/badge/-HTML5-%23E44D27?style=flat&logo=html5&logoColor=ffffff" alt="Helmi HTML" /></a>
+            <img className="m-1" src="https://img.shields.io/badge/-CSS-1572B6?style=flat&logo=css3&logoColor=white" alt="Helmi SASS" />
+            <img className="m-1" src="https://img.shields.io/badge/-SQL-4479A1?style=flat&logo=sqlite&logoColor=white" alt="SQL" />
+            <img className="m-1" src="https://img.shields.io/badge/-VHDL-00599C?style=flat" alt="VHDL" />
           </div>
         </div>
-        <div className="px-2 flex flex-wrap items-start w-1/2">
-          <div className="flex flex-wrap justify-center items-start w-full mt-2">
-            <img
-              className=" m-1"
-              src="https://img.shields.io/badge/-Express.js-000000?style=flat&logo=express&logoColor=white)](https://expressjs.com/)"
-              alt="helmi express"
-            />
-            <img
-              className=" m-1"
-              src="//img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/"
-              alt="helmi django"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)"
-              alt="helmi next"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-Flutter-02569B?style=flat&logo=flutter&logoColor=white)](https://flutter.dev/)"
-              alt="helmi flutter"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-React.js-61DAFB?style=flat&logo=react&logoColor=black"
-              alt="helmi react"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white"
-              alt="Spring Boot"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-LangGraph-4B275F?style=flat&logo=graphql&logoColor=white"
-              alt="LangGraph"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-FastAPI-009688?style=flat&logo=fastapi&logoColor=white"
-              alt="FastAPI"
-            />
+
+        {/* Frameworks & Libraries */}
+        <div className="w-full mb-6">
+          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Frameworks & Libraries</div>
+          <div className="flex flex-wrap items-start w-full">
+            <img className="m-1" src="https://img.shields.io/badge/-React.js-61DAFB?style=flat&logo=react&logoColor=black" alt="helmi react" />
+            <img className="m-1" src="https://img.shields.io/badge/-Next.js-000000?style=flat&logo=next.js&logoColor=white" alt="helmi next" />
+            <img className="m-1" src="https://img.shields.io/badge/-Angular-DD0031?style=flat&logo=angular&logoColor=white" alt="Angular" />
+            <img className="m-1" src="https://img.shields.io/badge/-Nest.js-E0234E?style=flat&logo=nestjs&logoColor=white" alt="Nest.js" />
+            <img className="m-1" src="https://img.shields.io/badge/-Express.js-000000?style=flat&logo=express&logoColor=white" alt="helmi express" />
+            <img className="m-1" src="//img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white" alt="helmi django" />
+            <img className="m-1" src="https://img.shields.io/badge/-FastAPI-009688?style=flat&logo=fastapi&logoColor=white" alt="FastAPI" />
+            <img className="m-1" src="https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white" alt="Spring Boot" />
+            <img className="m-1" src="https://img.shields.io/badge/-Flutter-02569B?style=flat&logo=flutter&logoColor=white" alt="helmi flutter" />
+            <img className="m-1" src="https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white" alt="helmi tailwind" />
+            <img className="m-1" src="https://img.shields.io/badge/-Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white" alt="helmi bootstrap" />
+            <img className="m-1" src="https://img.shields.io/badge/-Redux-764ABC?style=flat&logo=redux&logoColor=white" alt="Redux" />
+          </div>
+        </div>
+
+        {/* Databases */}
+        <div className="w-full mb-6">
+          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Databases</div>
+          <div className="flex flex-wrap items-start w-full">
+            <img className="m-1" src="https://img.shields.io/badge/-MySQL-4479A1?style=flat&logo=mysql&logoColor=white" alt="helmi mysql" />
+            <img className="m-1" src="https://img.shields.io/badge/-PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white" alt="helmi postgresql" />
+            <img className="m-1" src="https://img.shields.io/badge/-SQL%20Server-CC2927?style=flat&logo=microsoft-sql-server&logoColor=white" alt="SQL Server" />
+            <img className="m-1" src="https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white" alt="helmi mongodb" />
+            <img className="m-1" src="https://img.shields.io/badge/-InfluxDB-22ADF6?style=flat&logo=influxdb&logoColor=white" alt="InfluxDB" />
+            <img className="m-1" src="https://img.shields.io/badge/-Neo4j-4581C3?style=flat&logo=neo4j&logoColor=white" alt="Neo4j" />
+            <img className="m-1" src="https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=ffffff" alt="Helmi firebase" />
+          </div>
+        </div>
+
+        {/* ML & AI */}
+        <div className="w-full mb-6">
+          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">ML & AI</div>
+          <div className="flex flex-wrap items-start w-full">
+            <img className="m-1" src="https://img.shields.io/badge/-Machine%20Learning-F9DC3E?style=flat" alt="Machine Learning" />
+            <img className="m-1" src="https://img.shields.io/badge/-Deep%20Learning-FF6F00?style=flat" alt="Deep Learning" />
+            <img className="m-1" src="https://img.shields.io/badge/-Transformers-FFB000?style=flat" alt="Transformers" />
+            <img className="m-1" src="https://img.shields.io/badge/-LLMs-000000?style=flat" alt="LLMs" />
+            <img className="m-1" src="https://img.shields.io/badge/-RAG-000000?style=flat" alt="RAG" />
+            <img className="m-1" src="https://img.shields.io/badge/-Embeddings-00599C?style=flat" alt="Embeddings" />
+            <img className="m-1" src="https://img.shields.io/badge/-PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white" alt="PyTorch" />
+            <img className="m-1" src="https://img.shields.io/badge/-LangGraph-4B275F?style=flat&logo=graphql&logoColor=white" alt="LangGraph" />
+          </div>
+        </div>
+
+        {/* IoT & Embedded */}
+        <div className="w-full mb-6">
+          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">IoT & Embedded</div>
+          <div className="flex flex-wrap items-start w-full">
+            <img className="m-1" src="https://img.shields.io/badge/-ESP32-E7352C?style=flat&logo=espressif&logoColor=white" alt="ESP32" />
+            <img className="m-1" src="https://img.shields.io/badge/-STM32-03234B?style=flat&logo=stmicroelectronics&logoColor=white" alt="STM32" />
+            <img className="m-1" src="https://img.shields.io/badge/-PIC18-FF0000?style=flat" alt="PIC18" />
+            <img className="m-1" src="https://img.shields.io/badge/-PSoC-00599C?style=flat" alt="PSoC" />
+            <img className="m-1" src="https://img.shields.io/badge/-FreeRTOS-000000?style=flat" alt="FreeRTOS" />
+            <img className="m-1" src="https://img.shields.io/badge/-Node%20RED-F00?style=flat&logo=node-red&logoColor=white" alt="Node-RED" />
+            <img className="m-1" src="https://img.shields.io/badge/-MQTT-660066?style=flat&logo=mqtt&logoColor=white" alt="MQTT" />
+            <img className="m-1" src="https://img.shields.io/badge/-LabVIEW-FFD100?style=flat&logo=ni&logoColor=black" alt="LabVIEW" />
+          </div>
+        </div>
+
+        {/* Big Data */}
+        <div className="w-full mb-6">
+          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Big Data</div>
+          <div className="flex flex-wrap items-start w-full">
+            <img className="m-1" src="https://img.shields.io/badge/-Apache%20Hadoop-66CC15?style=flat&logo=apachehadoop&logoColor=white" alt="Hadoop" />
+            <img className="m-1" src="https://img.shields.io/badge/-Apache%20Spark-E35A4B?style=flat&logo=apache-spark&logoColor=white" alt="Apache Spark" />
+            <img className="m-1" src="https://img.shields.io/badge/-BigSQL-00599C?style=flat" alt="BigSQL" />
+          </div>
+        </div>
+
+        {/* Cloud & DevOps */}
+        <div className="w-full mb-6">
+          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Cloud & DevOps</div>
+          <div className="flex flex-wrap items-start w-full">
+            <img className="m-1" src="https://img.shields.io/badge/-GCP-4285F4?style=flat&logo=googlecloud&logoColor=white" alt="GCP" />
+            <img className="m-1" src="https://img.shields.io/badge/-Azure-0089D6?style=flat&logo=microsoftazure&logoColor=white" alt="Azure" />
+            <img className="m-1" src="https://img.shields.io/badge/-AWS-232F3E?style=flat&logo=amazonaws&logoColor=white" alt="AWS" />
+            <img className="m-1" src="https://img.shields.io/badge/-Docker-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker" />
+            <img className="m-1" src="https://img.shields.io/badge/-Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white" alt="Kubernetes" />
+            <img className="m-1" src="https://img.shields.io/badge/-Apache%20Airflow-017CEE?style=flat&logo=apache-airflow&logoColor=white" alt="Apache Airflow" />
+            <img className="m-1" src="https://img.shields.io/badge/-Ansible-EE0000?style=flat&logo=ansible&logoColor=white" alt="Ansible" />
+            <img className="m-1" src="https://img.shields.io/badge/-Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white" alt="Prometheus" />
+            <img className="m-1" src="https://img.shields.io/badge/-Grafana-F46800?style=flat&logo=grafana&logoColor=white" alt="Grafana" />
+            <img className="m-1" src="https://img.shields.io/badge/-Ubuntu-E95420?style=flat&logo=ubuntu&logoColor=white" alt="Ubuntu" />
+            <img className="m-1" src="https://img.shields.io/badge/-Debian-A81D33?style=flat&logo=debian&logoColor=white" alt="helmi debian" />
+            <img className="m-1" src="https://img.shields.io/badge/-Cloudera-EB3C00?style=flat&logo=apache&logoColor=white" alt="Cloudera" />
+          </div>
+        </div>
+
+        {/* Tools & Practices */}
+        <div className="w-full mb-6">
+          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Tools & Practices</div>
+          <div className="flex flex-wrap items-start w-full">
+            <img className="m-1" src="https://img.shields.io/badge/-Git-%23F05032?style=flat&logo=git&logoColor=%23ffffff" alt="Helmi git" />
+            <img className="m-1" src="https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub" />
+            <img className="m-1" src="https://img.shields.io/badge/-GitHub%20Actions-2088FF?style=flat&logo=githubactions&logoColor=white" alt="GitHub Actions" />
+            <img className="m-1" src="https://img.shields.io/badge/-CI%2FCD-FF0000?style=flat" alt="CI/CD" />
+            <img className="m-1" src="https://img.shields.io/badge/-REST%20APIs-00599C?style=flat" alt="REST APIs" />
+            <img className="m-1" src="https://img.shields.io/badge/-GraphQL-E10098?style=flat&logo=graphql&logoColor=white" alt="GraphQL" />
+            <img className="m-1" src="https://img.shields.io/badge/-Microservices-0089D6?style=flat" alt="Microservices" />
+            <img className="m-1" src="https://img.shields.io/badge/-Pytest-0A9EDC?style=flat&logo=pytest&logoColor=white" alt="Pytest" />
+            <img className="m-1" src="https://img.shields.io/badge/-Jest-C21325?style=flat&logo=jest&logoColor=white" alt="Jest" />
+            <img className="m-1" src="https://img.shields.io/badge/-Agile%2FScrum-2684FF?style=flat" alt="Agile/Scrum" />
+            <img className="m-1" src="https://img.shields.io/badge/-Selenium-43B02A?style=flat&logo=selenium&logoColor=white" alt="Selenium" />
           </div>
         </div>
       </div>
