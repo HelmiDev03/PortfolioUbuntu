@@ -230,6 +230,9 @@ function About() {
           I'm a{" "}
           <span className="text-pink-600 font-bold">Future Tech Pioneer</span>
         </div>
+        <div className="text-xs md:text-sm font-medium text-gray-300 mt-2 tracking-wide">
+          AI & Software Engineer | LeetCode Master | Turning research into production-ready systems
+        </div>
       </div>
       <div className=" mt-4 relative md:my-8 pt-px bg-white w-32 md:w-48">
         <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-0"></div>
@@ -237,12 +240,10 @@ function About() {
       </div>
       <ul className=" mt-4 mb-4 leading-tight tracking-tight text-sm md:text-base w-5/6 md:w-3/4 emoji-list">
         <li className=" list-pc">
-
-          I love building Server Side Logic and Infrastructure ( Hit me up{" "}
+          Hit me up{" "}
           <a className="text-underline" href="mailto:helmilakhder@gmail.com">
             <u>helmilakhder@gmail.com</u>
-          </a>{" "}
-          )
+          </a>
         </li>
 
         <li className="list-none mt-4">
@@ -357,131 +358,209 @@ function Skills() {
           <div>Here are my most frequently used</div>
         </li>
       </ul>
-      <div className="w-full md:w-10/12 flex flex-col mt-4 px-2 md:px-0 pb-8">
-        {/* Programming Languages */}
-        <div className="w-full mb-6">
-          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Programming Languages</div>
-          <div className="flex flex-wrap items-start w-full">
-            <img className="m-1" src="https://img.shields.io/badge/-JavaScript-%23F7DF1C?style=flat&logo=javascript&logoColor=000000&labelColor=%23F7DF1C&color=%23FFCE5A" alt="Helmi javascript" />
-            <img className="m-1" src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" alt="TypeScript" />
-            <img className="m-1" src="https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white" alt="Python" />
-            <img className="m-1" src="https://img.shields.io/badge/-C-00599C?style=flat&logo=c&logoColor=white" alt="C" />
-            <img className="m-1" src="https://img.shields.io/badge/-C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white" alt="C++" />
-            <img className="m-1" src="https://img.shields.io/badge/-Dart-00BFFF?style=flat&logo=dart&logoColor=white" alt="Dart" />
-            <a href="https://www.google.com/search?q=is+html+a+language%3F" target="_blank" rel="noreferrer"><img title="yes it's a language!" className="m-1" src="https://img.shields.io/badge/-HTML5-%23E44D27?style=flat&logo=html5&logoColor=ffffff" alt="Helmi HTML" /></a>
-            <img className="m-1" src="https://img.shields.io/badge/-CSS-1572B6?style=flat&logo=css3&logoColor=white" alt="Helmi SASS" />
-            <img className="m-1" src="https://img.shields.io/badge/-SQL-4479A1?style=flat&logo=sqlite&logoColor=white" alt="SQL" />
-            <img className="m-1" src="https://img.shields.io/badge/-VHDL-00599C?style=flat" alt="VHDL" />
+      <div className="w-full md:w-10/12 flex mt-4">
+        <div className=" text-sm text-center md:text-base w-1/2 font-bold">
+          Languages & Tools
+        </div>
+        <div className=" text-sm text-center md:text-base w-1/2 font-bold">
+          Frameworks & Libraries
+        </div>
+      </div>
+      <div className="w-full md:w-10/12 flex justify-center items-start font-bold text-center">
+        <div className="px-2 w-1/2">
+          <div className="flex flex-wrap justify-center items-start w-full mt-2">
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white"
+              alt="Python"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-C-00599C?style=flat&logo=c&logoColor=white"
+              alt="C"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white"
+              alt="C++"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Dart-00BFFF?style=flat&logo=dart&logoColor=white"
+              alt="Dart"
+            />
+
+
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-JavaScript-%23F7DF1C?style=flat&logo=javascript&logoColor=000000&labelColor=%23F7DF1C&color=%23FFCE5A"
+              alt="Helmi javascript"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white"
+              alt="TypeScript"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Redux-764ABC?style=flat&logo=redux&logoColor=white"
+              alt="Redux"
+            />
+
+
+
+            <a
+              href="https://www.google.com/search?q=is+html+a+language%3F"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                title="yes it's a language!"
+                className="m-1"
+                src="https://img.shields.io/badge/-HTML5-%23E44D27?style=flat&logo=html5&logoColor=ffffff"
+                alt="Helmi HTML"
+              />
+            </a>
+
+            <img
+              src="https://img.shields.io/badge/-CSS-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS"
+              alt="Helmi SASS"
+              className="m-1"
+            />
+            <img
+              src="https://img.shields.io/badge/-Git-%23F05032?style=flat&logo=git&logoColor=%23ffffff"
+              alt="Helmi git"
+              className="m-1"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white"
+              alt="helmi tailwind"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white"
+              alt="helmi bootstrap"
+            />
+            <img
+              src="https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=ffffff"
+              alt="Helmi firebase"
+              className="m-1"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white"
+              alt="helmi postgresql"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-MySQL-4479A1?style=flat&logo=mysql&logoColor=white"
+              alt="helmi mysql"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white"
+              alt="helmi mongodb"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Docker-2496ED?style=flat&logo=docker&logoColor=white"
+              alt="Docker"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Apache%20Spark-E35A4B?style=flat&logo=apache-spark&logoColor=white"
+              alt="Apache Spark"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Apache%20Airflow-017CEE?style=flat&logo=apache-airflow&logoColor=white"
+              alt="Apache Airflow"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Ansible-EE0000?style=flat&logo=ansible&logoColor=white"
+              alt="Ansible"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white"
+              alt="Prometheus"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Grafana-F46800?style=flat&logo=grafana&logoColor=white"
+              alt="Grafana"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Selenium-43B02A?style=flat&logo=selenium&logoColor=white"
+              alt="Selenium"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Ubuntu-E95420?style=flat&logo=ubuntu&logoColor=white"
+              alt="Ubuntu"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Cloudera-EB3C00?style=flat&logo=apache&logoColor=white"
+              alt="Cloudera"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Debian-A81D33?style=flat&logo=debian&logoColor=white"
+              alt="helmi debian"
+            />
+            <img
+              class="m-1"
+              src="https://img.shields.io/badge/-Node%20RED-F00?style=flat&logo=node-red&logoColor=white"
+              alt="Node-RED"
+            />
           </div>
         </div>
-
-        {/* Frameworks & Libraries */}
-        <div className="w-full mb-6">
-          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Frameworks & Libraries</div>
-          <div className="flex flex-wrap items-start w-full">
-            <img className="m-1" src="https://img.shields.io/badge/-React.js-61DAFB?style=flat&logo=react&logoColor=black" alt="helmi react" />
-            <img className="m-1" src="https://img.shields.io/badge/-Next.js-000000?style=flat&logo=next.js&logoColor=white" alt="helmi next" />
-            <img className="m-1" src="https://img.shields.io/badge/-Angular-DD0031?style=flat&logo=angular&logoColor=white" alt="Angular" />
-            <img className="m-1" src="https://img.shields.io/badge/-Nest.js-E0234E?style=flat&logo=nestjs&logoColor=white" alt="Nest.js" />
-            <img className="m-1" src="https://img.shields.io/badge/-Express.js-000000?style=flat&logo=express&logoColor=white" alt="helmi express" />
-            <img className="m-1" src="//img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white" alt="helmi django" />
-            <img className="m-1" src="https://img.shields.io/badge/-FastAPI-009688?style=flat&logo=fastapi&logoColor=white" alt="FastAPI" />
-            <img className="m-1" src="https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white" alt="Spring Boot" />
-            <img className="m-1" src="https://img.shields.io/badge/-Flutter-02569B?style=flat&logo=flutter&logoColor=white" alt="helmi flutter" />
-            <img className="m-1" src="https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white" alt="helmi tailwind" />
-            <img className="m-1" src="https://img.shields.io/badge/-Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white" alt="helmi bootstrap" />
-            <img className="m-1" src="https://img.shields.io/badge/-Redux-764ABC?style=flat&logo=redux&logoColor=white" alt="Redux" />
-          </div>
-        </div>
-
-        {/* Databases */}
-        <div className="w-full mb-6">
-          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Databases</div>
-          <div className="flex flex-wrap items-start w-full">
-            <img className="m-1" src="https://img.shields.io/badge/-MySQL-4479A1?style=flat&logo=mysql&logoColor=white" alt="helmi mysql" />
-            <img className="m-1" src="https://img.shields.io/badge/-PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white" alt="helmi postgresql" />
-            <img className="m-1" src="https://img.shields.io/badge/-SQL%20Server-CC2927?style=flat&logo=microsoft-sql-server&logoColor=white" alt="SQL Server" />
-            <img className="m-1" src="https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white" alt="helmi mongodb" />
-            <img className="m-1" src="https://img.shields.io/badge/-InfluxDB-22ADF6?style=flat&logo=influxdb&logoColor=white" alt="InfluxDB" />
-            <img className="m-1" src="https://img.shields.io/badge/-Neo4j-4581C3?style=flat&logo=neo4j&logoColor=white" alt="Neo4j" />
-            <img className="m-1" src="https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=ffffff" alt="Helmi firebase" />
-          </div>
-        </div>
-
-        {/* ML & AI */}
-        <div className="w-full mb-6">
-          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">ML & AI</div>
-          <div className="flex flex-wrap items-start w-full">
-            <img className="m-1" src="https://img.shields.io/badge/-Machine%20Learning-F9DC3E?style=flat" alt="Machine Learning" />
-            <img className="m-1" src="https://img.shields.io/badge/-Deep%20Learning-FF6F00?style=flat" alt="Deep Learning" />
-            <img className="m-1" src="https://img.shields.io/badge/-Transformers-FFB000?style=flat" alt="Transformers" />
-            <img className="m-1" src="https://img.shields.io/badge/-LLMs-000000?style=flat" alt="LLMs" />
-            <img className="m-1" src="https://img.shields.io/badge/-RAG-000000?style=flat" alt="RAG" />
-            <img className="m-1" src="https://img.shields.io/badge/-Embeddings-00599C?style=flat" alt="Embeddings" />
-            <img className="m-1" src="https://img.shields.io/badge/-PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white" alt="PyTorch" />
-            <img className="m-1" src="https://img.shields.io/badge/-LangGraph-4B275F?style=flat&logo=graphql&logoColor=white" alt="LangGraph" />
-          </div>
-        </div>
-
-        {/* IoT & Embedded */}
-        <div className="w-full mb-6">
-          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">IoT & Embedded</div>
-          <div className="flex flex-wrap items-start w-full">
-            <img className="m-1" src="https://img.shields.io/badge/-ESP32-E7352C?style=flat&logo=espressif&logoColor=white" alt="ESP32" />
-            <img className="m-1" src="https://img.shields.io/badge/-STM32-03234B?style=flat&logo=stmicroelectronics&logoColor=white" alt="STM32" />
-            <img className="m-1" src="https://img.shields.io/badge/-PIC18-FF0000?style=flat" alt="PIC18" />
-            <img className="m-1" src="https://img.shields.io/badge/-PSoC-00599C?style=flat" alt="PSoC" />
-            <img className="m-1" src="https://img.shields.io/badge/-FreeRTOS-000000?style=flat" alt="FreeRTOS" />
-            <img className="m-1" src="https://img.shields.io/badge/-Node%20RED-F00?style=flat&logo=node-red&logoColor=white" alt="Node-RED" />
-            <img className="m-1" src="https://img.shields.io/badge/-MQTT-660066?style=flat&logo=mqtt&logoColor=white" alt="MQTT" />
-            <img className="m-1" src="https://img.shields.io/badge/-LabVIEW-FFD100?style=flat&logo=ni&logoColor=black" alt="LabVIEW" />
-          </div>
-        </div>
-
-        {/* Big Data */}
-        <div className="w-full mb-6">
-          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Big Data</div>
-          <div className="flex flex-wrap items-start w-full">
-            <img className="m-1" src="https://img.shields.io/badge/-Apache%20Hadoop-66CC15?style=flat&logo=apachehadoop&logoColor=white" alt="Hadoop" />
-            <img className="m-1" src="https://img.shields.io/badge/-Apache%20Spark-E35A4B?style=flat&logo=apache-spark&logoColor=white" alt="Apache Spark" />
-            <img className="m-1" src="https://img.shields.io/badge/-BigSQL-00599C?style=flat" alt="BigSQL" />
-          </div>
-        </div>
-
-        {/* Cloud & DevOps */}
-        <div className="w-full mb-6">
-          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Cloud & DevOps</div>
-          <div className="flex flex-wrap items-start w-full">
-            <img className="m-1" src="https://img.shields.io/badge/-GCP-4285F4?style=flat&logo=googlecloud&logoColor=white" alt="GCP" />
-            <img className="m-1" src="https://img.shields.io/badge/-Azure-0089D6?style=flat&logo=microsoftazure&logoColor=white" alt="Azure" />
-            <img className="m-1" src="https://img.shields.io/badge/-AWS-232F3E?style=flat&logo=amazonaws&logoColor=white" alt="AWS" />
-            <img className="m-1" src="https://img.shields.io/badge/-Docker-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker" />
-            <img className="m-1" src="https://img.shields.io/badge/-Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white" alt="Kubernetes" />
-            <img className="m-1" src="https://img.shields.io/badge/-Apache%20Airflow-017CEE?style=flat&logo=apache-airflow&logoColor=white" alt="Apache Airflow" />
-            <img className="m-1" src="https://img.shields.io/badge/-Ansible-EE0000?style=flat&logo=ansible&logoColor=white" alt="Ansible" />
-            <img className="m-1" src="https://img.shields.io/badge/-Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white" alt="Prometheus" />
-            <img className="m-1" src="https://img.shields.io/badge/-Grafana-F46800?style=flat&logo=grafana&logoColor=white" alt="Grafana" />
-            <img className="m-1" src="https://img.shields.io/badge/-Ubuntu-E95420?style=flat&logo=ubuntu&logoColor=white" alt="Ubuntu" />
-            <img className="m-1" src="https://img.shields.io/badge/-Debian-A81D33?style=flat&logo=debian&logoColor=white" alt="helmi debian" />
-            <img className="m-1" src="https://img.shields.io/badge/-Cloudera-EB3C00?style=flat&logo=apache&logoColor=white" alt="Cloudera" />
-          </div>
-        </div>
-
-        {/* Tools & Practices */}
-        <div className="w-full mb-6">
-          <div className="text-sm md:text-base font-bold mb-2 text-ub-orange">Tools & Practices</div>
-          <div className="flex flex-wrap items-start w-full">
-            <img className="m-1" src="https://img.shields.io/badge/-Git-%23F05032?style=flat&logo=git&logoColor=%23ffffff" alt="Helmi git" />
-            <img className="m-1" src="https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub" />
-            <img className="m-1" src="https://img.shields.io/badge/-GitHub%20Actions-2088FF?style=flat&logo=githubactions&logoColor=white" alt="GitHub Actions" />
-            <img className="m-1" src="https://img.shields.io/badge/-CI%2FCD-FF0000?style=flat" alt="CI/CD" />
-            <img className="m-1" src="https://img.shields.io/badge/-REST%20APIs-00599C?style=flat" alt="REST APIs" />
-            <img className="m-1" src="https://img.shields.io/badge/-GraphQL-E10098?style=flat&logo=graphql&logoColor=white" alt="GraphQL" />
-            <img className="m-1" src="https://img.shields.io/badge/-Microservices-0089D6?style=flat" alt="Microservices" />
-            <img className="m-1" src="https://img.shields.io/badge/-Pytest-0A9EDC?style=flat&logo=pytest&logoColor=white" alt="Pytest" />
-            <img className="m-1" src="https://img.shields.io/badge/-Jest-C21325?style=flat&logo=jest&logoColor=white" alt="Jest" />
-            <img className="m-1" src="https://img.shields.io/badge/-Agile%2FScrum-2684FF?style=flat" alt="Agile/Scrum" />
-            <img className="m-1" src="https://img.shields.io/badge/-Selenium-43B02A?style=flat&logo=selenium&logoColor=white" alt="Selenium" />
+        <div className="px-2 flex flex-wrap items-start w-1/2">
+          <div className="flex flex-wrap justify-center items-start w-full mt-2">
+            <img
+              className=" m-1"
+              src="https://img.shields.io/badge/-Express.js-000000?style=flat&logo=express&logoColor=white)](https://expressjs.com/)"
+              alt="helmi express"
+            />
+            <img
+              className=" m-1"
+              src="//img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/"
+              alt="helmi django"
+            />
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)"
+              alt="helmi next"
+            />
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-Flutter-02569B?style=flat&logo=flutter&logoColor=white)](https://flutter.dev/)"
+              alt="helmi flutter"
+            />
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-React.js-61DAFB?style=flat&logo=react&logoColor=black"
+              alt="helmi react"
+            />
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white"
+              alt="Spring Boot"
+            />
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-LangGraph-4B275F?style=flat&logo=graphql&logoColor=white"
+              alt="LangGraph"
+            />
+            <img
+              className="m-1"
+              src="https://img.shields.io/badge/-FastAPI-009688?style=flat&logo=fastapi&logoColor=white"
+              alt="FastAPI"
+            />
           </div>
         </div>
       </div>
@@ -492,11 +571,68 @@ function Skills() {
 function Projects() {
   const project_list = [
     {
+      name: "Automated AI System for Quran Reels Generation",
+      date: "January 2026",
+      link: "https://github.com/HelmiDev03/AutomatedAISystemQuranReelsGeneration",
+      description: [
+        "Engineered an automated AI system for generating short-form Quran Reels with synchronized recitation audio, dynamic Arabic typography & translation subtitles, and background visual synthesis.",
+        "Integrated AI audio processing, automated Whisper timestamp alignment, customizable visual overlay templates, and cloud FFmpeg video rendering.",
+      ],
+      domains: [
+        "Python",
+        "FFmpeg",
+        "Whisper",
+        "AI Audio Processing",
+        "FastAPI",
+        "Automation",
+      ],
+    },
+    {
+      name: "AI-Driven Autonomous Security Drone",
+      date: "June 2026",
+      link: "https://github.com/HelmiDev03",
+      description: [
+        "Built a custom surveillance drone covering bare-metal ESP32 flight-controller firmware (PID control, complementary filter, FreeRTOS) and an Orange Pi edge-AI stack running real-time YOLOv8n threat/fire detection, ArcFace face re-identification, and monocular depth estimation.",
+        "Designed a real-time telemetry pipeline over Wi-Fi (UDP/WebSocket) to a Flutter ground-control app, achieving low-latency live video, detection overlays, and on-device flight control at the edge.",
+      ],
+      domains: [
+        "ESP32",
+        "FreeRTOS",
+        "Orange Pi",
+        "YOLOv8",
+        "ArcFace",
+        "Depth-Anything v2",
+        "MQTT",
+        "Python",
+        "OpenCV",
+        "Flutter",
+      ],
+    },
+    {
+      name: "Tunisia Job Recommendation System",
+      date: "December 2025",
+      link: "https://github.com/HelmiDev03/Tunisia-job-recommendation-system",
+      description: [
+        "Built an automated, cloud-deployed system that scrapes LinkedIn job postings via scheduled Airflow DAGs and matches parsed CVs to roles using cosine-similarity semantic search over all-MiniLM-L6-v2 embeddings.",
+        "Integrated Llama 3.1 for CV parsing and skill extraction, exposing results through a FastAPI REST backend and Next.js frontend deployed on Google Cloud Run.",
+      ],
+      domains: [
+        "FastAPI",
+        "Next.js",
+        "Apache Airflow",
+        "PyTorch",
+        "all-MiniLM-L6-v2",
+        "Llama 3.1",
+        "Google Cloud Run",
+      ],
+    },
+    {
       name: "Trading Company Website with AI Integration",
       date: "August 2025",
       link: "https://github.com/HelmiDev03",
       description: [
-        "Developed a comprehensive website for a trading company in Dubai during their growth phase. The platform features a fine-tuned Gemini AI model customized for the company's specific needs as an FX broker. The AI assistant helps clients with market analysis, trading strategies, and personalized investment recommendations based on their risk profile and market conditions.",
+        "Developed a comprehensive website for a trading company in Dubai during their growth phase. The platform features a fine-tuned Gemini AI model customized for the company's specific needs as an FX broker.",
+        "The AI assistant helps clients with market analysis, trading strategies, and personalized investment recommendations based on risk profile and market conditions.",
       ],
       domains: [
         "Next.js",
@@ -508,24 +644,42 @@ function Projects() {
     {
       name: "E-commerce Platform for IPTV Provider",
       date: "June 2025",
-      link: "https://github.com/HelmiDev03",
+      link: "https://pro-sat-reciever.vercel.app/",
       description: [
-        "Designed and implemented a full-featured e-commerce website for an IPTV service provider. The platform includes a sophisticated recommendation system that suggests content based on user viewing habits, a secure payment gateway integration for subscription management, and a responsive user interface optimized for various devices.",
+        "Designed and implemented a full-featured e-commerce website for an IPTV service provider. The platform includes a recommendation system suggesting content based on user viewing habits and secure payment gateway integration.",
       ],
       domains: [
         "Next.js",
         "MongoDB",
         "ML Recommendation Model",
         "Payment Gateway Integration",
-        "Redux"
+        "Redux",
       ],
     },
     {
-      name: "Freelance Project",
+      name: "Classification of Cardiac Anomalies from ECG Signals",
+      date: "May 2025",
+      link: "https://github.com/HelmiDev03/Classification-of-Cardiac-Anomalies-from-ECG-Signals",
+      description: [
+        "Developed a machine learning system classifying cardiac anomalies from ECG signals on the MIT-BIH Arrhythmia dataset, covering signal preprocessing, feature extraction, and comparative model training.",
+        "Served trained models through a FastAPI backend and Next.js interface for real-time ECG classification.",
+      ],
+      domains: [
+        "Next.js",
+        "FastAPI",
+        "Random Forest",
+        "SVM",
+        "KNN",
+        "Decision Tree",
+        "MIT-BIH Arrhythmia",
+      ],
+    },
+    {
+      name: "Supermarket Management System (Freelance)",
       date: "September 2024",
       link: "https://github.com/lmahdy/Management-System",
       description: [
-        "My partner and I are developing a supermarket management system for small business owners in our area. The platform will help them manage sales, track inventory, and generate reports for better financial oversight. It will also streamline client management through a customer database and loyalty programs, while offering tools to efficiently track supplier orders and payments. Our goal is to provide an easy-to-use, web-based solution that empowers local supermarket owners to optimize their operations and improve overall efficiency",
+        "Web-based supermarket management system for local business owners to manage sales, track inventory, streamline client management through customer databases, and track supplier orders.",
       ],
       domains: [
         "Django",
@@ -533,88 +687,96 @@ function Projects() {
       ],
     },
     {
-      name: "End-Of-Study Project",
+      name: "Enterprise Workforce & HR Management ERP SaaS",
       date: "May 2024",
       link: "https://github.com/HelmiDev03/Client",
       description: [
-        "A SaaS solution to streamline various HR functionalities for companies, offering both generic and personalized features, this solution is supported by a back-office application to monitor and track client activities.",
+        "End-of-studies SaaS solution co-developed for Novencia Group to streamline workforce management and attendance ERP modules, flexible time-off tracking, and multi-tiered organizational hierarchy schemas.",
       ],
       domains: [
-        "Nextjs",
-        "Expressjs", ,
-        "MongoDB",
+        "Next.js",
+        "Express.js",
+        "Flutter",
         "Redux",
-        "TailwindCss"
+        "MongoDB",
+        "Tailwind CSS",
+      ],
+    },
+    {
+      name: "Cho3la (Flame & Gas Detection System)",
+      date: "December 2023",
+      link: "https://github.com/HelmiDev03",
+      description: [
+        "Built a flame and gas detection system on ESP8266 NodeMCU with real-time MQTT monitoring to a Node-RED dashboard and instant Telegram alerts.",
+      ],
+      domains: [
+        "ESP8266",
+        "NodeMCU",
+        "MQTT",
+        "Node-RED",
+        "Telegram API",
       ],
     },
     {
       name: "Insurance Agency Management System",
-      date: "June 2023",
+      date: "August 2023",
       link: "https://github.com/HelmiDev03/InsuranceAgencyManagementSystem",
       description: [
-        "The insurance management system is designed to facilitate and streamline the process of home insurance subscription and request handling. It offers an intuitive and efficient interface for users to submit insurance requests and seamlessly manages the responses for added home insurance requests.",
+        "Internal insurance platform developed for MAE Assurances with face-recognition authentication to streamline operational workflows and improve user access management.",
       ],
       domains: [
-        "Html",
-        "Bootstrap",
         "Python",
-        "Django", ,
-        "SQLite3",
-        "PrismJs",
-        "ChartJs",
+        "Django",
+        "PostgreSQL",
         "Face Recognition",
+        "Bootstrap",
+        "Chart.js",
+        "PrismJs",
       ],
     },
     {
-      name: "HelmiPredico-V2",
+      name: "HelmiPredico-V2 (Healthcare & Disease Prediction)",
       date: "April 2023",
       link: "https://github.com/HelmiDev03/HelmiPredico",
       description: [
-        "Hospital Management System and General Disease Prediction based on symptoms provided by patient",
+        "Hospital Management System and General Disease Prediction based on patient symptoms using machine learning models.",
       ],
       domains: [
-        "Html",
-        "Css",
         "Python",
         "Django",
-        "Cloudinary",
+        "Machine Learning",
         "PostgreSQL",
         "Render",
-        "Machine Learning",
+        "Cloudinary",
       ],
     },
     {
-      name: "HelmiPredico-V1",
+      name: "HelmiPredico-V1 (Telehealth Mobile App)",
       date: "April 2023",
       link: "https://github.com/HelmiDev03/FireBaseAuth",
       description: [
-        "Mobile application designed to simplify and automate interactions between doctors and patients for more efficient healthcare management.",
+        "Mobile application designed to simplify and automate interactions between doctors and patients for efficient healthcare management.",
       ],
       domains: [
         "Flutter",
-        "FireBase",
-
+        "Firebase",
       ],
     },
     {
-      name: "HMKSOCIALHUB",
+      name: "HMKSOCIALHUB (Social Networking Platform)",
       date: "March 2023",
       link: "https://github.com/HelmiDev03/Social-Media-Web-App",
       description: [
-        "HMKSOCIALHUB is a social networking website designed to connect individuals and foster a sense of community. The platform requires mandatory registration, ensuring a secure and personalized experience for each user",
+        "Social networking platform designed to connect individuals, featuring mandatory registration and personalized user feeds.",
       ],
       domains: [
-        "Html",
-        "Css",
         "Python",
         "Django",
-        "Cloudinary",
         "PostgreSQL",
         "Render",
+        "Cloudinary",
       ],
     },
-
-
   ];
 
   const tag_colors = {
@@ -622,18 +784,28 @@ function Projects() {
     firebase: "red-600",
     firestore: "red-500",
     "firebase auth": "red-400",
-    "chrome-extension": "yellow-400",
     flutter: "blue-400",
     dart: "blue-500",
-    "react-native": "purple-500",
     html5: "pink-600",
     sass: "pink-400",
     tensorflow: "yellow-600",
     django: "green-600",
     python: "green-200",
-    "codeforces-api": "gray-300",
     tailwindcss: "blue-300",
     "next.js": "purple-600",
+    fastapi: "green-400",
+    pytorch: "red-500",
+    mongodb: "green-500",
+    postgresql: "blue-600",
+    "express.js": "gray-300",
+    redux: "purple-400",
+    opencv: "red-400",
+    esp32: "yellow-500",
+    freertos: "blue-300",
+    mqtt: "purple-300",
+    "apache airflow": "blue-500",
+    "google cloud run": "blue-400",
+    "llama 3.1": "purple-500",
   };
 
   return (
@@ -647,8 +819,19 @@ function Projects() {
       </div>
 
       {project_list.map((project, index) => {
-        const projectNameFromLink = project.link.split("/");
-        const projectName = projectNameFromLink[projectNameFromLink.length - 1];
+        let repoUser = "HelmiDev03";
+        let repoName = "";
+        let showStar = false;
+
+        if (project.link && project.link.includes("github.com")) {
+          const parts = project.link.replace("https://github.com/", "").split("/").filter(Boolean);
+          if (parts.length >= 2) {
+            repoUser = parts[0];
+            repoName = parts[1];
+            showStar = true;
+          }
+        }
+
         return (
           <a
             key={index}
@@ -663,14 +846,16 @@ function Projects() {
                   <div className=" text-base md:text-lg mr-2">
                     {project.name.toUpperCase()}
                   </div>
-                  <iframe
-                    src={`https://ghbtns.com/github-btn.html?user=HelmiDev03&repo=${projectName}&type=star&count=true`}
-                    frameBorder="0"
-                    scrolling="0"
-                    width="150"
-                    height="20"
-                    title={project.name.toLowerCase() + "-star"}
-                  ></iframe>
+                  {showStar && (
+                    <iframe
+                      src={`https://ghbtns.com/github-btn.html?user=${repoUser}&repo=${repoName}&type=star&count=true`}
+                      frameBorder="0"
+                      scrolling="0"
+                      width="150"
+                      height="20"
+                      title={project.name.toLowerCase() + "-star"}
+                    ></iframe>
+                  )}
                 </div>
                 <div className="text-gray-300 font-light text-sm">
                   {project.date}
@@ -688,8 +873,9 @@ function Projects() {
               <div className="flex flex-wrap items-start justify-start text-xs py-2">
                 {project.domains
                   ? project.domains.map((domain, index) => {
-                    const borderColorClass = `border-${tag_colors[domain]}`;
-                    const textColorClass = `text-${tag_colors[domain]}`;
+                    const colorKey = tag_colors[domain.toLowerCase()] || "gray-300";
+                    const borderColorClass = `border-${colorKey}`;
+                    const textColorClass = `text-${colorKey}`;
 
                     return (
                       <span
