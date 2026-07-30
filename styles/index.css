@@ -291,3 +291,134 @@ input[type=range].ubuntu-slider::-webkit-slider-thumb {
         bottom: -4px;
     }
 }
+
+/* GitHub Markdown & LeetCode HTML Preview Formatter */
+.github-markdown-preview h2, .leetcode-formatted-html h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #58a6ff;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.github-markdown-preview h3, .leetcode-formatted-html h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3fb950;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.github-markdown-preview code, .leetcode-formatted-html code {
+    background-color: rgba(110, 118, 129, 0.2);
+    color: #e6edf3;
+    padding: 0.2em 0.4em;
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    font-size: 85%;
+}
+
+.github-markdown-preview pre, .leetcode-formatted-html pre {
+    background-color: #161b22;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    overflow-x: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.github-markdown-preview pre code, .leetcode-formatted-html pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.github-markdown-preview hr, .leetcode-formatted-html hr {
+    border-color: #30363d;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.github-markdown-preview ul, .leetcode-formatted-html ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.github-markdown-preview li, .leetcode-formatted-html li {
+    margin-top: 0.25rem;
+}
+
+/* Modern VS Code Dark Plus Code Highlighting Theme */
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #9cdcfe !important;
+    background: #1e1e1e !important;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, "Liberation Mono", monospace !important;
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    text-shadow: none !important;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6a9955 !important;
+    font-style: italic !important;
+}
+
+.token.punctuation {
+    color: #d4d4d4 !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #b5cea8 !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #ce9178 !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+    color: #d4d4d4 !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #c586c0 !important;
+    font-weight: 600 !important;
+}
+
+.token.function {
+    color: #dcdcaa !important;
+    font-weight: 600 !important;
+}
+
+.token.class-name,
+.token.type-annotation {
+    color: #4ec9b0 !important;
+    font-weight: 600 !important;
+}
+
+.token.variable,
+.token.regex,
+.token.important {
+    color: #9cdcfe !important;
+}

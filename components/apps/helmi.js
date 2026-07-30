@@ -343,226 +343,156 @@ function Education() {
 
 
 function Skills() {
+  const skillCategories = [
+    {
+      title: "Languages",
+      skills: [
+        { name: "JavaScript", badge: "https://img.shields.io/badge/-JavaScript-F7DF1C?style=flat&logo=javascript&logoColor=black" },
+        { name: "TypeScript", badge: "https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" },
+        { name: "Python", badge: "https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white" },
+        { name: "C++", badge: "https://img.shields.io/badge/-C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white" },
+        { name: "C", badge: "https://img.shields.io/badge/-C-00599C?style=flat&logo=c&logoColor=white" },
+        { name: "SQL", badge: "https://img.shields.io/badge/-SQL-4479A1?style=flat&logo=mysql&logoColor=white" },
+        { name: "VHDL", badge: "https://img.shields.io/badge/-VHDL-003366?style=flat&logo=microchip&logoColor=white" },
+        { name: "Dart", badge: "https://img.shields.io/badge/-Dart-00BFFF?style=flat&logo=dart&logoColor=white" },
+        { name: "HTML5", badge: "https://img.shields.io/badge/-HTML5-E44D27?style=flat&logo=html5&logoColor=white" },
+        { name: "CSS3", badge: "https://img.shields.io/badge/-CSS3-1572B6?style=flat&logo=css3&logoColor=white" },
+      ],
+    },
+    {
+      title: "Frameworks & Libraries",
+      skills: [
+        { name: "React.js", badge: "https://img.shields.io/badge/-React.js-61DAFB?style=flat&logo=react&logoColor=black" },
+        { name: "Next.js", badge: "https://img.shields.io/badge/-Next.js-000000?style=flat&logo=next.js&logoColor=white" },
+        { name: "Angular", badge: "https://img.shields.io/badge/-Angular-DD0031?style=flat&logo=angular&logoColor=white" },
+        { name: "Nest.js", badge: "https://img.shields.io/badge/-Nest.js-E0234E?style=flat&logo=nestjs&logoColor=white" },
+        { name: "Express.js", badge: "https://img.shields.io/badge/-Express.js-000000?style=flat&logo=express&logoColor=white" },
+        { name: "Django", badge: "https://img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white" },
+        { name: "FastAPI", badge: "https://img.shields.io/badge/-FastAPI-009688?style=flat&logo=fastapi&logoColor=white" },
+        { name: "Spring Boot", badge: "https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white" },
+        { name: "Flutter", badge: "https://img.shields.io/badge/-Flutter-02569B?style=flat&logo=flutter&logoColor=white" },
+        { name: "Redux", badge: "https://img.shields.io/badge/-Redux-764ABC?style=flat&logo=redux&logoColor=white" },
+        { name: "Tailwind CSS", badge: "https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white" },
+        { name: "Bootstrap", badge: "https://img.shields.io/badge/-Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white" },
+      ],
+    },
+    {
+      title: "Databases",
+      skills: [
+        { name: "MySQL", badge: "https://img.shields.io/badge/-MySQL-4479A1?style=flat&logo=mysql&logoColor=white" },
+        { name: "PostgreSQL", badge: "https://img.shields.io/badge/-PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white" },
+        { name: "SQL Server", badge: "https://img.shields.io/badge/-SQL_Server-CC292B?style=flat&logo=microsoftsqlserver&logoColor=white" },
+        { name: "MongoDB", badge: "https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white" },
+        { name: "InfluxDB", badge: "https://img.shields.io/badge/-InfluxDB-22ADF6?style=flat&logo=influxdb&logoColor=white" },
+        { name: "Neo4j", badge: "https://img.shields.io/badge/-Neo4j-008CC1?style=flat&logo=neo4j&logoColor=white" },
+        { name: "Firebase", badge: "https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=black" },
+      ],
+    },
+    {
+      title: "ML & AI",
+      skills: [
+        { name: "Machine Learning", badge: "https://img.shields.io/badge/-Machine_Learning-FF6F00?style=flat&logo=scikit-learn&logoColor=white" },
+        { name: "Deep Learning", badge: "https://img.shields.io/badge/-Deep_Learning-EE4C2C?style=flat&logo=pytorch&logoColor=white" },
+        { name: "Transformers", badge: "https://img.shields.io/badge/-Transformers-FFD21E?style=flat&logo=huggingface&logoColor=black" },
+        { name: "LLMs", badge: "https://img.shields.io/badge/-LLMs-00A67E?style=flat&logo=openai&logoColor=white" },
+        { name: "RAG", badge: "https://img.shields.io/badge/-RAG-412991?style=flat&logo=databricks&logoColor=white" },
+        { name: "Embeddings", badge: "https://img.shields.io/badge/-Embeddings-0052CC?style=flat&logo=meta&logoColor=white" },
+        { name: "PyTorch", badge: "https://img.shields.io/badge/-PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white" },
+        { name: "LangGraph", badge: "https://img.shields.io/badge/-LangGraph-4B275F?style=flat&logo=graphql&logoColor=white" },
+        { name: "MCP", badge: "https://img.shields.io/badge/-MCP-10A37F?style=flat&logo=openai&logoColor=white" },
+      ],
+    },
+    {
+      title: "IoT & Embedded",
+      skills: [
+        { name: "ESP32", badge: "https://img.shields.io/badge/-ESP32-E7352C?style=flat&logo=espressif&logoColor=white" },
+        { name: "STM32", badge: "https://img.shields.io/badge/-STM32-03234C?style=flat&logo=stmicroelectronics&logoColor=white" },
+        { name: "PIC18", badge: "https://img.shields.io/badge/-PIC18-FF0000?style=flat&logo=microchip&logoColor=white" },
+        { name: "PSoC", badge: "https://img.shields.io/badge/-PSoC-00539C?style=flat&logo=cypress&logoColor=white" },
+        { name: "FreeRTOS", badge: "https://img.shields.io/badge/-FreeRTOS-162832?style=flat&logo=freebsd&logoColor=white" },
+        { name: "Node-RED", badge: "https://img.shields.io/badge/-Node--RED-8F0000?style=flat&logo=node-red&logoColor=white" },
+        { name: "MQTT", badge: "https://img.shields.io/badge/-MQTT-660066?style=flat&logo=mqtt&logoColor=white" },
+        { name: "LabVIEW", badge: "https://img.shields.io/badge/-LabVIEW-FFD700?style=flat&logo=nationalinstruments&logoColor=black" },
+      ],
+    },
+    {
+      title: "Big Data",
+      skills: [
+        { name: "Apache Hadoop", badge: "https://img.shields.io/badge/-Apache_Hadoop-66CCFF?style=flat&logo=apachehadoop&logoColor=black" },
+        { name: "Apache Spark", badge: "https://img.shields.io/badge/-Apache_Spark-E35A4B?style=flat&logo=apachespark&logoColor=white" },
+        { name: "BigSQL", badge: "https://img.shields.io/badge/-BigSQL-05495C?style=flat&logo=ibm&logoColor=white" },
+        { name: "Cloudera", badge: "https://img.shields.io/badge/-Cloudera-EB3C00?style=flat&logo=apache&logoColor=white" },
+      ],
+    },
+    {
+      title: "Cloud & DevOps",
+      skills: [
+        { name: "GCP", badge: "https://img.shields.io/badge/-GCP-4285F4?style=flat&logo=googlecloud&logoColor=white" },
+        { name: "Microsoft Azure", badge: "https://img.shields.io/badge/-Microsoft_Azure-0089D6?style=flat&logo=microsoftazure&logoColor=white" },
+        { name: "AWS", badge: "https://img.shields.io/badge/-AWS-232F3E?style=flat&logo=amazon-aws&logoColor=white" },
+        { name: "Docker", badge: "https://img.shields.io/badge/-Docker-2496ED?style=flat&logo=docker&logoColor=white" },
+        { name: "Kubernetes", badge: "https://img.shields.io/badge/-Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white" },
+        { name: "Apache Airflow", badge: "https://img.shields.io/badge/-Apache_Airflow-017CEE?style=flat&logo=apacheairflow&logoColor=white" },
+        { name: "Ansible", badge: "https://img.shields.io/badge/-Ansible-EE0000?style=flat&logo=ansible&logoColor=white" },
+        { name: "Prometheus", badge: "https://img.shields.io/badge/-Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white" },
+        { name: "Grafana", badge: "https://img.shields.io/badge/-Grafana-F46800?style=flat&logo=grafana&logoColor=white" },
+        { name: "Ubuntu", badge: "https://img.shields.io/badge/-Ubuntu-E95420?style=flat&logo=ubuntu&logoColor=white" },
+      ],
+    },
+    {
+      title: "Tools & Practices",
+      skills: [
+        { name: "Git", badge: "https://img.shields.io/badge/-Git-F05032?style=flat&logo=git&logoColor=white" },
+        { name: "GitHub", badge: "https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white" },
+        { name: "GitHub Actions", badge: "https://img.shields.io/badge/-GitHub_Actions-2088FF?style=flat&logo=githubactions&logoColor=white" },
+        { name: "CI/CD", badge: "https://img.shields.io/badge/-CI%2FCD-2088FF?style=flat&logo=githubactions&logoColor=white" },
+        { name: "REST APIs", badge: "https://img.shields.io/badge/-REST_APIs-0055DA?style=flat&logo=fastapi&logoColor=white" },
+        { name: "GraphQL", badge: "https://img.shields.io/badge/-GraphQL-E10098?style=flat&logo=graphql&logoColor=white" },
+        { name: "Microservices", badge: "https://img.shields.io/badge/-Microservices-8E44AD?style=flat&logo=docker&logoColor=white" },
+        { name: "Pytest", badge: "https://img.shields.io/badge/-Pytest-0A9EDC?style=flat&logo=pytest&logoColor=white" },
+        { name: "Jest", badge: "https://img.shields.io/badge/-Jest-C21325?style=flat&logo=jest&logoColor=white" },
+        { name: "Selenium", badge: "https://img.shields.io/badge/-Selenium-43B02A?style=flat&logo=selenium&logoColor=white" },
+        { name: "Agile/Scrum", badge: "https://img.shields.io/badge/-Agile%2FScrum-0052CC?style=flat&logo=jira&logoColor=white" },
+        { name: "ELT", badge: "https://img.shields.io/badge/-ELT-FF6600?style=flat&logo=databricks&logoColor=white" },
+      ],
+    },
+  ];
+
   return (
     <>
-      <div className=" font-medium relative text-2xl mt-2 md:mt-4 mb-4">
+      <div className="font-medium relative text-2xl mt-2 md:mt-4 mb-4">
         Technical Skills
         <div className="absolute pt-px bg-white mt-px top-full w-full">
           <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-full"></div>
           <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-full"></div>
         </div>
       </div>
-      <ul className=" tracking-tight text-sm md:text-base w-10/12 emoji-list">
-
-        <li className=" list-arrow text-sm md:text-base mt-4 leading-tight tracking-tight">
-          <div>Here are my most frequently used</div>
+      <ul className="tracking-tight text-sm md:text-base w-10/12 emoji-list">
+        <li className="list-arrow text-sm md:text-base mt-2 leading-tight tracking-tight">
+          <div>Technical expertise across AI, full-stack, embedded systems & cloud engineering:</div>
         </li>
       </ul>
-      <div className="w-full md:w-10/12 flex mt-4">
-        <div className=" text-sm text-center md:text-base w-1/2 font-bold">
-          Languages & Tools
-        </div>
-        <div className=" text-sm text-center md:text-base w-1/2 font-bold">
-          Frameworks & Libraries
-        </div>
-      </div>
-      <div className="w-full md:w-10/12 flex justify-center items-start font-bold text-center">
-        <div className="px-2 w-1/2">
-          <div className="flex flex-wrap justify-center items-start w-full mt-2">
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white"
-              alt="Python"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-C-00599C?style=flat&logo=c&logoColor=white"
-              alt="C"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white"
-              alt="C++"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Dart-00BFFF?style=flat&logo=dart&logoColor=white"
-              alt="Dart"
-            />
-
-
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-JavaScript-%23F7DF1C?style=flat&logo=javascript&logoColor=000000&labelColor=%23F7DF1C&color=%23FFCE5A"
-              alt="Helmi javascript"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white"
-              alt="TypeScript"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Redux-764ABC?style=flat&logo=redux&logoColor=white"
-              alt="Redux"
-            />
-
-
-
-            <a
-              href="https://www.google.com/search?q=is+html+a+language%3F"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img
-                title="yes it's a language!"
-                className="m-1"
-                src="https://img.shields.io/badge/-HTML5-%23E44D27?style=flat&logo=html5&logoColor=ffffff"
-                alt="Helmi HTML"
-              />
-            </a>
-
-            <img
-              src="https://img.shields.io/badge/-CSS-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS"
-              alt="Helmi SASS"
-              className="m-1"
-            />
-            <img
-              src="https://img.shields.io/badge/-Git-%23F05032?style=flat&logo=git&logoColor=%23ffffff"
-              alt="Helmi git"
-              className="m-1"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white"
-              alt="helmi tailwind"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white"
-              alt="helmi bootstrap"
-            />
-            <img
-              src="https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=ffffff"
-              alt="Helmi firebase"
-              className="m-1"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white"
-              alt="helmi postgresql"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-MySQL-4479A1?style=flat&logo=mysql&logoColor=white"
-              alt="helmi mysql"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white"
-              alt="helmi mongodb"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Docker-2496ED?style=flat&logo=docker&logoColor=white"
-              alt="Docker"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Apache%20Spark-E35A4B?style=flat&logo=apache-spark&logoColor=white"
-              alt="Apache Spark"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Apache%20Airflow-017CEE?style=flat&logo=apache-airflow&logoColor=white"
-              alt="Apache Airflow"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Ansible-EE0000?style=flat&logo=ansible&logoColor=white"
-              alt="Ansible"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white"
-              alt="Prometheus"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Grafana-F46800?style=flat&logo=grafana&logoColor=white"
-              alt="Grafana"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Selenium-43B02A?style=flat&logo=selenium&logoColor=white"
-              alt="Selenium"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Ubuntu-E95420?style=flat&logo=ubuntu&logoColor=white"
-              alt="Ubuntu"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Cloudera-EB3C00?style=flat&logo=apache&logoColor=white"
-              alt="Cloudera"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Debian-A81D33?style=flat&logo=debian&logoColor=white"
-              alt="helmi debian"
-            />
-            <img
-              class="m-1"
-              src="https://img.shields.io/badge/-Node%20RED-F00?style=flat&logo=node-red&logoColor=white"
-              alt="Node-RED"
-            />
+      <div className="w-full md:w-11/12 grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 px-2 mb-6">
+        {skillCategories.map((cat, idx) => (
+          <div
+            key={idx}
+            className="p-3 bg-white bg-opacity-5 rounded border border-gray-50 border-opacity-10 hover:border-opacity-20 transition-all"
+          >
+            <div className="text-sm md:text-base font-bold text-ub-orange mb-2 border-b border-gray-500 border-opacity-20 pb-1">
+              {cat.title}
+            </div>
+            <div className="flex flex-wrap items-center justify-start gap-1">
+              {cat.skills.map((skill, sIdx) => (
+                <img
+                  key={sIdx}
+                  className="m-0.5 hover:scale-105 transition-transform duration-150"
+                  src={skill.badge}
+                  alt={skill.name}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="px-2 flex flex-wrap items-start w-1/2">
-          <div className="flex flex-wrap justify-center items-start w-full mt-2">
-            <img
-              className=" m-1"
-              src="https://img.shields.io/badge/-Express.js-000000?style=flat&logo=express&logoColor=white)](https://expressjs.com/)"
-              alt="helmi express"
-            />
-            <img
-              className=" m-1"
-              src="//img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/"
-              alt="helmi django"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)"
-              alt="helmi next"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-Flutter-02569B?style=flat&logo=flutter&logoColor=white)](https://flutter.dev/)"
-              alt="helmi flutter"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-React.js-61DAFB?style=flat&logo=react&logoColor=black"
-              alt="helmi react"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white"
-              alt="Spring Boot"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-LangGraph-4B275F?style=flat&logo=graphql&logoColor=white"
-              alt="LangGraph"
-            />
-            <img
-              className="m-1"
-              src="https://img.shields.io/badge/-FastAPI-009688?style=flat&logo=fastapi&logoColor=white"
-              alt="FastAPI"
-            />
-          </div>
-        </div>
+        ))}
       </div>
     </>
   );

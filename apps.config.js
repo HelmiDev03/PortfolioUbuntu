@@ -11,12 +11,22 @@ import { displayCarGame } from './components/apps/cargame';
 import { displayFaceGesture } from './components/apps/facegesture';
 import { displayCircleClock } from './components/apps/circleclock';
 import { displayFileExplorer } from './components/apps/fileexplorer';
+import { displayLeetCode } from './components/apps/leetcode';
 
 //import {displayBot} from './components/apps/chatbot';
 
 
 
 const apps = [
+    {
+        id: "leetcode",
+        title: "LeetCode",
+        icon: './themes/Yaru/apps/leetcode.svg',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayLeetCode,
+    },
     {
         id: "ai-assistant",
         title: "AI Assistant",

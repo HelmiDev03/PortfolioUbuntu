@@ -87,12 +87,14 @@ EDUCATION:
   * Valedictorian for the 2021/2022 and 2022/2023 Classes
 
 SKILLS:
-- Languages: JavaScript, TypeScript, Python, C++, C, Dart
-- Web Technologies: HTML, CSS, Tailwind CSS, Bootstrap
-- Frameworks & Libraries: React.js, Next.js, Flutter, Express.js, Django, FastAPI, LangGraph, Spring Boot
-- Databases: PostgreSQL, MySQL, MongoDB
-- DevOps & Tools: Docker, Node-RED, Apache Airflow, Ansible, Prometheus, Grafana, Selenium, Git
-- Operating Systems: Ubuntu, Debian, Cloudera
+- Languages: JavaScript, TypeScript, Python, C++, C, SQL, VHDL, Dart, HTML5, CSS3
+- Frameworks & Libraries: React.js, Next.js, Angular, Nest.js, Express.js, Django, FastAPI, Spring Boot, Flutter, Redux, Tailwind CSS, Bootstrap
+- Databases: MySQL, PostgreSQL, SQL Server, MongoDB, InfluxDB, Neo4j, Firebase
+- ML & AI: Machine Learning, Deep Learning, Transformers, LLMs, RAG, Embeddings, PyTorch, LangGraph, MCP
+- IoT & Embedded: ESP32, STM32, PIC18, PSoC, FreeRTOS, Node-RED, MQTT, LabVIEW
+- Big Data: Apache Hadoop, Apache Spark, BigSQL, Cloudera
+- Cloud & DevOps: GCP, Microsoft Azure, AWS, Docker, Kubernetes, Apache Airflow, Ansible, Prometheus, Grafana, Ubuntu
+- Tools & Practices: Git, GitHub, GitHub Actions, CI/CD, REST APIs, GraphQL, Microservices, Pytest, Jest, Selenium, Agile/Scrum, ELT
 
 EXPERIENCE:
 - Biolyt AI · Full Stack Data Engineer (July 2025 - August 2025)
