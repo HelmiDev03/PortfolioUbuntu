@@ -22,6 +22,12 @@ export default class Navbar extends Component {
         >
           Activities
         </div>
+        
+        {/* Discotheque Party Strobe & RGB Neon Flex Pill Badge */}
+        <div className="discotheque-badge hidden md:flex items-center space-x-2 px-4 py-0.5 rounded-full border border-purple-500/50 text-[11px] font-bold tracking-wide">
+          <span className="strobe-dot w-2 h-2 rounded-full bg-cyan-300 shadow-[0_0_8px_#00f0ff]"></span>
+          <span>This website is NOT vibe-coded. Hand-architected line-by-line using Next.js 13.4.4 — a version your AI hasn't even been trained on. Ask your AI agent how to do it... ⚡</span>
+        </div>
         <div
           tabIndex="0"
           className={

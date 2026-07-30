@@ -586,6 +586,14 @@ export class Desktop extends Component {
         {/* Folder Input Name Bar */}
         {this.state.showNameBar ? this.renderNameBar() : null}
 
+        {/* Bottom Parallel Discotheque Flex Badge */}
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-40 pointer-events-none">
+          <div className="discotheque-badge hidden md:flex items-center space-x-2 px-4 py-1 rounded-full border border-purple-500/50 text-[11px] font-bold tracking-wide shadow-2xl">
+            <span className="strobe-dot w-2 h-2 rounded-full bg-cyan-300 shadow-[0_0_8px_#00f0ff]"></span>
+            <span>Live before ChatGPT takes over the world! ⚡</span>
+          </div>
+        </div>
+
         {this.state.allAppsView ? (
           <AllApplications
             apps={apps}

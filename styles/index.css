@@ -422,3 +422,58 @@ pre[class*="language-"] {
 .token.important {
     color: #9cdcfe !important;
 }
+
+/* Discotheque Party Strobe & RGB Neon Glow Animation */
+@keyframes discothequeGlow {
+  0% {
+    box-shadow: 0 0 12px #ff007f, 0 0 24px #ff007f, inset 0 0 8px #ff007f;
+    border-color: #ff007f;
+    color: #ffe6f2;
+    background-color: rgba(255, 0, 127, 0.3);
+  }
+  20% {
+    box-shadow: 0 0 16px #00f0ff, 0 0 32px #00f0ff, inset 0 0 10px #00f0ff;
+    border-color: #00f0ff;
+    color: #e6faff;
+    background-color: rgba(0, 240, 255, 0.3);
+  }
+  40% {
+    box-shadow: 0 0 14px #39ff14, 0 0 28px #39ff14, inset 0 0 8px #39ff14;
+    border-color: #39ff14;
+    color: #e6ffe6;
+    background-color: rgba(57, 255, 20, 0.3);
+  }
+  60% {
+    box-shadow: 0 0 18px #ff00ff, 0 0 36px #ff00ff, inset 0 0 12px #ff00ff;
+    border-color: #ff00ff;
+    color: #ffe6ff;
+    background-color: rgba(255, 0, 255, 0.3);
+  }
+  80% {
+    box-shadow: 0 0 14px #ffaa00, 0 0 28px #ffaa00, inset 0 0 10px #ffaa00;
+    border-color: #ffaa00;
+    color: #fff5e6;
+    background-color: rgba(255, 170, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 12px #ff007f, 0 0 24px #ff007f, inset 0 0 8px #ff007f;
+    border-color: #ff007f;
+    color: #ffe6f2;
+    background-color: rgba(255, 0, 127, 0.3);
+  }
+}
+
+@keyframes strobeLight {
+  0%, 100% { opacity: 1; filter: brightness(1.5); transform: scale(1.3); }
+  50% { opacity: 0.15; filter: brightness(0.5); transform: scale(0.7); }
+}
+
+.discotheque-badge {
+  animation: discothequeGlow 2.2s infinite linear;
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+  transition: all 0.2s ease;
+}
+
+.strobe-dot {
+  animation: strobeLight 0.35s infinite alternate ease-in-out;
+}

@@ -7,7 +7,6 @@ import { displayGedit } from './components/apps/gedit';
 import { displayAboutHelmi } from './components/apps/helmi';
 
 import { displayAIAssistant } from './components/apps/aiassistant';
-import { displayCarGame } from './components/apps/cargame';
 import { displayFaceGesture } from './components/apps/facegesture';
 import { displayCircleClock } from './components/apps/circleclock';
 import { displayFileExplorer } from './components/apps/fileexplorer';
@@ -19,13 +18,13 @@ import { displayLeetCode } from './components/apps/leetcode';
 
 const apps = [
     {
-        id: "leetcode",
-        title: "LeetCode",
-        icon: './themes/Yaru/apps/leetcode.svg',
+        id: "about-helmi",
+        title: "About Helmi",
+        icon: './images/logos/meee.jpeg',
         disabled: false,
         favourite: true,
         desktop_shortcut: true,
-        screen: displayLeetCode,
+        screen: displayAboutHelmi,
     },
     {
         id: "ai-assistant",
@@ -37,13 +36,13 @@ const apps = [
         screen: displayAIAssistant,
     },
     {
-        id: "about-helmi",
-        title: "About Helmi",
-        icon: './images/logos/meee.jpeg',
+        id: "leetcode",
+        title: "LeetCode",
+        icon: './themes/Yaru/apps/leetcode.svg',
         disabled: false,
         favourite: true,
         desktop_shortcut: true,
-        screen: displayAboutHelmi,
+        screen: displayLeetCode,
     },
     {
         id: "file-explorer",
@@ -119,15 +118,6 @@ const apps = [
         screen: displayBot,
     },
     */
-    {
-        id: "cargame",
-        title: "Racing Game",
-        icon: './themes/Yaru/apps/car.png', // Temporary icon placeholder
-        disabled: false,
-        favourite: true,
-        desktop_shortcut: true,
-        screen: displayCarGame,
-    },
     {
         id: "circleclock",
         title: "Circle Clock",
