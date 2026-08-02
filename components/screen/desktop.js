@@ -587,9 +587,9 @@ export class Desktop extends Component {
         {this.state.showNameBar ? this.renderNameBar() : null}
 
         {/* Bottom Parallel Discotheque Flex Badge */}
-        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-40 pointer-events-none">
-          <div className="discotheque-badge hidden md:flex items-center space-x-2 px-4 py-1 rounded-full border border-purple-500/50 text-[11px] font-bold tracking-wide shadow-2xl">
-            <span className="strobe-dot w-2 h-2 rounded-full bg-cyan-300 shadow-[0_0_8px_#00f0ff]"></span>
+        <div className="absolute bottom-10 md:bottom-2 left-1/2 transform -translate-x-1/2 z-40 pointer-events-none max-w-[95vw]">
+          <div className="discotheque-badge flex items-center space-x-2 px-3 sm:px-4 py-1 rounded-full border border-purple-500/50 text-[10px] sm:text-[11px] font-bold tracking-wide shadow-2xl whitespace-nowrap">
+            <span className="strobe-dot w-2 h-2 shrink-0 rounded-full bg-cyan-300 shadow-[0_0_8px_#00f0ff]"></span>
             <span>Live before ChatGPT takes over the world! ⚡</span>
           </div>
         </div>
