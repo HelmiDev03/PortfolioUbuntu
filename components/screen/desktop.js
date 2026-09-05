@@ -285,6 +285,7 @@ export class Desktop extends Component {
           title: app.title,
           id: app.id,
           screen: app.screen,
+          size: app.size,
           addFolder: this.addToDesktop,
           closed: this.closeApp,
           openApp: this.openApp,

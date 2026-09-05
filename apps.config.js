@@ -11,6 +11,7 @@ import { displayFaceGesture } from './components/apps/facegesture';
 import { displayCircleClock } from './components/apps/circleclock';
 import { displayFileExplorer } from './components/apps/fileexplorer';
 import { displayLeetCode } from './components/apps/leetcode';
+import { displayCertifications } from './components/apps/certifications';
 
 //import {displayBot} from './components/apps/chatbot';
 
@@ -126,6 +127,16 @@ const apps = [
         favourite: true,
         desktop_shortcut: true,
         screen: displayCircleClock,
+    },
+    {
+        id: "certifications",
+        title: "Certifications",
+        icon: './themes/Yaru/apps/certifs.png',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayCertifications,
+        size: { width: 35, height: 35 }
     },
     {
         id: "trash",
