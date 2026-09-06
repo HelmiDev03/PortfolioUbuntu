@@ -144,7 +144,7 @@ const apps = [
         icon: './themes/Yaru/system/user-trash-full.png',
         disabled: false,
         favourite: false,
-        desktop_shortcut: true,
+        desktop_shortcut: false,
         screen: displayTrash,
     },
 ]

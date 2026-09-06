@@ -65,14 +65,14 @@ export class Window extends Component {
   }
 
   setDefaultWindowDimenstion = () => {
-    if (this.props.size) {
-      this.setState({ height: this.props.size.height, width: this.props.size.width }, this.resizeBoundries);
-      return;
-    }
     if (window.innerWidth < 640) {
       this.setState({ height: 60, width: 85 }, this.resizeBoundries);
     } else {
-      this.setState({ height: 85, width: 60 }, this.resizeBoundries);
+      if (this.props.size) {
+        this.setState({ height: this.props.size.height, width: this.props.size.width }, this.resizeBoundries);
+      } else {
+        this.setState({ height: 85, width: 60 }, this.resizeBoundries);
+      }
     }
   };
 
