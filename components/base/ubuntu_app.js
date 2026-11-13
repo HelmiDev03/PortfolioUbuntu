@@ -68,7 +68,7 @@ export class UbuntuApp extends Component {
     // Create the app content element
     const appContent = (
       <div
-        className={`p-1 m-px z-10 bg-white bg-opacity-0 hover:bg-opacity-20 focus:bg-ub-orange focus:bg-opacity-50 focus:border-yellow-700 focus:border-opacity-100 border border-transparent outline-none rounded select-none w-24 h-20 flex flex-col justify-start items-center text-center text-xs font-normal text-white ${this.state.isSmallScreen ? 'cursor-pointer' : 'cursor-move'}`}
+        className={`desktop-icon p-1 m-px z-10 bg-white bg-opacity-0 hover:bg-opacity-20 focus:bg-ub-orange focus:bg-opacity-50 focus:border-yellow-700 focus:border-opacity-100 border border-transparent outline-none rounded select-none w-24 h-20 flex flex-col justify-start items-center text-center text-xs font-normal text-white ${this.state.isSmallScreen ? 'cursor-pointer' : 'cursor-move'}`}
         id={"app-" + this.props.id}
         onDoubleClick={this.openApp}
         tabIndex={0}
@@ -78,7 +78,7 @@ export class UbuntuApp extends Component {
           height="40px"
           className="mb-1 w-10"
           src={this.props.icon}
-          alt={"Ubuntu " + this.props.name}
+          alt={this.props.name}
           draggable="false"
         />
         {this.props.name}

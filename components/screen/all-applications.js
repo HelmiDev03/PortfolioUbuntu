@@ -69,13 +69,23 @@ export class AllApplications extends React.Component {
   };
 
   render() {
+    // Ubuntu leaves room for its side bar on the left; the macOS Launchpad is
+    // centred and leaves room for the dock at the bottom instead.
+    const isMac = this.props.os === "macos";
+    const sideBarPadding = isMac ? "" : " md:pr-20 ";
+
     return (
       <div
         className={
-          "absolute h-full top-7 w-full z-20 pl-12 justify-center md:pl-20 border-black border-opacity-60 bg-black bg-opacity-70"
+          "absolute top-7 w-full justify-center border-black border-opacity-60 bg-black " +
+          (isMac
+            ? "bottom-0 left-0 z-30 bg-opacity-50 mac-launchpad"
+            : "h-full z-20 pl-12 md:pl-20 bg-opacity-70")
         }
       >
-        <div className={"flex md:pr-20 pt-5 align-center justify-center"}>
+        <div
+          className={"flex pt-5 align-center justify-center" + sideBarPadding}
+        >
           <div
             className={
               "flex w-2/3 h-full items-center pl-2 pr-2 bg-white border-black border-width-2 rounded-xl overflow-hidden md:w-1/3 "
@@ -96,14 +106,16 @@ export class AllApplications extends React.Component {
         </div>
         <div
           className={
-            "grid md:grid-cols-6 md:grid-rows-3 grid-cols-3 grid-rows-6 md:gap-4 gap-1 md:px-20 px-5 pt-10 justify-center"
+            "grid md:grid-cols-6 md:grid-rows-3 grid-cols-3 grid-rows-6 md:gap-4 gap-1 md:px-20 px-5 pt-10 justify-center" +
+            (isMac ? " justify-items-center" : "")
           }
         >
           {this.renderApps()}
         </div>
         <div
           className={
-            "flex align-center justify-center w-full fixed bottom-0 mb-15 pr-20  md:pr-20 "
+            "flex align-center justify-center w-full fixed " +
+            (isMac ? "bottom-36" : "bottom-0 mb-15 pr-20  md:pr-20 ")
           }
         >
           <div

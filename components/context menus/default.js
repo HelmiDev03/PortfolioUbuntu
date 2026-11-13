@@ -1,4 +1,5 @@
 import React from "react";
+import { OS_STORAGE_KEY, getOSName } from "../../lib/os";
 
 function DefaultMenu(props) {
   return (
@@ -54,12 +55,14 @@ function DefaultMenu(props) {
       <div
         onClick={() => {
           localStorage.clear();
+          // a reset starts the current OS afresh, it does not switch OS
+          localStorage.setItem(OS_STORAGE_KEY, props.os);
           window.location.reload();
         }}
         className="w-full block cursor-default py-0.5 hover:bg-ub-warm-grey hover:bg-opacity-20 mb-1.5"
       >
         <span className="ml-5">🧹</span>{" "}
-        <span className="ml-2">Reset Ubuntu</span>
+        <span className="ml-2">Reset {getOSName(props.os)}</span>
       </div>
     </div>
   );

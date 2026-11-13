@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { OS_WALLPAPERS } from "../../lib/os";
 
 export default function BackgroundImage(props) {
   const [videoError, setVideoError] = useState(false);
   const bg_images = {
+    ...OS_WALLPAPERS,
 
     "wall-1": "./images/wallpapers/wall-1.webp",
     "wall-2": "./images/wallpapers/wall-2.webp",

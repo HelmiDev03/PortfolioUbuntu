@@ -477,3 +477,857 @@ pre[class*="language-"] {
 .strobe-dot {
   animation: strobeLight 0.35s infinite alternate ease-in-out;
 }
+
+/* ==========================================================================
+   Operating system skins (Ubuntu / Windows 11 / macOS)
+   #monitor-screen carries an os-<name> class for the active skin.
+   ========================================================================== */
+
+.os-ubuntu {
+  --os-accent: #e95420;
+  --os-accent-soft: rgba(233, 84, 32, 0.28);
+}
+
+.os-windows {
+  --os-accent: #60cdff;
+  --os-accent-soft: rgba(96, 205, 255, 0.22);
+  --os-accent-fill: 0, 120, 212;
+  font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+}
+
+.os-macos {
+  --os-accent: #0a84ff;
+  --os-accent-soft: rgba(10, 132, 255, 0.35);
+  --os-accent-fill: 10, 132, 255;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+}
+
+/* Apps are accented with Ubuntu orange; under another OS use its accent colour */
+.os-windows .bg-ub-orange,
+.os-windows .hover\:bg-ub-orange:hover,
+.os-windows .focus\:bg-ub-orange:focus,
+.os-macos .bg-ub-orange,
+.os-macos .hover\:bg-ub-orange:hover,
+.os-macos .focus\:bg-ub-orange:focus {
+  background-color: rgba(var(--os-accent-fill), var(--tw-bg-opacity, 1));
+}
+
+/* ...and Ubuntu's aubergine terminal background becomes a neutral dark one */
+.os-windows .bg-ub-drk-abrgn {
+  background-color: rgba(12, 12, 12, var(--tw-bg-opacity, 1));
+}
+
+.os-macos .bg-ub-drk-abrgn {
+  background-color: rgba(30, 30, 30, var(--tw-bg-opacity, 1));
+}
+
+.os-windows .border-ubb-orange,
+.os-windows .hover\:border-ubb-orange:hover,
+.os-windows .focus\:border-ubb-orange:focus,
+.os-macos .border-ubb-orange,
+.os-macos .hover\:border-ubb-orange:hover,
+.os-macos .focus\:border-ubb-orange:focus {
+  border-color: rgba(var(--os-accent-fill), var(--tw-border-opacity, 1));
+}
+
+/* While the page loads, before React knows the chosen OS (see _document.js),
+   keep the pre-rendered Ubuntu boot logo away from Windows / macOS visitors */
+html[data-os="windows"] .boot-screen-ubuntu > :not(:last-child),
+html[data-os="macos"] .boot-screen-ubuntu > :not(:last-child) {
+  visibility: hidden;
+}
+
+/* The tutorial spotlight must not pull a system bar out of its place */
+.main-navbar-vp.tutorial-highlight {
+  position: absolute;
+}
+
+/* ---------- OS switcher (lives in every system bar) ---------- */
+
+.os-switcher-btn {
+  display: flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+  cursor: default;
+  outline: none;
+  transition: background-color 120ms ease;
+}
+
+.os-switcher-btn:hover,
+.os-switcher-btn:focus-visible,
+.os-switcher-btn[aria-expanded="true"] {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+/* icon only on phones: keep it tight so the bar's clock still fits on one line */
+@media (max-width: 639px) {
+  .os-switcher-btn {
+    padding: 3px 6px;
+  }
+}
+
+.os-switcher-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 60;
+  min-width: 200px;
+  padding: 6px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  background-color: rgba(38, 38, 38, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  animation: transformDownShow 150ms 1 forwards;
+}
+
+.os-switcher-menu-up {
+  top: auto;
+  bottom: calc(100% + 14px);
+}
+
+.os-switcher-heading {
+  padding: 4px 10px 6px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.os-switcher-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: default;
+  outline: none;
+}
+
+.os-switcher-item:hover,
+.os-switcher-item:focus-visible {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.os-switcher-item.is-active {
+  background-color: var(--os-accent-soft);
+}
+
+/* ---------- Settings: operating system cards ---------- */
+
+.settings-os-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 88px;
+  margin: 6px;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: default;
+  outline: none;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.settings-os-card:hover,
+.settings-os-card:focus-visible {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.settings-os-card.is-active {
+  background-color: var(--os-accent-soft);
+  border-color: var(--os-accent);
+}
+
+/* ---------- Shared: taskbar / dock tooltips, status card, window body ---------- */
+
+.dock-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 9px;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+  color: #fff;
+  background-color: rgba(34, 34, 34, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 120ms ease;
+}
+
+.win-task-item:hover .dock-tooltip,
+.mac-dock-item:hover .dock-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.status-card-up {
+  right: 0;
+  bottom: calc(100% + 10px);
+}
+
+.os-windows .status-card {
+  border-radius: 8px;
+}
+
+.os-macos .status-card {
+  border-radius: 14px;
+}
+
+.os-window-body {
+  background-color: #1e1e1e;
+}
+
+.os-windows .desktop-icon:focus {
+  background-color: rgba(96, 205, 255, 0.22);
+  border-color: rgba(96, 205, 255, 0.5);
+}
+
+.os-macos .desktop-icon:focus {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.win-window.window-maximized,
+.mac-window.window-maximized {
+  border-radius: 0;
+}
+
+/* ---------- Windows 11: taskbar ---------- */
+
+.win-taskbar {
+  background-color: rgba(28, 28, 28, 0.84);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: blur(24px) saturate(150%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.win-task-apps {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.win-task-item {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 2px;
+  border-radius: 4px;
+  cursor: default;
+  outline: none;
+  transition: background-color 120ms ease;
+}
+
+.win-task-item:hover,
+.win-task-item:focus-visible,
+.win-task-item.is-focused {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.win-task-item img,
+.win-task-item svg {
+  transition: transform 120ms ease;
+}
+
+.win-task-item img {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.win-task-item:active img,
+.win-task-item:active svg {
+  transform: scale(0.82);
+}
+
+.win-task-item .dock-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.55);
+  transform: translateX(-50%);
+  transition: width 150ms ease, background-color 150ms ease;
+}
+
+.win-task-item.is-open .dock-indicator {
+  width: 6px;
+}
+
+.win-task-item.is-open.is-focused .dock-indicator {
+  width: 16px;
+  background-color: var(--os-accent);
+}
+
+.win-tray-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  min-width: 28px;
+  padding: 0 6px;
+  border-radius: 4px;
+  cursor: default;
+  outline: none;
+  transition: background-color 120ms ease;
+}
+
+.win-tray-btn:hover,
+.win-tray-btn:focus,
+.win-tray-btn:focus-within {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.win-tray-clock {
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.win-taskbar .os-switcher-btn {
+  height: 40px;
+  border-radius: 4px;
+}
+
+/* On phones the taskbar apps scroll sideways instead of overflowing */
+@media (max-width: 767px) {
+  .win-task-apps {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .win-task-apps::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---------- Windows 11: start menu ---------- */
+
+.win-start-backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 48px;
+  left: 0;
+}
+
+.win-start-menu {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  width: min(640px, calc(100vw - 16px));
+  height: min(620px, calc(100% - 76px));
+  color: #fff;
+  background-color: rgba(36, 36, 36, 0.9);
+  -webkit-backdrop-filter: blur(30px) saturate(150%);
+  backdrop-filter: blur(30px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transform: translateX(-50%);
+  animation: winStartShow 180ms ease-out 1 both;
+}
+
+@keyframes winStartShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.win-start-search {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(20, 20, 20, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom-color: rgba(255, 255, 255, 0.45);
+  border-radius: 18px;
+}
+
+.win-start-search:focus-within {
+  border-bottom-color: var(--os-accent);
+}
+
+.win-start-search input {
+  flex: 1;
+  min-width: 0;
+  margin-left: 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: transparent;
+  outline: none;
+}
+
+.win-start-search input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.win-start-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-auto-rows: max-content;
+  align-content: start;
+  gap: 4px;
+  padding: 0 20px 16px;
+  overflow-y: auto;
+}
+
+.win-start-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  cursor: default;
+  outline: none;
+  transition: background-color 120ms ease;
+}
+
+.win-start-app:hover,
+.win-start-app:focus-visible {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.win-start-app img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.win-start-empty {
+  grid-column: 1 / -1;
+  padding: 32px 0;
+  font-size: 14px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.win-start-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 28px;
+  background-color: rgba(0, 0, 0, 0.22);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.win-start-power {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-left: 4px;
+  border-radius: 4px;
+  cursor: default;
+  outline: none;
+  transition: background-color 120ms ease;
+}
+
+.win-start-power:hover,
+.win-start-power:focus-visible {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 640px) {
+  .win-start-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 0 12px 12px;
+  }
+
+  .win-start-footer {
+    padding: 0 16px;
+  }
+}
+
+/* ---------- Windows 11: windows ---------- */
+
+.win-window {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+.win-titlebar {
+  height: 32px;
+  padding-right: 144px; /* room for the caption buttons */
+  background-color: #202020;
+}
+
+.win-caption {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  height: 32px;
+}
+
+.win-caption-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 32px;
+  color: #fff;
+  cursor: default;
+  outline: none;
+  transition: background-color 100ms ease;
+}
+
+.win-caption-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.win-caption-btn.is-close:hover {
+  background-color: #c42b1c;
+}
+
+/* ---------- Windows 11: boot screen ---------- */
+
+.win-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.18);
+  border-top-color: #fff;
+  border-radius: 50%;
+}
+
+.win-spinner.is-spinning {
+  animation: osSpin 900ms linear infinite;
+}
+
+@keyframes osSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- macOS: menu bar ---------- */
+
+.mac-menubar {
+  font-size: 13px;
+  background-color: rgba(30, 30, 32, 0.6);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+}
+
+.mac-menu-item {
+  display: flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 5px;
+  white-space: nowrap;
+  cursor: default;
+  outline: none;
+}
+
+.mac-menu-item:hover,
+.mac-menu-item:focus,
+.mac-menu-item:focus-within {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.mac-menubar .os-switcher-btn {
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+/* ---------- macOS: dock ---------- */
+
+.mac-dock-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 41; /* tooltips go over the desktop badge */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  pointer-events: none;
+  transition: transform 300ms ease;
+}
+
+.mac-dock-wrap.is-hidden {
+  transform: translateY(110%);
+}
+
+.mac-dock {
+  display: flex;
+  align-items: flex-end;
+  max-width: calc(100vw - 16px);
+  margin-bottom: 6px;
+  padding: 5px 7px 7px;
+  background-color: rgba(70, 70, 76, 0.42);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+}
+
+.mac-dock-item {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 50px;
+  height: 48px;
+  cursor: default;
+  outline: none;
+}
+
+.mac-dock-item img,
+.mac-launchpad-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 11px;
+  transform-origin: 50% 100%;
+  transition: transform 140ms ease-out;
+}
+
+.mac-dock-item:focus-visible img,
+.mac-dock-item:focus-visible .mac-launchpad-icon {
+  box-shadow: 0 0 0 2px var(--os-accent);
+}
+
+.mac-launchpad-icon {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  padding: 9px;
+  background: linear-gradient(160deg, #8f8f98, #55555e);
+}
+
+.mac-launchpad-icon i {
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+.mac-launchpad-icon i:nth-child(3n + 1) {
+  background-color: #ffd166;
+}
+
+.mac-launchpad-icon i:nth-child(3n + 2) {
+  background-color: #7bdff2;
+}
+
+.mac-dock-item .dock-indicator {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.mac-dock-item.is-open .dock-indicator {
+  opacity: 1;
+}
+
+.mac-dock-item .dock-tooltip {
+  bottom: calc(100% + 28px);
+}
+
+/* Magnify the icon under the pointer and, a little, its neighbours */
+@media (hover: hover) and (min-width: 821px) {
+  .mac-dock-item:hover {
+    z-index: 1;
+  }
+
+  .mac-dock-item:hover img,
+  .mac-dock-item:hover .mac-launchpad-icon {
+    transform: scale(1.38);
+  }
+
+  .mac-dock-item:hover + .mac-dock-item img {
+    transform: scale(1.16);
+  }
+
+  /* kept apart: a browser without :has() would drop the rule above with it */
+  .mac-dock-item:has(+ .mac-dock-item:hover) img,
+  .mac-dock-item:has(+ .mac-dock-item:hover) .mac-launchpad-icon {
+    transform: scale(1.16);
+  }
+}
+
+/* On small screens the dock shrinks and scrolls sideways */
+@media (max-width: 820px) {
+  .mac-dock {
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-radius: 16px;
+  }
+
+  .mac-dock::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mac-dock-item {
+    width: 42px;
+    height: 40px;
+  }
+
+  .mac-dock-item img,
+  .mac-launchpad-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+  }
+
+  .mac-launchpad-icon {
+    padding: 7px;
+  }
+
+  .mac-dock-item .dock-indicator {
+    bottom: -4px;
+  }
+}
+
+/* ---------- macOS: launchpad, windows, boot screen ---------- */
+
+.mac-launchpad {
+  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px);
+}
+
+.mac-window {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 11px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
+}
+
+.mac-titlebar {
+  height: 30px;
+  padding: 0 76px; /* room for the traffic lights, keeps the title centred */
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+  background-color: #2b2b2d;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+}
+
+.mac-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding-left: 11px;
+}
+
+.mac-light {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.25);
+  cursor: default;
+  outline: none;
+}
+
+.mac-light svg {
+  width: 8px;
+  height: 8px;
+  opacity: 0;
+}
+
+.mac-lights:hover .mac-light svg {
+  opacity: 0.6;
+}
+
+.mac-light.is-close {
+  background-color: #ff5f57;
+}
+
+.mac-light.is-minimize {
+  background-color: #febc2e;
+}
+
+.mac-light.is-maximize {
+  background-color: #28c840;
+}
+
+.notFocused .mac-lights:not(:hover) .mac-light {
+  background-color: #5c5c5f;
+}
+
+.mac-boot-bar {
+  width: 180px;
+  height: 5px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+}
+
+.mac-boot-bar > div {
+  width: 0;
+  height: 100%;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+.mac-boot-bar > div.is-loading {
+  animation: macBootProgress 1800ms ease-out 1 forwards;
+}
+
+@keyframes macBootProgress {
+  to {
+    width: 100%;
+  }
+}

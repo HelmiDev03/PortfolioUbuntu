@@ -1,8 +1,10 @@
 import React from "react";
 import Clock from "../util components/clock";
+import { OS_WALLPAPERS } from "../../lib/os";
 
 export default function LockScreen(props) {
   const wallpapers = {
+    ...OS_WALLPAPERS,
     "wall-1": "./images/wallpapers/wall-1.webp",
     "wall-2": "./images/wallpapers/wall-2.webp",
     "wall-3": "./images/wallpapers/wall-3.webp",

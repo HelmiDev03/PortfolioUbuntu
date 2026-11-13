@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { getOSName } from "../../lib/os";
 
 export default class Tutorial extends Component {
   constructor() {
@@ -40,25 +41,72 @@ export default class Tutorial extends Component {
     }
   };
 
-  tutorialSteps = [
+  // wording for the parts of the tour that differ between operating systems
+  get osWording() {
+    switch (this.props.os) {
+      case "windows":
+        return {
+          theme: "Windows 11",
+          barTitle: "The Taskbar",
+          barDescription:
+            "At the bottom, you'll find the taskbar with the Start button and your apps in the center, and the system tray and clock on the right. Click on the status icons to access settings, lock screen, and power options.",
+          appBar: "taskbar",
+          fileManagerUI: "a desktop file manager UI",
+          statusMenu: "the status icons in the bottom-right corner",
+          helpButton: "in the taskbar",
+        };
+      case "macos":
+        return {
+          theme: "macOS",
+          barTitle: "The Menu Bar",
+          barDescription:
+            "At the top, you'll find the menu bar with the current app on the left, and system status and the time on the right. Click on the status icons to access settings, lock screen, and power options. Your apps live in the Dock at the bottom.",
+          appBar: "Dock",
+          fileManagerUI: "a desktop file manager UI",
+          statusMenu: "the status icons in the top-right corner",
+          helpButton: "in the menu bar",
+        };
+      default:
+        return {
+          theme: "Ubuntu 20.04",
+          barTitle: "The Top Navigation Bar",
+          barDescription:
+            "At the top, you'll find the navbar with 'Activities' on the left, the current time in the center, and system status on the right. Click on the status icon to access settings, lock screen, and power options.",
+          appBar: "sidebar",
+          fileManagerUI: "an Ubuntu Nautilus-style UI",
+          statusMenu: "the status menu in the top-right corner",
+          helpButton: "in the top navigation bar",
+        };
+    }
+  }
+
+  get tutorialSteps() {
+    const wording = this.osWording;
+    return [
     {
-      title: "Welcome to Helmi Lakhder's Ubuntu Portfolio! 🎉",
+      title: `Welcome to Helmi Lakhder's ${getOSName(this.props.os)} Portfolio! 🎉`,
       description:
-        "This is an interactive Ubuntu 20.04 themed portfolio website. Let me show you around and help you discover all the features!",
+        `This is an interactive ${wording.theme} themed portfolio website. Let me show you around and help you discover all the features!`,
       image: "/tutorial/welcome.png",
       highlight: null,
     },
     {
-      title: "The Top Navigation Bar",
-      description:
-        "At the top, you'll find the navbar with 'Activities' on the left, the current time in the center, and system status on the right. Click on the status icon to access settings, lock screen, and power options.",
+      title: wording.barTitle,
+      description: wording.barDescription,
       image: null,
       highlight: ".main-navbar-vp",
     },
     {
+      title: "🖥️ Choose Your Operating System",
+      description:
+        "This desktop runs as Ubuntu, Windows 11 or macOS. Click 'Switch OS' in the system bar to restart it as another one, each with its own bars, windows and app launcher. You can switch back at any time, and the same option is in Settings and in the desktop right-click menu.",
+      image: null,
+      highlight: ".os-switcher",
+    },
+    {
       title: "🤖 AI Assistant",
       description:
-        "Your intelligent chat companion! The AI Assistant lets you have conversations, ask questions, and get instant help. It's powered by advanced AI to assist you with various tasks. Click the AI Assistant icon on the sidebar to start chatting!",
+        `Your intelligent chat companion! The AI Assistant lets you have conversations, ask questions, and get instant help. It's powered by advanced AI to assist you with various tasks. Click the AI Assistant icon on the ${wording.appBar} to start chatting!`,
       image: "/tutorial/chat1.png",
       highlight: null,
     },
@@ -72,7 +120,7 @@ export default class Tutorial extends Component {
     {
       title: "📁 File Manager (Cloud Explorer)",
       description:
-        "Browse your cloud files with an Ubuntu Nautilus-style UI. Guest is read-only by default; login with the portfolio password to switch to editor (helmi) and enable create/upload/rename/delete. Previews for text/code, images, audio/video, PDFs, and Office docs. Deletions also remove storage objects. Mobile-friendly with quick nav for Documents/Computer.",
+        `Browse your cloud files with ${wording.fileManagerUI}. Guest is read-only by default; login with the portfolio password to switch to editor (helmi) and enable create/upload/rename/delete. Previews for text/code, images, audio/video, PDFs, and Office docs. Deletions also remove storage objects. Mobile-friendly with quick nav for Documents/Computer.`,
       image: null,
       highlight: null,
     },
@@ -93,7 +141,7 @@ export default class Tutorial extends Component {
     {
       title: "⚙️ Settings",
       description:
-        "Customize your experience! Adjust the desktop wallpaper, control brightness, manage volume, and personalize the interface to your liking. Access Settings from the status menu in the top-right corner.",
+        `Customize your experience! Adjust the desktop wallpaper, control brightness, manage volume, and personalize the interface to your liking. Access Settings from ${wording.statusMenu}.`,
       image: "/tutorial/wal.png",
       highlight: null,
     },
@@ -139,11 +187,12 @@ export default class Tutorial extends Component {
     {
       title: "Ready to Explore!",
       description:
-        "You're all set! Feel free to explore the portfolio. You can access this tutorial anytime by clicking the '?' button in the top navigation bar. Enjoy your experience!",
+        `You're all set! Feel free to explore the portfolio. You can access this tutorial anytime by clicking the '?' button ${wording.helpButton}. Enjoy your experience!`,
 
       highlight: null,
     },
-  ];
+    ];
+  }
 
   nextStep = () => {
     if (this.state.currentStep < this.tutorialSteps.length - 1) {

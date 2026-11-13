@@ -1,7 +1,7 @@
 import React from "react";
 import SmallArrow from "./small_arrow";
 
-export default function Status() {
+export default function Status(props) {
   return (
     <div className="flex justify-center items-center">
       <span className="mx-1.5">
@@ -9,7 +9,7 @@ export default function Status() {
           width="16px"
           height="16px"
           src="./themes/Yaru/status/network-wireless-signal-good-symbolic.svg"
-          alt="ubuntu wifi"
+          alt="wifi"
           className="inline status-symbol w-4 h-4"
         />
       </span>
@@ -18,7 +18,7 @@ export default function Status() {
           width="16px"
           height="16px"
           src="./themes/Yaru/status/audio-volume-medium-symbolic.svg"
-          alt="ubuntu sound"
+          alt="sound"
           className="inline status-symbol w-4 h-4"
         />
       </span>
@@ -27,13 +27,15 @@ export default function Status() {
           width="16px"
           height="16px"
           src="./themes/Yaru/status/battery-good-symbolic.svg"
-          alt="ubuntu battry"
+          alt="battery"
           className="inline status-symbol w-4 h-4"
         />
       </span>
-      <span className="mx-1">
-        <SmallArrow angle="down" className=" status-symbol" />
-      </span>
+      {props.hideArrow ? null : (
+        <span className="mx-1">
+          <SmallArrow angle="down" className=" status-symbol" />
+        </span>
+      )}
     </div>
   );
 }

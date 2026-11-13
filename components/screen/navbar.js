@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Clock from "../util components/clock";
 import Status from "../util components/status";
 import StatusCard from "../util components/status_card";
+import OSSwitcher from "../util components/os_switcher";
 
 export default class Navbar extends Component {
   constructor() {
@@ -26,17 +27,18 @@ export default class Navbar extends Component {
         <div
           tabIndex="0"
           className={
-            "pl-2 pr-2 text-xs md:text-sm outline-none transition duration-100 ease-in-out border-b-2 border-transparent focus:border-ubb-orange py-1"
+            "px-1 sm:px-2 text-xs md:text-sm outline-none transition duration-100 ease-in-out border-b-2 border-transparent focus:border-ubb-orange py-1"
           }
         >
           <Clock />
         </div>
         <div className="flex items-center">
+          <OSSwitcher os={this.props.os} changeOS={this.props.changeOS} />
           <button
             onClick={this.props.openTutorial}
             tabIndex="0"
             title="Open Tutorial"
-            className="mr-2 px-3 py-1 outline-none transition duration-100 ease-in-out border-b-2 border-transparent hover:border-ubb-orange focus:border-ubb-orange rounded-full hover:bg-ub-warm-grey hover:bg-opacity-20"
+            className="sm:mr-2 px-1.5 sm:px-3 py-1 outline-none transition duration-100 ease-in-out border-b-2 border-transparent hover:border-ubb-orange focus:border-ubb-orange rounded-full hover:bg-ub-warm-grey hover:bg-opacity-20"
             aria-label="Open tutorial"
           >
             <span className="text-lg font-bold">?</span>

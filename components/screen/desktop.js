@@ -7,6 +7,11 @@ import UbuntuApp from "../base/ubuntu_app";
 import AllApplications from "../screen/all-applications";
 import DesktopMenu from "../context menus/desktop-menu";
 import DefaultMenu from "../context menus/default";
+import Taskbar from "./taskbar";
+import StartMenu from "./start_menu";
+import MenuBar from "./menubar";
+import Dock from "./dock";
+import { DEFAULT_OS, getOSLayout } from "../../lib/os";
 import $ from "jquery";
 import ReactGA from "react-ga";
 
@@ -46,6 +51,7 @@ export class Desktop extends Component {
 
   componentWillUnmount() {
     this.removeContextListeners();
+    document.removeEventListener("click", this.openSettingsFromStatusCard);
   }
 
   checkForNewFolders = () => {
@@ -55,6 +61,12 @@ export class Desktop extends Component {
     } else {
       new_folders = JSON.parse(new_folders);
       new_folders.forEach((folder) => {
+        // the desktop is mounted again on every OS switch; add each folder once
+        const alreadyAdded = apps.some(
+          (app) =>
+            app.id === folder.id || app.id === `new-folder-${folder.id}`
+        );
+        if (alreadyAdded) return;
         apps.push({
           id: `new-folder-${folder.id}`,
           title: folder.name,
@@ -70,9 +82,15 @@ export class Desktop extends Component {
   };
 
   setEventListeners = () => {
-    document.getElementById("open-settings").addEventListener("click", () => {
+    // the status card belongs to whichever OS bar is on screen, so listen on
+    // the document instead of on the "Settings" row itself
+    document.addEventListener("click", this.openSettingsFromStatusCard);
+  };
+
+  openSettingsFromStatusCard = (e) => {
+    if (e.target.closest && e.target.closest("#open-settings")) {
       this.openApp("settings");
-    });
+    }
   };
 
   setContextListeners = () => {
@@ -284,6 +302,9 @@ export class Desktop extends Component {
         const props = {
           title: app.title,
           id: app.id,
+          icon: app.icon,
+          os: this.props.os,
+          changeOS: this.props.changeOS,
           screen: app.screen,
           size: app.size,
           addFolder: this.addToDesktop,
@@ -500,6 +521,21 @@ export class Desktop extends Component {
     this.setState({ allAppsView: !this.state.allAppsView });
   };
 
+  closeAllApps = () => {
+    this.setState({ allAppsView: false });
+  };
+
+  // title of the window the visitor is working in (shown in the macOS menu bar)
+  getFocusedAppTitle = () => {
+    const focusedApp = apps.find(
+      (app) =>
+        this.state.focused_windows[app.id] &&
+        this.state.closed_windows[app.id] === false &&
+        !this.state.minimized_windows[app.id]
+    );
+    return focusedApp ? focusedApp.title : null;
+  };
+
   renderNameBar = () => {
     let addFolder = () => {
       let folder_name = document.getElementById("folder-name-input").value;
@@ -542,15 +578,49 @@ export class Desktop extends Component {
   };
 
   render() {
+    const os = this.props.os || DEFAULT_OS;
+
+    // what the bar that lists the apps needs, whichever OS draws it
+    const appBarProps = {
+      apps: apps,
+      favourite_apps: this.state.favourite_apps,
+      showAllApps: this.showAllApps,
+      allAppsView: this.state.allAppsView,
+      closed_windows: this.state.closed_windows,
+      focused_windows: this.state.focused_windows,
+      openAppByAppId: this.openApp,
+    };
+    const systemProps = {
+      os: os,
+      changeOS: this.props.changeOS,
+      lockScreen: this.props.lockScreen,
+      shutDown: this.props.shutDown,
+      openTutorial: this.props.openTutorial,
+    };
+
+    // Windows stacks desktop icons from the left edge and keeps them clear of
+    // the taskbar; Ubuntu and macOS stack them from the right edge.
+    let iconLayout = " items-end content-start flex-wrap-reverse pt-8 ";
+    let badgePosition = " bottom-10 md:bottom-2 ";
+    if (os === "windows") {
+      iconLayout = " items-start content-start flex-wrap pt-1 pl-1 pb-12 ";
+      badgePosition = " bottom-14 ";
+    } else if (os === "macos") {
+      iconLayout = " items-end content-start flex-wrap-reverse pt-8 pb-20 ";
+      badgePosition = " bottom-24 ";
+    }
+
     return (
       <div
         className={
-          " h-full w-full flex flex-col items-end justify-start content-start flex-wrap-reverse pt-8 bg-transparent relative overflow-hidden overscroll-none window-parent"
+          " h-full w-full flex flex-col justify-start bg-transparent relative overflow-hidden overscroll-none window-parent" +
+          iconLayout
         }
       >
         {/* Window Area */}
         <div
-          className="absolute h-full w-full bg-transparent"
+          className="absolute left-0 h-full w-full bg-transparent"
+          style={{ top: getOSLayout(os).top }}
           data-context="desktop-area"
         >
           {this.renderWindows()}
@@ -560,18 +630,31 @@ export class Desktop extends Component {
         <BackgroundImage img={this.props.bg_image_name} />
 
         {/* Ubuntu Side Menu Bar */}
-        <SideBar
-          apps={apps}
-          hide={this.state.hideSideBar}
-          hideSideBar={this.hideSideBar}
-          favourite_apps={this.state.favourite_apps}
-          showAllApps={this.showAllApps}
-          allAppsView={this.state.allAppsView}
-          closed_windows={this.state.closed_windows}
-          focused_windows={this.state.focused_windows}
-          isMinimized={this.state.minimized_windows}
-          openAppByAppId={this.openApp}
-        />
+        {os === "ubuntu" ? (
+          <SideBar
+            {...appBarProps}
+            hide={this.state.hideSideBar}
+            hideSideBar={this.hideSideBar}
+            isMinimized={this.state.minimized_windows}
+          />
+        ) : null}
+
+        {/* Windows Taskbar */}
+        {os === "windows" ? (
+          <Taskbar {...appBarProps} {...systemProps} />
+        ) : null}
+
+        {/* macOS Menu Bar and Dock */}
+        {os === "macos" ? (
+          <>
+            <MenuBar {...systemProps} appName={this.getFocusedAppTitle()} />
+            <Dock
+              {...appBarProps}
+              hide={this.state.hideSideBar}
+              hideSideBar={this.hideSideBar}
+            />
+          </>
+        ) : null}
 
         {/* Desktop Apps */}
         {this.renderDesktopApps()}
@@ -581,14 +664,21 @@ export class Desktop extends Component {
           active={this.state.context_menus.desktop}
           openApp={this.openApp}
           addNewFolder={this.addNewFolder}
+          os={os}
+          changeOS={this.props.changeOS}
         />
-        <DefaultMenu active={this.state.context_menus.default} />
+        <DefaultMenu active={this.state.context_menus.default} os={os} />
 
         {/* Folder Input Name Bar */}
         {this.state.showNameBar ? this.renderNameBar() : null}
 
         {/* Bottom Parallel Discotheque Flex Badge */}
-        <div className="absolute bottom-10 md:bottom-2 left-1/2 transform -translate-x-1/2 z-40 pointer-events-none max-w-[95vw]">
+        <div
+          className={
+            "absolute left-1/2 transform -translate-x-1/2 z-40 pointer-events-none max-w-[95vw]" +
+            badgePosition
+          }
+        >
           <div className="discotheque-badge flex items-center space-x-2 px-3 sm:px-4 py-1 rounded-full border border-purple-500/50 text-[10px] sm:text-[11px] font-bold tracking-wide shadow-2xl whitespace-nowrap">
             <span className="strobe-dot w-2 h-2 shrink-0 rounded-full bg-cyan-300 shadow-[0_0_8px_#00f0ff]"></span>
             <span>Live before ChatGPT takes over the world! ⚡</span>
@@ -596,11 +686,22 @@ export class Desktop extends Component {
         </div>
 
         {this.state.allAppsView ? (
-          <AllApplications
-            apps={apps}
-            recentApps={this.app_stack}
-            openApp={this.openApp}
-          />
+          os === "windows" ? (
+            <StartMenu
+              apps={apps}
+              openApp={this.openApp}
+              close={this.closeAllApps}
+              lockScreen={this.props.lockScreen}
+              shutDown={this.props.shutDown}
+            />
+          ) : (
+            <AllApplications
+              os={os}
+              apps={apps}
+              recentApps={this.app_stack}
+              openApp={this.openApp}
+            />
+          )
         ) : null}
       </div>
     );

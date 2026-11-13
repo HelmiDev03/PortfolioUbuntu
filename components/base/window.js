@@ -3,6 +3,7 @@ import Draggable from "react-draggable";
 import Settings from "../apps/settings";
 import ReactGA from "react-ga";
 import { displayTerminal } from "../apps/terminal";
+import { DEFAULT_OS, MAC_DOCK_ZONE, getOSLayout } from "../../lib/os";
 
 export class Window extends Component {
   constructor() {
@@ -77,12 +78,15 @@ export class Window extends Component {
   };
 
   resizeBoundries = () => {
+    // space taken by the OS bars above and below the window area
+    const { top, bottom } = getOSLayout(this.props.os);
+    const isUbuntu = !this.props.os || this.props.os === "ubuntu";
     this.setState({
       parentSize: {
         height:
           window.innerHeight - //parent height
           window.innerHeight * (this.state.height / 100.0) - // this window's height
-          28, // some padding
+          (isUbuntu ? 28 /* some padding */ : top + bottom),
         width:
           window.innerWidth - // parent width
           window.innerWidth * (this.state.width / 100.0), //this window's width
@@ -119,19 +123,21 @@ export class Window extends Component {
     );
     r.style.setProperty(
       "--window-transform-y",
-      (rect.y.toFixed(1) - 32).toString() + "px"
+      (rect.y.toFixed(1) - getOSLayout(this.props.os).top).toString() + "px"
     );
   };
 
   checkOverlap = () => {
+    // the Windows taskbar never hides
+    if (this.props.os === "windows") return;
+
     var r = document.querySelector("#" + this.id);
     var rect = r.getBoundingClientRect();
-    if (rect.x.toFixed(1) < 50) {
-      // if this window overlapps with SideBar
-      this.props.hideSideBar(this.id, true);
-    } else {
-      this.props.hideSideBar(this.id, false);
-    }
+    var overlaps =
+      this.props.os === "macos"
+        ? rect.bottom > window.innerHeight - MAC_DOCK_ZONE // reaches the Dock
+        : rect.x.toFixed(1) < 50; // overlapps with SideBar
+    this.props.hideSideBar(this.id, overlaps);
   };
 
   focusWindow = () => {
@@ -139,20 +145,40 @@ export class Window extends Component {
   };
 
   minimizeWindow = () => {
-    let posx = -310;
-    if (this.state.maximized) {
-      posx = -510;
-    }
     this.setWinowsPosition();
     // get corrosponding sidebar app's position
-    var r = document.querySelector("#sidebar-" + this.id);
-    var sidebBarApp = r.getBoundingClientRect();
+    var dockApp = document.querySelector("#sidebar-" + this.id);
+    var r = document.querySelector("#" + this.id);
 
-    r = document.querySelector("#" + this.id);
-    // translate window to that position
-    r.style.transform = `translate(${posx}px,${
-      sidebBarApp.y.toFixed(1) - 240
-    }px) scale(0.2)`;
+    if (this.props.os === "windows" || this.props.os === "macos") {
+      // shrink the window into its taskbar / dock icon
+      var windowRect = r.getBoundingClientRect();
+      var targetX = window.innerWidth / 2;
+      var targetY = window.innerHeight;
+      if (dockApp) {
+        var dockAppRect = dockApp.getBoundingClientRect();
+        targetX = dockAppRect.x + dockAppRect.width / 2;
+        targetY = dockAppRect.y + dockAppRect.height / 2;
+      }
+      r.style.transform = `translate(${(
+        targetX -
+        windowRect.width / 2
+      ).toFixed(1)}px,${(
+        targetY -
+        windowRect.height / 2 -
+        getOSLayout(this.props.os).top
+      ).toFixed(1)}px) scale(0.2)`;
+    } else {
+      let posx = -310;
+      if (this.state.maximized) {
+        posx = -510;
+      }
+      var sidebBarApp = dockApp.getBoundingClientRect();
+      // translate window to that position
+      r.style.transform = `translate(${posx}px,${
+        sidebBarApp.y.toFixed(1) - 240
+      }px) scale(0.2)`;
+    }
     this.props.hasMinimised(this.id);
   };
 
@@ -178,8 +204,20 @@ export class Window extends Component {
       var r = document.querySelector("#" + this.id);
       this.setWinowsPosition();
       // translate window to maximize position
-      r.style.transform = `translate(-1pt,-2pt)`;
-      this.setState({ maximized: true, height: 96.3, width: 100.2 });
+      if (this.props.os === "windows" || this.props.os === "macos") {
+        // fill everything between the OS bars
+        const { top, bottom } = getOSLayout(this.props.os);
+        r.style.transform = `translate(0px,0px)`;
+        this.setState({
+          maximized: true,
+          height:
+            ((window.innerHeight - top - bottom) / window.innerHeight) * 100,
+          width: 100,
+        });
+      } else {
+        r.style.transform = `translate(-1pt,-2pt)`;
+        this.setState({ maximized: true, height: 96.3, width: 100.2 });
+      }
       this.props.hideSideBar(this.id, true);
     }
   };
@@ -197,7 +235,15 @@ export class Window extends Component {
   render() {
     // Calculate center position for the window
     const centerPosition = this.calculateCenterPosition();
-    
+    const os = this.props.os || DEFAULT_OS;
+
+    // each OS draws its own window frame and title bar
+    let windowFrame =
+      (this.state.maximized ? " rounded-none" : " rounded-lg rounded-b-none") +
+      " window-shadow border-black border-opacity-40 border border-t-0 ";
+    if (os === "windows") windowFrame = " win-window ";
+    if (os === "macos") windowFrame = " mac-window ";
+
     return (
       <Draggable
         axis="both"
@@ -226,19 +272,23 @@ export class Window extends Component {
             this.state.cursorType +
             " " +
             (this.state.closed ? " closed-window " : "") +
-            (this.state.maximized
-              ? " duration-300 rounded-none"
-              : " rounded-lg rounded-b-none") +
+            (this.state.maximized ? " duration-300 window-maximized" : "") +
+            windowFrame +
             (this.props.minimized ? " opacity-0 invisible duration-200 " : "") +
             (this.props.isFocused ? " z-30 " : " z-20 notFocused") +
-            " opened-window overflow-hidden min-w-1/4 min-h-1/4 main-window absolute window-shadow border-black border-opacity-40 border border-t-0 flex flex-col"
+            " opened-window overflow-hidden min-w-1/4 min-h-1/4 main-window absolute flex flex-col"
           }
           id={this.id}
         >
           <WindowYBorder resize={this.handleHorizontalResize} />
           <WindowXBorder resize={this.handleVerticleResize} />
-          <WindowTopBar title={this.props.title} />
+          <WindowTopBar
+            os={os}
+            title={this.props.title}
+            icon={this.props.icon}
+          />
           <WindowEditButtons
+            os={os}
             minimize={this.minimizeWindow}
             maximize={this.maximizeWindow}
             isMaximised={this.state.maximized}
@@ -249,9 +299,12 @@ export class Window extends Component {
             <Settings
               changeBackgroundImage={this.props.changeBackgroundImage}
               currBgImgName={this.props.bg_image_name}
+              os={os}
+              changeOS={this.props.changeOS}
             />
           ) : (
             <WindowMainScreen
+              os={os}
               screen={this.props.screen}
               title={this.props.title}
               addFolder={
@@ -269,7 +322,30 @@ export class Window extends Component {
 export default Window;
 
 // Window's title bar
+// (every variant keeps "bg-ub-window-title": it is the window's drag handle)
 export function WindowTopBar(props) {
+  if (props.os === "windows") {
+    return (
+      <div className="relative bg-ub-window-title win-titlebar flex items-center flex-shrink-0 w-full text-white select-none">
+        <img
+          src={props.icon}
+          alt=""
+          draggable="false"
+          className="w-4 h-4 ml-3 mr-2 rounded-sm object-cover flex-shrink-0"
+        />
+        <span className="text-xs truncate">{props.title}</span>
+      </div>
+    );
+  }
+
+  if (props.os === "macos") {
+    return (
+      <div className="relative bg-ub-window-title mac-titlebar flex items-center justify-center flex-shrink-0 w-full select-none">
+        <span className="truncate">{props.title}</span>
+      </div>
+    );
+  }
+
   return (
     <div
       className={
@@ -323,7 +399,117 @@ export class WindowXBorder extends Component {
 }
 
 // Window's Edit Buttons
+// (the close button keeps its "close-<id>" id: the terminal's `exit` clicks it)
 export function WindowEditButtons(props) {
+  if (props.os === "windows") {
+    return (
+      <div className="win-caption select-none">
+        <button
+          type="button"
+          tabIndex="-1"
+          aria-label="Minimize"
+          className="win-caption-btn"
+          onClick={props.minimize}
+        >
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+            <path d="M0 5h10" stroke="currentColor" strokeWidth="1" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          tabIndex="-1"
+          aria-label={props.isMaximised ? "Restore" : "Maximize"}
+          className="win-caption-btn"
+          onClick={props.maximize}
+        >
+          {props.isMaximised ? (
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              aria-hidden="true"
+            >
+              <rect x="0.5" y="2.5" width="7" height="7" rx="1" />
+              <path d="M2.5 2.5v-1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-1" />
+            </svg>
+          ) : (
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              aria-hidden="true"
+            >
+              <rect x="0.5" y="0.5" width="9" height="9" rx="1" />
+            </svg>
+          )}
+        </button>
+        <button
+          type="button"
+          tabIndex="-1"
+          id={`close-${props.id}`}
+          aria-label="Close"
+          className="win-caption-btn is-close"
+          onClick={props.close}
+        >
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+            <path
+              d="M0.5 0.5l9 9M9.5 0.5l-9 9"
+              stroke="currentColor"
+              strokeWidth="1"
+            />
+          </svg>
+        </button>
+      </div>
+    );
+  }
+
+  if (props.os === "macos") {
+    return (
+      <div className="mac-lights select-none">
+        <button
+          type="button"
+          tabIndex="-1"
+          id={`close-${props.id}`}
+          aria-label="Close"
+          className="mac-light is-close"
+          onClick={props.close}
+        >
+          <svg viewBox="0 0 8 8" aria-hidden="true">
+            <path d="M1.5 1.5l5 5M6.5 1.5l-5 5" stroke="#000" strokeWidth="1.2" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          tabIndex="-1"
+          aria-label="Minimize"
+          className="mac-light is-minimize"
+          onClick={props.minimize}
+        >
+          <svg viewBox="0 0 8 8" aria-hidden="true">
+            <path d="M1 4h6" stroke="#000" strokeWidth="1.2" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          tabIndex="-1"
+          aria-label={props.isMaximised ? "Restore" : "Maximize"}
+          className="mac-light is-maximize"
+          onClick={props.maximize}
+        >
+          <svg viewBox="0 0 8 8" aria-hidden="true">
+            <path d="M4 1v6M1 4h6" stroke="#000" strokeWidth="1.2" />
+          </svg>
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="absolute select-none right-0 top-0 mt-1 mr-1 flex justify-center items-center">
       <span
@@ -389,11 +575,17 @@ export class WindowMainScreen extends Component {
     }, 3000);
   }
   render() {
+    // Ubuntu's aubergine backdrop only belongs to Ubuntu windows
+    const isUbuntu = !this.props.os || this.props.os === "ubuntu";
     return (
       <div
         className={
           "w-full flex-grow z-20 max-h-full overflow-y-auto windowMainScreen" +
-          (this.state.setDarkBg ? " bg-ub-drk-abrgn " : " bg-ub-cool-grey")
+          (!isUbuntu
+            ? " os-window-body"
+            : this.state.setDarkBg
+            ? " bg-ub-drk-abrgn "
+            : " bg-ub-cool-grey")
         }
       >
         {this.props.addFolder

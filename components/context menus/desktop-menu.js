@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { OS_LIST } from "../../lib/os";
 
 function DesktopMenu(props) {
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -74,6 +75,16 @@ function DesktopMenu(props) {
       >
         <span className="ml-5">Change Background...</span>
       </div>
+      <Devider />
+      {OS_LIST.filter((item) => item.id !== props.os).map((item) => (
+        <div
+          key={item.id}
+          onClick={() => props.changeOS(item.id)}
+          className="w-full py-0.5 hover:bg-ub-warm-grey hover:bg-opacity-20 mb-1.5"
+        >
+          <span className="ml-5">Switch to {item.name}</span>
+        </div>
+      ))}
       <Devider />
       <div className="w-full py-0.5 hover:bg-ub-warm-grey hover:bg-opacity-20 mb-1.5 text-gray-400">
         <span className="ml-5">Display Settings</span>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#030f2b"/>
+      <stop offset="0.5" stop-color="#0a2f78"/>
+      <stop offset="1" stop-color="#04163a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.55" cy="0.62" r="0.55">
+      <stop offset="0" stop-color="#4cc2ff" stop-opacity="0.7"/>
+      <stop offset="0.45" stop-color="#1668d8" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#0a2f78" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ribbonA" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0f4fc0"/>
+      <stop offset="1" stop-color="#2b8cf0"/>
+    </linearGradient>
+    <linearGradient id="ribbonB" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2f96f2"/>
+      <stop offset="1" stop-color="#63c4ff"/>
+    </linearGradient>
+    <linearGradient id="ribbonC" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7fd3ff"/>
+      <stop offset="1" stop-color="#c9efff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#glow)"/>
+  <path d="M-120 760 C 280 470 700 940 1110 610 S 1790 330 2060 520 L 2060 1200 L -120 1200 Z" fill="url(#ribbonA)" opacity="0.55"/>
+  <path d="M-120 860 C 340 600 760 1010 1170 730 S 1770 520 2060 670 L 2060 1200 L -120 1200 Z" fill="url(#ribbonB)" opacity="0.45"/>
+  <path d="M-120 960 C 400 760 820 1070 1230 870 S 1750 720 2060 820 L 2060 1200 L -120 1200 Z" fill="url(#ribbonC)" opacity="0.32"/>
+</svg>

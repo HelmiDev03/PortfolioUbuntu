@@ -1,8 +1,11 @@
 import React from "react";
 import $ from "jquery";
+import { OS_LIST, OS_WALLPAPERS } from "../../lib/os";
+import { OSIcon } from "../util components/os_switcher";
 
 export function Settings(props) {
   const wallpapers = {
+    ...OS_WALLPAPERS,
     "wall-1": "./images/wallpapers/wall-1.webp",
     "wall-2": "./images/wallpapers/wall-2.webp",
     "wall-3": "./images/wallpapers/wall-3.webp",
@@ -37,6 +40,26 @@ export function Settings(props) {
         "w-full flex-col flex-grow z-20 max-h-full overflow-y-auto windowMainScreen select-none bg-ub-cool-grey"
       }
     >
+      {/* Operating system picker */}
+      <div className="px-4 pt-4 pb-4 text-white border-b border-gray-900">
+        <div className="text-sm font-medium text-center">Operating System</div>
+        <div className="flex flex-wrap justify-center mt-3">
+          {OS_LIST.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              aria-pressed={item.id === props.os}
+              onClick={() => props.changeOS && props.changeOS(item.id)}
+              className={
+                "settings-os-card" + (item.id === props.os ? " is-active" : "")
+              }
+            >
+              <OSIcon os={item.id} size={30} />
+              <span className="mt-2 text-sm">{item.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
       <div className=" md:w-2/5 w-2/3 h-1/3 m-auto my-4 relative overflow-hidden rounded">
         {String(current || '').endsWith('.mp4') ? (
           <video

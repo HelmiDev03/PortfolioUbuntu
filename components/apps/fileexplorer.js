@@ -5,6 +5,7 @@ import { oneDark } from '@codemirror/theme-one-dark';
 import { python } from '@codemirror/lang-python';
 import { javascript } from '@codemirror/lang-javascript';
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
+import { OS_SYSTEM_INFO, getStoredOS } from "../../lib/os";
 
 export class FileExplorer extends Component {
   constructor() {
@@ -506,15 +507,16 @@ export class FileExplorer extends Component {
   }
 
   renderComputerView() {
+    const system = OS_SYSTEM_INFO[getStoredOS()];
     const specs = [
       { label: "Processor", value: "Intel Core i7-11800H @ 2.30GHz" },
       { label: "Cores", value: "8 cores, 16 threads" },
       { label: "RAM", value: "16 GB DDR4-3200" },
       { label: "Graphics", value: "NVIDIA GeForce RTX 3060 Mobile" },
       { label: "Storage", value: "512 GB NVMe SSD" },
-      { label: "Operating System", value: "Ubuntu 20.04.3 LTS (Focal Fossa)" },
-      { label: "Kernel", value: "Linux 5.11.0-40-generic x86_64" },
-      { label: "Desktop Environment", value: "GNOME 3.36.8" },
+      { label: "Operating System", value: system.name },
+      { label: "Kernel", value: system.kernel },
+      { label: "Desktop Environment", value: system.desktop },
     ];
 
     return (
