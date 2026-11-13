@@ -137,6 +137,15 @@ function BootingScreen(props) {
         >
           github
         </a>
+        <span className="font-bold mx-1">|</span>
+        <a
+          href="https://wa.me/21690217664"
+          rel="noreferrer noopener"
+          target="_blank"
+          className="underline"
+        >
+          whatsapp
+        </a>
       </div>
     </div>
   );

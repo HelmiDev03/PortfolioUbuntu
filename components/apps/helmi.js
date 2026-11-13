@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactGA from "react-ga";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faLinkedinIn, faGithub, faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faLinkedinIn, faGithub, faXTwitter, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { SiLeetcode } from 'react-icons/si';
 import { useState } from "react";
 import ImageGallery from "react-image-gallery";
@@ -245,6 +245,12 @@ function About() {
             <u>helmilakhder@gmail.com</u>
           </a>
         </li>
+        <li className=" list-phone mt-2">
+          WhatsApp me{" "}
+          <a className="text-underline" href="https://wa.me/21690217664" target="_blank" rel="noreferrer noopener">
+            <u>+216 90 217 664</u>
+          </a>
+        </li>
 
         <li className="list-none mt-4">
           <a href="https://www.helmiblog.engineer" target="_blank" rel="noreferrer" className="flex w-full items-center p-3 bg-white hover:bg-gray-100 border border-gray-300 rounded shadow-md transition-all duration-300 transform hover:scale-105">
@@ -277,6 +283,9 @@ function About() {
           </a>
           <a href="https://www.instagram.com/theneongeek/" style={{ marginRight: "1rem", color: "#E1306C", fontWeight: "bold" }}>
             <FontAwesomeIcon icon={faInstagram} size="lg" />
+          </a>
+          <a href="https://wa.me/21690217664" target="_blank" rel="noreferrer noopener" aria-label="WhatsApp" style={{ marginRight: "1rem", color: "#25D366", fontWeight: "bold" }}>
+            <FontAwesomeIcon icon={faWhatsapp} size="lg" />
           </a>
 
 

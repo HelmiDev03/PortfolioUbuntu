@@ -73,6 +73,7 @@ HELMI'S INFORMATION:
 - Self-Description: "Future Tech Pioneer"
 - Contact: helmilakhder@gmail.com, mohamedhelmi.lakhdhar@insat.ucar.tn
 - Phone: +216 90-217-664
+- WhatsApp: +216 90217664 (chat link: https://wa.me/21690217664)
 - Location: Tunis, Tunisia
 - Languages: French, English, Arabic
 - Website: www.helmi404.me
